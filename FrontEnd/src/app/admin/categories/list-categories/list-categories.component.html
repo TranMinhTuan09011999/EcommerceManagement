@@ -1,0 +1,35 @@
+<div class="col-md-12" style="width: 70%; margin: auto">
+    <div class="filter">
+        <div class="option-category">
+            <button routerLink="../add-category" class="btn btn-info">Add Category</button>
+        </div>
+        
+        <div class="search-bar">  
+          <input class="form-control-lg" type="text" placeholder="Search..." [(ngModel)]="filter"/>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+    
+      <tbody>
+        <tr *ngFor="let category of categories | filter: filter | paginate: {id: 'pagination', itemsPerPage: 5, currentPage: pageNumber}">
+          <td>{{category.id}}</td>
+          <td>{{category.categoryName}}</td>
+          <td><button class="btn btn-danger" style="float: right">Delete</button></td>
+          <td><button routerLink="../edit-category/{{category.categoryName}}" class="btn btn-primary">Edit</button></td>
+        </tr>
+      </tbody>
+    </table>  
+  </div>
+  <div style="margin-left: 40%;">
+    <pagination-controls id="pagination"
+    (pageChange)="pageNumber = $event"></pagination-controls>
+  </div>

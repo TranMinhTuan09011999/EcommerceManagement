@@ -1,0 +1,53 @@
+<div class="filter">
+    <div class="option-category">
+      <!-- <select name="selectOptionSearch" id="search" [(ngModel)]="categoryName" (change)="getProduct(categoryName)">
+        <option *ngFor="let category of categories" [value]="category.categoryName">
+          {{category.categoryName}}
+        </option>
+      </select> -->
+    </div>
+    
+    <div class="search-bar">  
+      <input class="form-control-lg" type="text" placeholder="Search..." [(ngModel)]="filter" />
+    </div>
+  </div>
+  
+  <div class="col-md-12" style="width: 100%;">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Username</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Role</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+    
+      <tbody>
+        <tr *ngFor="let user of users | filter: filter | paginate: {id: 'pagination', itemsPerPage: 5, currentPage: pageNumber}">
+          <td>{{user.id}}</td>
+          <td>{{user.username}}</td>
+          <td>{{user.firstname}}</td>
+          <td>{{user.lastname}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.phone}}</td>
+          <td>{{user.address}}</td>
+          <td>{{user.roles[0].name.substr(5)}}</td>
+          <td><button class="btn btn-danger">Delete</button></td>
+          <td><button class="btn btn-primary">Edit</button></td>
+        </tr>
+      </tbody>
+    </table>  
+  </div>
+  
+  <div style="margin-left: 40%;">
+    <pagination-controls id="pagination"
+    (pageChange)="pageNumber = $event"></pagination-controls>
+  </div>
+  
