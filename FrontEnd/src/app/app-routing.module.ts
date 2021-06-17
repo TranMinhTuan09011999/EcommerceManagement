@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
-import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { OrderlistComponent } from './orderlist/orderlist.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProductComponent } from './product/product.component';
 import { ProductlistComponent } from './productlist/productlist.component';
 import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './user/home/home.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },

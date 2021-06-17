@@ -15,7 +15,7 @@ public interface CartService {
 
     void removeCartByUserId(long userId);
 
-    String deleteCartById(Long id) throws Exception;
+    List<AddCartDTO> deleteCartById(Long id) throws Exception;
 
     AddCart getCartById(Long id) throws Exception;
 

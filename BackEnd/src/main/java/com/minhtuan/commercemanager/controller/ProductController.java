@@ -58,5 +58,4 @@ public class ProductController {
         List<ImageDetail> list = productService.getImageId(imageId);
         return new ResponseEntity<> (list, HttpStatus.OK);
     }
-
 }

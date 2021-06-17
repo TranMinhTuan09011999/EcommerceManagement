@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cart } from '../cart';
 import { CartService } from '../service/cart.service';
+import { CountService } from '../service/count.service';
 import { TokenStorageService } from '../service/token-storage.service';
 import { UserService } from '../service/user.service';
 
@@ -13,8 +14,9 @@ export class CartComponent implements OnInit {
   carts: Array<Cart> = [];
   token: any;
   indexStr!: String;
+  count!: number;
 
-  constructor(private cartService: CartService, private tokenStorageService: TokenStorageService) { }
+  constructor(private cartService: CartService, private tokenStorageService: TokenStorageService, private countService: CountService) { }
 
   ngOnInit(): void {
     const user = this.tokenStorageService.getUser();
@@ -30,19 +32,45 @@ export class CartComponent implements OnInit {
             (data: Cart[]) => {
               console.log(data);
               this.carts = data; 
+              this.countCartById();
             },
             error => {
               console.log(error);
             });
   }
 
+  countCartById(){
+    this.token = this.tokenStorageService.getToken();
+    const user = this.tokenStorageService.getUser();
+    this.cartService.countCartById(this.token, user.id)
+          .subscribe(
+            (data) => {
+              this.count = data;
+              this.countService.changeCount(this.count);
+            },
+            error => {
+              console.log(error);
+            }
+          );
+  }
+
   deleteCartById(id: number){
     this.token = this.tokenStorageService.getToken();
+    const user = this.tokenStorageService.getUser();
     this.cartService.deleteCartById(this.token, id)
           .subscribe(
             (data) => {
-              console.log(data); 
-              this.reloadPage();
+              this.carts = data;
+              this.cartService.countCartById(this.token, user.id)
+                    .subscribe(
+                      (data) => {
+                        this.count = data;
+                        this.countService.changeCount(this.count);
+                      },
+                      error => {
+                        console.log(error);
+                      }
+                    );
             },
             error => {
               console.log(error);
@@ -55,8 +83,8 @@ export class CartComponent implements OnInit {
     index++;
     this.cartService.updateCartById(this.token, id, index)
           .subscribe(
-            (data) => {
-              this.reloadPage();
+            (data: Cart[]) => {
+              this.carts = data; 
             },
             error => {
               console.log(error);
@@ -70,7 +98,7 @@ export class CartComponent implements OnInit {
     this.cartService.updateCartById(this.token, id, index)
           .subscribe(
             (data) => {
-              this.reloadPage();
+              this.carts = data;
             },
             error => {
               console.log(error);
