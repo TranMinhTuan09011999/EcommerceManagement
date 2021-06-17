@@ -70,20 +70,20 @@ export class CartService {
                     );
   }
 
-  deleteCartById(token: String, id: number):Observable<any>{
+  deleteCartById(token: String, id: number):Observable<Cart[]>{
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.delete(API_URL + 'delete/' + id,{ headers: headers, responseType: 'text'})
+    return this.http.delete<Cart[]>(API_URL + 'delete/' + id,{ headers: headers})
                     .pipe(
                       retry(3),
                       catchError(this.handleError)
                     );
   }
 
-  updateCartById(token: String, id: number, quantity: number):Observable<any>{
+  updateCartById(token: String, id: number, quantity: number):Observable<Cart[]>{
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.put(API_URL + 'update/' + id,{quantity},{headers: headers, responseType: 'text'})
+    return this.http.put<Cart[]>(API_URL + 'update/' + id,{quantity},{headers: headers})
                     .pipe(
                       retry(3),
                       catchError(this.handleError)

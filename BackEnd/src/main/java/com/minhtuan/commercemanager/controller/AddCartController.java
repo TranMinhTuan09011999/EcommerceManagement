@@ -1,5 +1,6 @@
 package com.minhtuan.commercemanager.controller;
 
+import com.minhtuan.commercemanager.message.request.AddCartRequest;
 import com.minhtuan.commercemanager.message.request.ApiResponse;
 import com.minhtuan.commercemanager.model.AddCart;
 import com.minhtuan.commercemanager.model.DTO.AddCartDTO;
@@ -25,14 +26,9 @@ public class AddCartController {
 
     @RequestMapping("/addProduct")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> addCartwithProduct(@RequestBody HashMap<String, String> addCartRequest) {
+    public ResponseEntity<?> addCartwithProduct(@RequestBody AddCartRequest addCartRequest) {
         try {
-            String keys[] = { "productId", "userId", "qty", "price" };
-            Long productId = Long.parseLong(addCartRequest.get("productId"));
-            Long userId = Long.parseLong(addCartRequest.get("userId"));
-            Long qty = Long.parseLong(addCartRequest.get("qty"));
-            double price = Double.parseDouble(addCartRequest.get("price"));
-            List<AddCartDTO> obj = cartService.addCartbyUserIdAndProductId(productId, userId, qty, price);
+            List<AddCartDTO> obj = cartService.addCartbyUserIdAndProductId(addCartRequest.getProductId(), addCartRequest.getUserId(), addCartRequest.getQty(), addCartRequest.getPrice());
             return ResponseEntity.ok(obj);
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,7 +67,10 @@ public class AddCartController {
             Long quantity = Quantity.get("quantity");
             cart.setQuantity(quantity);
             AddCart updatedCart = cartRepository.save(cart);
-            return ResponseEntity.ok("Update quantity successly");
+            Long userId = updatedCart.getUserId();
+            List<AddCartDTO> obj = cartService.getCartByUserId(userId);
+            return ResponseEntity.ok(obj);
+            //return ResponseEntity.ok("Update quantity successly");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(new ApiResponse(e.getMessage(), ""));

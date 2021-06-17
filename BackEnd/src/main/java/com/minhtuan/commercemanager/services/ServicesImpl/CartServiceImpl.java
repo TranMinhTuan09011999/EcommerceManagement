@@ -69,9 +69,12 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public String deleteCartById(Long id) throws Exception {
+    public List<AddCartDTO> deleteCartById(Long id) throws Exception {
+        AddCart addCart = cartRepository.findAddCartById(id);
         cartRepository.deleteAddCartById(id);
-        return "Delete Success";
+        System.out.println(addCart.getUserId());
+        List<AddCartDTO> list = getCartByUserId(addCart.getUserId());
+        return list;
     }
 
     @Override

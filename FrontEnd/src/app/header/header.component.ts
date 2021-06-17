@@ -2,6 +2,7 @@ import { AuthService } from './../service/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../service/cart.service';
 import { TokenStorageService } from '../service/token-storage.service';
+import { CountService } from '../service/count.service';
 
 @Component({
   selector: 'app-header',
@@ -15,24 +16,13 @@ export class HeaderComponent implements OnInit {
   token = '';
 
   //count!: number;
-  count = 0;
+  count!: number;
 
-  constructor(private tokenStorageService: TokenStorageService, private cartService: CartService) {
-    this.token = this.tokenStorageService.getToken();
-    const user = this.tokenStorageService.getUser();
-    this.cartService.countCartById(this.token, user.id)
-          .subscribe(
-            (data) => {
-              this.count = data;
-            },
-            error => {
-              console.log(error);
-            }
-          );
+  constructor(private tokenStorageService: TokenStorageService, private cartService: CartService, private countService: CountService) {
    }
 
   ngOnInit(): void {
-    
+    this.countService.currentCount.subscribe(count => this.count = count);
   }
 
   countCartById(){
