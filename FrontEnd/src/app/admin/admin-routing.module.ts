@@ -1,3 +1,4 @@
+import { HomeComponent } from './home/home.component';
 import { ListCategoriesComponent } from './categories/list-categories/list-categories.component';
 import { AdminComponent } from './admin.component';
 import { NgModule } from '@angular/core';
@@ -11,6 +12,7 @@ import { UsersComponent } from './users/users.component';
 const routes: Routes = [
   { path: 'admin', component: AdminComponent, 
       children: [
+        {path: '', component: HomeComponent},
         {path: 'products', component: ListProductComponent},
         {path: 'edit/:name', component: EditProductComponent},
         {path: 'add-product', component: AddProductComponent},
