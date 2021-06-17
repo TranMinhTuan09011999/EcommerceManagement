@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Cart } from '../cart';
-import { CartService } from '../service/cart.service';
-import { CountService } from '../service/count.service';
-import { TokenStorageService } from '../service/token-storage.service';
-import { UserService } from '../service/user.service';
+import { Cart } from 'src/app/cart';
+import { CartService } from 'src/app/service/cart.service';
+import { CountService } from 'src/app/service/count.service';
+import { TokenStorageService } from 'src/app/service/token-storage.service';
 
 @Component({
   selector: 'app-cart',

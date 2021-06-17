@@ -2,9 +2,10 @@ import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Cart } from '../cart';
-import { CartService } from '../service/cart.service';
-import { TokenStorageService } from '../service/token-storage.service';
+import { Cart } from 'src/app/cart';
+import { CartService } from 'src/app/service/cart.service';
+import { TokenStorageService } from 'src/app/service/token-storage.service';
+
 
 @Component({
   selector: 'app-checkout',

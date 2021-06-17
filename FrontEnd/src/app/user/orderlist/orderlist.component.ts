@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Checkout } from '../checkout';
-import { CartService } from '../service/cart.service';
-import { TokenStorageService } from '../service/token-storage.service';
+import { Checkout } from 'src/app/checkout';
+import { CartService } from 'src/app/service/cart.service';
+import { TokenStorageService } from 'src/app/service/token-storage.service';
 
 @Component({
   selector: 'app-orderlist',

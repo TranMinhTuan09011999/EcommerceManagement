@@ -1,8 +1,8 @@
-import { Product } from './../model/product';
-import { Category } from './../model/category';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../service/user.service';
+import { Category } from 'src/app/model/category';
+import { Product } from 'src/app/model/product';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-productlist',
