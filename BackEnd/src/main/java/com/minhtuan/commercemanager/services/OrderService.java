@@ -12,4 +12,6 @@ public interface OrderService {
     Order getOrderById(Long id) throws Exception;
 
     List<OrderDTO> getListOrderByUserId(Long user_Id) throws Exception;
+
+    public boolean sendEmail(String subject, String message, String to) throws Exception;
 }
