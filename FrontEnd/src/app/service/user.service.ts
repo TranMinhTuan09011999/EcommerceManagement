@@ -108,4 +108,21 @@ export class UserService {
                     retry(3),
                     catchError(this.handleError))
   }
+
+  createCategory(category: Category): Observable<Category> {
+    return this.http.post<Category>(API_URL + 'add-category', category)
+                  .pipe(
+                    retry(3),
+                    catchError(this.handleError))
+  }
+
+  deleteCategory(id: number): Observable<any> {
+    return this.http.delete(API_URL + 'category/' + id)
+                  .pipe(
+                  catchError(this.handleError))
+  }
+
+  // updateCategory(category: Category): Observable<any> {
+  //   return this.http.put<any>(API_URL + 'category/' + id, )
+  // }
 }

@@ -41,4 +41,15 @@ export class ListCategoriesComponent implements OnInit {
             });
   }
 
+  deleteCategory(id: number) {
+    this.userService.deleteCategory(id)
+          .subscribe(
+            (data) => {
+              window.location.reload();
+            },
+            error => {
+              console.log(error);
+            });
+  }
+
 }

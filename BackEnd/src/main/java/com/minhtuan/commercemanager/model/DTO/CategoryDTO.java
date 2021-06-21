@@ -9,8 +9,10 @@ import java.util.List;
 @Getter
 @Setter
 @Data
+@ToString
 public class CategoryDTO {
     private Long id;
     private String categoryName;
+    private Integer deletestatus;
     private List<ProductDTO> products;
 }

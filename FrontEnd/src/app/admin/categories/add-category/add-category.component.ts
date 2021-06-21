@@ -66,6 +66,19 @@ export class AddCategoryComponent implements OnInit {
             });
   }
 
+  addCategory(name: string) {
+    let category = new Category();
+    category.categoryName = name;
+    this.userService.createCategory(category)
+          .subscribe(
+            (data) => {
+              this.router.navigate(['../categories']);
+            },
+            error => {
+              console.log(error);
+            });
+  }
+
   get f() {
     return this.form.controls;
   }
