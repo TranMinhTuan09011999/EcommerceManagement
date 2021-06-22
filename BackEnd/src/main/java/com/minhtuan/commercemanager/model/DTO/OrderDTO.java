@@ -12,6 +12,7 @@ import java.util.Date;
 @Setter
 @Data
 public class OrderDTO {
+    private Long id;
     @DateTimeFormat(pattern="dd/MM/yyyy")
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date order_date;

@@ -3,9 +3,12 @@ package com.minhtuan.commercemanager.controller;
 import com.minhtuan.commercemanager.message.request.ApiResponse;
 import com.minhtuan.commercemanager.model.DTO.AddCartDTO;
 import com.minhtuan.commercemanager.model.DTO.OrderDTO;
+import com.minhtuan.commercemanager.model.DTO.OrderDetailsDTO;
 import com.minhtuan.commercemanager.model.Order;
 import com.minhtuan.commercemanager.model.User;
+import com.minhtuan.commercemanager.repository.OrderDetailsRepository;
 import com.minhtuan.commercemanager.repository.UserRepository;
+import com.minhtuan.commercemanager.services.OrderDetailsService;
 import com.minhtuan.commercemanager.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +29,9 @@ public class OrderController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private OrderDetailsService orderDetailsService;
 
     @PostMapping("/checkout")
     @PreAuthorize("hasRole('USER')")
@@ -64,6 +70,16 @@ public class OrderController {
         }
     }
 
-
-
+    @GetMapping("/listOrderDetails/{OrderId}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> getListOrderDetails(@PathVariable Long OrderId)
+    {
+        try {
+            List<OrderDetailsDTO> listOrderDetails = orderDetailsService.getOrderDetailsList(OrderId);
+            return ResponseEntity.ok(listOrderDetails);
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(new ApiResponse(e.getMessage(), ""));
+        }
+    }
 }
