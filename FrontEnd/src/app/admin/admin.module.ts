@@ -1,3 +1,4 @@
+import { HomeComponent } from './home/home.component';
 import { AddCategoryComponent } from './categories/add-category/add-category.component';
 import { ListCategoriesComponent } from './categories/list-categories/list-categories.component';
 import { NgModule } from '@angular/core';
@@ -22,7 +23,8 @@ import { UsersComponent } from './users/users.component';
     AddProductComponent,
     ListCategoriesComponent,
     AddCategoryComponent,
-    UsersComponent
+    UsersComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,

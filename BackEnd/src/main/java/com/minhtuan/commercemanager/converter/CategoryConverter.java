@@ -20,6 +20,7 @@ public class CategoryConverter {
         CategoryDTO dto = new CategoryDTO();
         dto.setId(category.getId());
         dto.setCategoryName(category.getCategoryname());
+        dto.setDeletestatus(category.getDeletestatus());
         List<ProductDTO> listDTO = new ArrayList<ProductDTO>();
         category.getProducts().stream().forEach(s -> {
             ProductDTO dto1 = productConverter.toDTO(s);

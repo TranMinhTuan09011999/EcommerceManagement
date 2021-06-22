@@ -1,11 +1,16 @@
 package com.minhtuan.commercemanager.converter;
 
+import com.minhtuan.commercemanager.model.Category;
 import com.minhtuan.commercemanager.model.DTO.ProductDTO;
 import com.minhtuan.commercemanager.model.Product;
+import com.minhtuan.commercemanager.services.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductConverter {
+    @Autowired
+    CategoryService categoryService;
 
     public ProductDTO toDTO(Product product){
         ProductDTO dto = new ProductDTO();
@@ -16,6 +21,20 @@ public class ProductConverter {
         dto.setDeletestatus(product.getDeletestatus());
         dto.setDescription(product.getDescription());
         dto.setPromotion(product.getPromotion());
+        dto.setCategoryId(product.getCategory().getId());
         return dto;
+    }
+
+    private Product toEntity(ProductDTO dto) {
+        Product product = new Product();
+        product.setId(dto.getId());
+        product.setName(dto.getName());
+        product.setPrice(dto.getPrice());
+        product.setPromotion(dto.getPromotion());
+        product.setDescription(dto.getDescription());
+        product.setImage(dto.getImage());
+        product.setDeletestatus(dto.getDeletestatus());
+//        Category
+        return product;
     }
 }

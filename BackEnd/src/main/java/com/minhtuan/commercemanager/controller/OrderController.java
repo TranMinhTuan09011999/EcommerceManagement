@@ -50,11 +50,6 @@ public class OrderController {
         {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sending fail...");
         }
-
-
-
-
-
     }
 
     @GetMapping("/listOrder/{id}")

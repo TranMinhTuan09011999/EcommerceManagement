@@ -11,6 +11,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name="category")
 public class Category {
     @Id
@@ -18,6 +19,8 @@ public class Category {
     private Long id;
 
     private String categoryname;
+
+    private Integer deletestatus;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
