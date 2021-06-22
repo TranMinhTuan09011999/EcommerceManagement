@@ -11,10 +11,7 @@ import com.minhtuan.commercemanager.model.Product;
 import com.minhtuan.commercemanager.model.User;
 import com.minhtuan.commercemanager.repository.OrderRepository;
 import com.minhtuan.commercemanager.repository.UserRepository;
-import com.minhtuan.commercemanager.services.CartService;
-import com.minhtuan.commercemanager.services.OrderDetailsService;
-import com.minhtuan.commercemanager.services.OrderService;
-import com.minhtuan.commercemanager.services.UserService;
+import com.minhtuan.commercemanager.services.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +43,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private JavaMailSender javaMailSender;
+
+    @Autowired
+    private EmailService emailService;
 
     private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
@@ -110,7 +110,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public boolean sendEmail(String subject, String message, String to) throws Exception {
         boolean foo = false; // Set the false, default variable "foo", we will allow it after sending code process email
-
         try {
             System.out.println("Sending email...");
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
@@ -119,7 +118,7 @@ public class OrderServiceImpl implements OrderService {
             simpleMailMessage.setSubject(subject);
             simpleMailMessage.setText(message);
             System.out.println("error...");
-            javaMailSender.send(simpleMailMessage);
+            emailService.sendEmail(simpleMailMessage);
             System.out.println("Sending email successlly...");
             foo = true; // Set the "foo" variable to true after successfully sending emails
         }catch(Exception e){
