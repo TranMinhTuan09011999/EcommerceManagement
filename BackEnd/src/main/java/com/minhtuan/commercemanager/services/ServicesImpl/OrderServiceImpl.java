@@ -18,6 +18,8 @@ import com.minhtuan.commercemanager.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -41,6 +43,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderDetailsService orderDetailsService;
+
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
@@ -100,5 +105,26 @@ public class OrderServiceImpl implements OrderService {
                 }
         );
         return listDTO;
+    }
+
+    @Override
+    public boolean sendEmail(String subject, String message, String to) throws Exception {
+        boolean foo = false; // Set the false, default variable "foo", we will allow it after sending code process email
+
+        try {
+            System.out.println("Sending email...");
+            SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+            simpleMailMessage.setFrom("tranminhtuannhj@gmail.com");
+            simpleMailMessage.setTo(to);
+            simpleMailMessage.setSubject(subject);
+            simpleMailMessage.setText(message);
+            System.out.println("error...");
+            javaMailSender.send(simpleMailMessage);
+            System.out.println("Sending email successlly...");
+            foo = true; // Set the "foo" variable to true after successfully sending emails
+        }catch(Exception e){
+            System.out.println("Sending mail error..." + e);
+        }
+        return foo; // and return foo variable
     }
 }
