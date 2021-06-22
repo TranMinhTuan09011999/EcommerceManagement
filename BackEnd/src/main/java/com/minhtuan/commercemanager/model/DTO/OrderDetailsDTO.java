@@ -13,9 +13,9 @@ import javax.persistence.ManyToOne;
 @Setter
 @Data
 public class OrderDetailsDTO {
-    private Order order;
+    private OrderDTO order;
 
-    private Product product;
+    private ProductDTO product;
 
     private Long quantity;
 

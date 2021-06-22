@@ -11,6 +11,7 @@ public class OrderConverter {
 
     public OrderDTO toDTO(Order order){
         OrderDTO dto = new OrderDTO();
+        dto.setId(order.getId());
         dto.setOrder_date(order.getOrder_date());
         dto.setAmount(order.getAmount());
         dto.setAddress(order.getAddress());
