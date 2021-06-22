@@ -51,7 +51,9 @@
             </div>
         
         <div class="button-group">
-            <button type="submit" class="registerbtn" style="margin-top: 20px">Edit</button>
+            <button *ngIf="isAddMode" type="submit" class="registerbtn" style="margin-top: 20px"
+                    (click)="addCategory(f.name.value)">Add</button>
+            <button *ngIf="!isAddMode" type="submit" class="registerbtn" style="margin-top: 20px">Edit</button>
             <button *ngIf="isAddMode" routerLink="../categories" class="cancelbtn">Cancel</button>
             <button *ngIf="!isAddMode" routerLink="../../categories" class="cancelbtn">Cancel</button>
         </div>

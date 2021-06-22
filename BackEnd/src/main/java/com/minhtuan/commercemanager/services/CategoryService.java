@@ -10,4 +10,10 @@ public interface CategoryService {
     public List<CategoryDTO> getCategory();
 
     public CategoryDTO getCategoryByName(String name);
+
+    public Category findById(Long id);
+
+    public Category save(Category category);
+
+    public void delete(Long id);
 }

@@ -23,7 +23,7 @@
         <tr *ngFor="let category of categories | filter: filter | paginate: {id: 'pagination', itemsPerPage: 5, currentPage: pageNumber}">
           <td>{{category.id}}</td>
           <td>{{category.categoryName}}</td>
-          <td><button class="btn btn-danger" style="float: right">Delete</button></td>
+          <td><button class="btn btn-danger" style="float: right" (click)="deleteCategory(category.id)">Delete</button></td>
           <td><button routerLink="../edit-category/{{category.categoryName}}" class="btn btn-primary">Edit</button></td>
         </tr>
       </tbody>

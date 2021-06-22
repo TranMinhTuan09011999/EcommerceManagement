@@ -29,11 +29,7 @@ public class ProductController {
         return new ResponseEntity<> (productList, HttpStatus.OK);
     }
 
-    @GetMapping("/category")
-    public ResponseEntity<?> getCategory(){
-        List<CategoryDTO> categoryList = categoryService.getCategory();
-        return new ResponseEntity<> (categoryList, HttpStatus.OK);
-    }
+
 
     @GetMapping("/products")
     public ResponseEntity<?> getAllProducts() {
@@ -41,11 +37,7 @@ public class ProductController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @GetMapping("/category/{categoryName}")
-    public ResponseEntity<?> getCategoryName(@PathVariable String categoryName){
-        CategoryDTO category = categoryService.getCategoryByName(categoryName);
-        return new ResponseEntity<> (category, HttpStatus.OK);
-    }
+
 
     @GetMapping("/product/{productName}")
     public ResponseEntity<?> getProductName(@PathVariable String productName){
