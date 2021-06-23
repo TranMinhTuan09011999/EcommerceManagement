@@ -5,5 +5,6 @@ export class Product {
     promotion!: number;
     description!: string;
     image!: string;
-    deleteStatus!: number;
+    deletestatus!: number;
+    categoryId!: number;
 }

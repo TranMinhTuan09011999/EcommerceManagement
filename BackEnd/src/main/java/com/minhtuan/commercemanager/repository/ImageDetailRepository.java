@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ImageDetailRepository extends JpaRepository<ImageDetail, Long> {
     List<ImageDetail> findImageDetailByImageid(Integer imageId);
+    void deleteByImageid(Integer imageId);
 }

@@ -12,4 +12,6 @@ public interface ProductService {
     public Product getProductById(long id);
     public ProductDTO getProductByName(String name);
     public List<ImageDetail> getImageId(Integer imageId);
+    public Product save(Product product);
+    public void delete(Product product);
 }

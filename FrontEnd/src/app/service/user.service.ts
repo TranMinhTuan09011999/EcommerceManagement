@@ -53,6 +53,14 @@ export class UserService {
                     );
   }
 
+  getCategoryById(id: number): Observable<Category>{
+    return this.http.get<Category>(API_URL + 'category/id/' + id)
+                    .pipe(
+                      retry(3),
+                      catchError(this.handleError)
+                    );
+  }
+
 
   getPromotionProduct(): Observable<Product[]>{
     return this.http.get<Product[]>(API_URL + 'promotion')
@@ -123,6 +131,20 @@ export class UserService {
 
   updateCategory(id: number, category: Category): Observable<any> {
     return this.http.put<any>(API_URL + 'category/' + id, category)
+                  .pipe(
+                    catchError(this.handleError)
+                  )
+  }
+
+  createProduct(product: Product): Observable<any> {
+    return this.http.post<any>(API_URL + 'product', product)
+                  .pipe(
+                    catchError(this.handleError)
+                  )
+  }
+
+  deleteProduct(id: number): Observable<any> {
+    return this.http.delete(API_URL + 'product/' + id)
                   .pipe(
                     catchError(this.handleError)
                   )

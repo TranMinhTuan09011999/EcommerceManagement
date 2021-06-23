@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @Data
 @ToString
-public class ImageDTO {
+public class ImageDetailsDTO {
     private Long id;
     private Integer imageid;
     private String image;
