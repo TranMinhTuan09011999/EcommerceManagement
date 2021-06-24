@@ -1,6 +1,6 @@
 <div class="filter">
   <div class="option-category">
-    <select name="selectOptionSearch" id="search" [(ngModel)]="categoryName" (change)="getProduct(categoryName)">
+    <select name="selectOptionSearch" id="search" [(ngModel)]="categoryName" (change)="getProduct(categoryName); config.currentPage =1;">
       <option *ngFor="let category of categories" [value]="category.categoryName">
         {{category.categoryName}}
       </option>
@@ -8,7 +8,7 @@
   </div>
   
   <div class="search-bar">  
-    <input class="form-control-lg" type="text" placeholder="Search..."
+    <input class="form-control-lg" type="text" placeholder="Search..." (input)="config.currentPage = 1"
         [(ngModel)]="filter" />
   </div>
 </div>
@@ -23,13 +23,13 @@
         <td>Sale</td>
         <td style="text-align: center; width: 10%;">Image</td>
         <td>Description</td>
-        <td></td>
-        <td></td>
+        <!-- <td></td>
+        <td></td> -->
       </tr>
     </thead>
   
     <tbody>
-      <tr *ngFor="let product of products | filter: filter | paginate: {id: 'pagination', itemsPerPage: 5, currentPage: pageNumber}">
+      <tr *ngFor="let product of products | filter: filter | paginate: config">
         <td>{{product.id}}</td>
         <td>{{product.name}}</td>
         <td>{{product.price}}</td>
@@ -58,5 +58,5 @@
 
 <div style="margin-left: 40%; margin-top: 50px;">
   <pagination-controls id="pagination"
-  (pageChange)="pageNumber = $event"></pagination-controls>
+  (pageChange)="pageChanged($event)"></pagination-controls>
 </div>

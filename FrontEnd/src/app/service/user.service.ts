@@ -110,6 +110,13 @@ export class UserService {
                   );
   }
 
+  createImageDetail(list: ImageDetail[]): Observable<any> {
+    return this.http.post<any>(API_URL + 'product/detail', list)
+          .pipe(
+            catchError(this.handleError)
+          );
+  }
+
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(API_URL + 'get-all')
                   .pipe(
@@ -148,5 +155,12 @@ export class UserService {
                   .pipe(
                     catchError(this.handleError)
                   )
+  }
+
+  updateProduct(id: number, product: Product): Observable<any> {
+    return this.http.put(API_URL + 'product/' + id, product)
+              .pipe(
+                catchError(this.handleError)
+              )
   }
 }

@@ -5,6 +5,7 @@ import { Product } from './../../../model/product';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/model/category';
+import { ImageDetail} from 'src/app/model/image-detail';
 
 @Component({
   selector: 'app-add-product',
@@ -14,13 +15,22 @@ import { Category } from 'src/app/model/category';
 export class AddProductComponent implements OnInit {
 
   form!: FormGroup;
+  subForm!: FormGroup;
   submitted = false;
+  submitted1 = false;
+
   productName!: string;
   product!: Product;
   products: Array<Product> = [];
   categories: Category[] = [];
-  categoryName: string = 'Choose a Category';
+  categoryName: string = '';
   category!: Category;
+
+  notification = false;
+  clickedCancel = false;
+  message!: string;
+
+  list: ImageDetail[] = [];
 
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -33,9 +43,12 @@ export class AddProductComponent implements OnInit {
     this.form = this.formBuilder.group({
       id: [{value: '', disabled: true}],
       name: ['', Validators.required],
-      price: ['', [Validators.required]],
+      price: ['', [Validators.required, Validators.min(0)]],
       description: ['', Validators.required],
-      promotion: ['', [Validators.required, Validators.max(100)]],
+      promotion: ['', [Validators.required, Validators.max(100), Validators.min(0)]],
+    })
+
+    this.subForm = this.formBuilder.group({
       image: ['', [Validators.required]],
       subImage1: ['', [Validators.required]],
       subImage2: ['', [Validators.required]],
@@ -43,12 +56,15 @@ export class AddProductComponent implements OnInit {
     })
 
     this.getCategory();
-    this.getAllProducts();
     
   }
 
   get f() {
     return this.form.controls;
+  }
+
+  get sf() {
+    return this.subForm.controls;
   }
 
   getAllProducts() {
@@ -96,14 +112,37 @@ export class AddProductComponent implements OnInit {
     product.price = this.f.price.value;
     product.promotion = this.f.promotion.value;
     product.description = this.f.description.value;
-    product.image = this.f.image.value;
+    // product.image = this.f.image.value;
     product.deletestatus = 0;
     product.categoryId = this.category.id;
     console.log(product);
     this.userService.createProduct(product)
         .subscribe((data: string) => {
           console.log("thêm thành công sẩn phẩm");
+          this.userService.getProductDetail(product.name)
+              .subscribe((data) => {
+                console.log("data worked");
+                this.product = data;
+              }, (err) => {
+                console.log(err);
+              })
         }, err => {
+          console.log(err);
+          this.userService.getProductDetail(product.name)
+              .subscribe((data) => {
+                console.log("data worked");
+                this.product = data;
+              }, (err) => {
+                console.log(err);
+              })
+        })
+  }
+
+  getProductByName(name: string) {
+    this.userService.getProductDetail(name)
+        .subscribe((data) => {
+          this.product = data;
+        }, (err) => {
           console.log(err);
         })
   }
@@ -115,6 +154,81 @@ export class AddProductComponent implements OnInit {
     } 
     this.addProduct(this.categoryName);
     console.log('123');
+    console.log(this.product);
   }
 
+  btnNoClicked() {
+    this.clickedCancel = false;
+  }
+
+  navigateToProducts() {
+    this.router.navigate(['../products'], {relativeTo: this.route});
+  }
+
+  cancelFormClick() {
+    if (this.categoryName !== '' || this.f.name.value !== '' || this.f.price.value !== '' 
+          || this.f.description.value !== '' || this.f.promotion.value !== '') {
+            this.clickedCancel = true;  
+          }
+    else {
+      this.navigateToProducts();
+    }
+  }
+
+  cancelSubFormClick() {
+    this.clickedCancel = true;
+  }
+
+  deleteProductAndCancel(id: number) {
+    this.userService.deleteProduct(id)
+        .subscribe((data) => {
+          console.log(data);
+          this.navigateToProducts();
+        }, (err) => {
+          console.log(err);
+          this.navigateToProducts();
+        })
+  }
+
+  createListImageDetails() {
+    let imageDetail = new ImageDetail();
+    imageDetail.imageId = this.product.id;
+    imageDetail.image = this.sf.subImage1.value;
+    this.list.push(imageDetail);
+    imageDetail.image = this.sf.subImage2.value;
+    this.list.push(imageDetail);
+    imageDetail.image = this.sf.subImage3.value;
+    this.list.push(imageDetail);
+    this.product.image = this.sf.image.value;
+    this.userService.updateProduct(this.product.id, this.product)
+        .subscribe((res) => {
+            this.userService.createImageDetail(this.list)
+            .subscribe((data) => {
+              console.log(data)
+            }, (err) => {
+              console.log(err);
+            })
+          }, (err) => {
+            console.log(err);
+            this.userService.createImageDetail(this.list)
+            .subscribe((data) => {
+              console.log(data)
+            }, (err) => {
+              console.log(err);
+            })
+          }
+        )
+  }
+
+  onSubSubmit() {
+    this.submitted1 = true;
+    if (this.sf.invalid) {
+      return;
+    } 
+    if (this.sf.image.value !== '' && this.sf.subImage1.value !== '' && this.sf.subImage2.value !== '' && this.sf.subImage3.value !== '') {
+      this.notification = true;
+      this.message = 'Added Product Successfully!'
+      this.createListImageDetails();
+    }
+  }
 }

@@ -1,11 +1,13 @@
 package com.minhtuan.commercemanager.controller;
 
+import com.minhtuan.commercemanager.converter.ImageDetailsConverter;
 import com.minhtuan.commercemanager.model.Category;
 import com.minhtuan.commercemanager.model.DTO.ImageDetailsDTO;
 import com.minhtuan.commercemanager.model.DTO.ProductDTO;
 import com.minhtuan.commercemanager.model.ImageDetail;
 import com.minhtuan.commercemanager.model.Product;
 import com.minhtuan.commercemanager.services.CategoryService;
+import com.minhtuan.commercemanager.services.ImageDetailsService;
 import com.minhtuan.commercemanager.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,9 @@ public class ProductController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private ImageDetailsService imageDetailsService;
 
     @GetMapping("/promotion")
     public ResponseEntity<?> getPromotion(){
@@ -81,10 +86,11 @@ public class ProductController {
     }
 
     @PostMapping("product/detail")
-    public ResponseEntity<?> postImage(@RequestBody ImageDetailsDTO dto) {
-        ImageDetail imageDetail = new ImageDetail();
-        imageDetail.setImageid(dto.getImageid());
-        imageDetail.setImage(dto.getImage());
+    public ResponseEntity<?> postImage(@RequestBody List<ImageDetailsDTO> list) {
+        list.stream().forEach(s -> {
+            imageDetailsService.save(new ImageDetailsConverter().toEntity(s));
+        });
+
         return ResponseEntity.ok().body("OK");
     }
 

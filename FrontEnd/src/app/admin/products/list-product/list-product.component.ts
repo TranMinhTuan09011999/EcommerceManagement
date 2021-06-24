@@ -24,6 +24,8 @@ export class ListProductComponent implements OnInit {
   clickedDelete = false;
   id!: number;
 
+  config = {id: 'pagination', itemsPerPage: 5, currentPage: this.pageNumber}
+
   constructor(private route: ActivatedRoute, 
               private userService: UserService) { }
 
@@ -32,6 +34,10 @@ export class ListProductComponent implements OnInit {
     this.getCategory();
     console.log(this.products);
     console.log(this.categories);
+  }
+
+  pageChanged(event: any) {
+    this.config.currentPage = event;
   }
 
   clickedDeleteBtn(id: number) {

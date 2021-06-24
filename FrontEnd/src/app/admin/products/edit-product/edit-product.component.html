@@ -25,6 +25,7 @@
                 [ngClass]="{'is-invalid': f.price.errors}"/>
         <div *ngIf="submitted && f.price.errors">
             <div *ngIf="f.price.errors.required" class="validation">*Price is required</div>
+            <div *ngIf="f.price.errors.min" class="validation">*Price is not smaller than 0!</div>
         </div>
 
         <label for="description"><b>Description</b></label>
@@ -41,6 +42,7 @@
         <div *ngIf="submitted && f.promotion.errors">
           <div *ngIf="f.promotion.errors.required" class="validation">*Promotion is required</div>
           <div *ngIf="f.promotion.errors.max" class="validation">*Promotion is not bigger than 100!</div>
+          <div *ngIf="f.promotion.errors.min" class="validation">*Promotion is not smaller than 0!</div>
         </div>
       </div>
 

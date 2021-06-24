@@ -15,12 +15,19 @@ public class ImageDetailsServiceImp implements ImageDetailsService {
     ImageDetailRepository imageDetailRepository;
 
     @Override
-    public ImageDetail save(List<ImageDetail> list) {
-        return null;
+    public ImageDetail save(ImageDetail imageDetail) {
+        return imageDetailRepository.save(imageDetail);
+    }
+
+    @Override
+    public void saveListImageDetails(List<ImageDetail> imageDetails) {
+        imageDetails.stream().forEach(s -> {
+            imageDetailRepository.save(s);
+        });
     }
 
     @Override
     public void delete(Integer imageId) {
-
+        imageDetailRepository.deleteAllByImageid(imageId);
     }
 }

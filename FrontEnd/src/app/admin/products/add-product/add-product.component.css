@@ -4,16 +4,9 @@
   margin-top: 10px;
 }
 
-.left-col {
-  float: left;
-  width: 48%;
-  padding: 20px 1%;
-}
-
-.right-col {
-  float: right;
-  width: 48%;
-  padding: 20px 1%;
+form {
+  width: 50%;
+  margin: auto;
 }
 
 
@@ -33,6 +26,11 @@ input[type=text], input[type=number], input[type=file], textarea, select{
   input[name=id]{
       cursor: not-allowed;
       background: rgb(180, 180, 180);
+  }
+
+  input[type=text]:disabled {
+    cursor: not-allowed;
+    background: rgb(180, 180, 180);
   }
 
   textarea[name=description] {
@@ -89,25 +87,28 @@ input[type=text], input[type=number], input[type=file], textarea, select{
     background-color: #c43307;
     color: white;
     padding: 16px 20px;
-    /* margin: 8px 0 8px 10%; */
     margin-top: 30px;
     border: none;
     cursor: pointer;
     width: 20%;
     opacity: 0.9;
     transition: 0.5s;
+    margin-left: 10%;
   }
 
   .cancelbtn:hover {
-      letter-spacing: 4px;
       background: rgb(206, 109, 109);
       color: #111;
     }
   
   .registerbtn:hover {
-    letter-spacing: 4px;
     background: rgb(95, 136, 98);
     color: #111;
+  }
+
+  .registerbtn:disabled, .cancelbtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
   .validation {
@@ -119,4 +120,45 @@ input[type=text], input[type=number], input[type=file], textarea, select{
     width: 50%;
     height: auto;
     margin-left: 25%;
+  }
+
+  /* Modal */
+  .okbtn {
+    float: left;
+    width: 30%;
+    background-color: #cc4036;
+    margin-top: 20px;
+    margin-left: 35%;
+    padding: 20px 0;
+    font-weight: 30px;
+  }
+
+  .okbtn:hover {
+    filter: invert(0);
+  }
+  
+  .container-modal {
+    padding: 50px;
+    text-align: center;
+  }
+  
+  .modal {
+    display: block; 
+    z-index: 1; 
+    top: 10%;
+    left: calc(25% + 300px);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    /* margin: 5% 25% 15% 25%; */
+    border: 1px solid #888;
+    width: 30%; 
+  }
+  
+  /* Clear floats */
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
   }
