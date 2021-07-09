@@ -5,6 +5,7 @@ import { CartComponent } from './user/cart/cart.component';
 import { CheckoutComponent } from './user/checkout/checkout.component';
 import { HomeComponent } from './user/home/home.component';
 import { LoginComponent } from './user/login/login.component';
+import { OrderDetailComponent } from './user/order-detail/order-detail.component';
 import { OrderlistComponent } from './user/orderlist/orderlist.component';
 import { ProductComponent } from './user/product/product.component';
 import { ProductlistComponent } from './user/productlist/productlist.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'productlist', component: ProductlistComponent },
   { path: 'productlist/:name', component: ProductlistComponent },
   { path: 'orderlist', component: OrderlistComponent },
+  { path: 'orderDetail/:id', component: OrderDetailComponent },
   /*{ path: '', redirectTo: 'productlist', pathMatch: 'full' },*/
   // { path: '**', component: PageNotFoundComponent},
   { path: '', redirectTo: 'admin', pathMatch: 'full' },

@@ -14,6 +14,8 @@ export class ProductlistComponent implements OnInit {
   categories: Array<Category> = [];
   products: Array<Product> = [];
   namePage: String = 'product/';
+  config: any;
+  currentSelectedPage:number = 0;
 
   constructor(private userService: UserService, private router : Router) { }
 
@@ -31,6 +33,7 @@ export class ProductlistComponent implements OnInit {
             error => {
               console.log(error);
             });
+            
   }
 
   getProduct(name: String){
@@ -42,6 +45,11 @@ export class ProductlistComponent implements OnInit {
           error => {
             console.log(error);
           });
+          this.config = {
+            itemsPerPage: 5,
+            currentPage: 1,
+            totalItems: this.products.values.length
+        };
   }
 
   promotion(price: number){
@@ -57,5 +65,9 @@ export class ProductlistComponent implements OnInit {
   ridrect(name: String)
   {
     this.router.navigate([`${this.namePage}${name}`]);
+  }
+  
+  pageChanged(event: any){
+    this.config.currentPage = event;
   }
 }

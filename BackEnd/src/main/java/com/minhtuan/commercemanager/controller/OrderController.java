@@ -1,12 +1,15 @@
 package com.minhtuan.commercemanager.controller;
 
+import com.minhtuan.commercemanager.converter.OrderConverter;
 import com.minhtuan.commercemanager.message.request.ApiResponse;
+import com.minhtuan.commercemanager.model.AddCart;
 import com.minhtuan.commercemanager.model.DTO.AddCartDTO;
 import com.minhtuan.commercemanager.model.DTO.OrderDTO;
 import com.minhtuan.commercemanager.model.DTO.OrderDetailsDTO;
 import com.minhtuan.commercemanager.model.Order;
 import com.minhtuan.commercemanager.model.User;
 import com.minhtuan.commercemanager.repository.OrderDetailsRepository;
+import com.minhtuan.commercemanager.repository.OrderRepository;
 import com.minhtuan.commercemanager.repository.UserRepository;
 import com.minhtuan.commercemanager.services.OrderDetailsService;
 import com.minhtuan.commercemanager.services.OrderService;
@@ -16,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +36,12 @@ public class OrderController {
 
     @Autowired
     private OrderDetailsService orderDetailsService;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderConverter orderConverter;
 
     @PostMapping("/checkout")
     @PreAuthorize("hasRole('USER')")
@@ -60,6 +70,26 @@ public class OrderController {
             List<OrderDTO> listDTO = orderService.getListOrderByUserId(id);
             return ResponseEntity.ok(listDTO);
         }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(new ApiResponse(e.getMessage(), ""));
+        }
+    }
+
+    @PutMapping("/listOrder/cancel/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> cancel(@PathVariable long id, @RequestBody HashMap<String, Integer> status)
+    {
+        try {
+            String keys[] = { "status" };
+            Order order = orderService.getOrderById(id);
+            Integer status1 = status.get("status");
+            order.setStatus(status1);
+            Order updateOrder = orderRepository.save(order);
+            Long orderId = updateOrder.getId();
+            OrderDTO obj = orderConverter.toDTO(orderService.getOrderById(orderId));
+            return ResponseEntity.ok(obj);
+            //return ResponseEntity.ok("Update quantity successly");
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(new ApiResponse(e.getMessage(), ""));
         }

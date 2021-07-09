@@ -1,4 +1,5 @@
 export class Checkout {
+    id!: number;
     order_date!: String;
     amount!: number;
     receiver!: String;

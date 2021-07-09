@@ -24,4 +24,19 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUser() {
         return userRepository.findAll();
     }
+
+    @Override
+    public Optional findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public Optional findUserByResetToken(String resetToken) {
+        return userRepository.findByResetToken(resetToken);
+    }
+
+    @Override
+    public void save(User user) {
+        userRepository.save(user);
+    }
 }
