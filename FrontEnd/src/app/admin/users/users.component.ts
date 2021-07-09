@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/model/user';
+import { TokenStorageService } from 'src/app/service/token-storage.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -11,8 +12,10 @@ export class UsersComponent implements OnInit {
   users: User[] = [];
   filter: any;
   pageNumber: number = 1;
+  clickedDelete = false;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
     this.getAllUsers();
@@ -24,8 +27,13 @@ export class UsersComponent implements OnInit {
           .subscribe(
             (data: User[]) => {
               this.users = data; 
-              this.users.forEach(user => {
-                // user.roles.name = 
+              this.users.forEach((user, index) => {
+                let temp = this.tokenStorageService.getUser();
+                if (user.id === temp.id) {
+                  this.users.splice(index, 1);
+                  console.log("11111111111 " + temp.id);
+                  console.log(this.users);
+                }
               })
               console.log(this.users);
             },
@@ -33,5 +41,4 @@ export class UsersComponent implements OnInit {
               console.log(error);
             });
   }
-
 }

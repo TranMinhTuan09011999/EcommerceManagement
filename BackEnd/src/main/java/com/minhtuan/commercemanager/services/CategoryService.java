@@ -11,6 +11,8 @@ public interface CategoryService {
 
     public CategoryDTO getCategoryByName(String name);
 
+    public CategoryDTO getCategoryById(Long id);
+
     public Category findById(Long id);
 
     public Category save(Category category);

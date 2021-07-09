@@ -40,6 +40,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public CategoryDTO getCategoryById(Long id) {
+        Category category = categoryRepository.findCategoryById(id);
+        CategoryDTO dto = categoryConverter.toDTO(category);
+        return dto;
+    }
+
+    @Override
     public Category findById(Long id) {
         return categoryRepository.findById(id).orElse(null);
     }

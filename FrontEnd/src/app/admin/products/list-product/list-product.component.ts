@@ -21,6 +21,11 @@ export class ListProductComponent implements OnInit {
 
   filter!: string;
 
+  clickedDelete = false;
+  id!: number;
+
+  config = {id: 'pagination', itemsPerPage: 5, currentPage: this.pageNumber}
+
   constructor(private route: ActivatedRoute, 
               private userService: UserService) { }
 
@@ -29,6 +34,19 @@ export class ListProductComponent implements OnInit {
     this.getCategory();
     console.log(this.products);
     console.log(this.categories);
+  }
+
+  pageChanged(event: any) {
+    this.config.currentPage = event;
+  }
+
+  clickedDeleteBtn(id: number) {
+    this.clickedDelete = true;
+    this.id = id;
+  }
+
+  cancelBtnClick() {
+    this.clickedDelete = false;
   }
 
   getProduct(name: String) {
@@ -65,10 +83,24 @@ export class ListProductComponent implements OnInit {
     this.userService.getAllProducts()
       .subscribe((res) => {
         res.forEach((data) => {
-          this.products.push(data);
+          if (data.deletestatus !== 1) {
+            this.products.push(data);
+          }
         })
       }, (err) => {
         console.log(err);
       })
+  }
+
+  deleteProduct(id: number) {
+    this.userService.deleteProduct(id)
+      .subscribe(
+        (data) => {
+          
+        },
+        error => {
+          console.log(error);
+        });
+      window.location.reload();
   }
 }

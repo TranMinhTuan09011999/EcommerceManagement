@@ -11,6 +11,7 @@ import java.util.Collection;
 @Setter
 @Entity
 @Table(name="product")
+@ToString
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

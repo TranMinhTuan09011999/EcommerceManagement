@@ -9,13 +9,13 @@
         </div>
     </div>
 
-    <table class="table table-striped">
+    <table>
       <thead>
         <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th></th>
-          <th></th>
+          <td>Id</td>
+          <td>Name</td>
+          <td></td>
+          <td></td>
         </tr>
       </thead>
     
@@ -32,8 +32,8 @@
     <div *ngIf="clickedDelete" class="modal">
       <div class="modal-content">
         <div class="container-modal">
-          <h1>Delete User?</h1>
-          <p>Are you sure you want to delete this user?</p>
+          <h1>Delete Category?</h1>
+          <p>Are you sure you want to delete this Category?</p>
           <p>This can't be undo!</p>
           <div class="clearfix">
             <button type="button" class="deletebtn" (click)="deleteCategory(id)">Yes</button>
@@ -44,7 +44,7 @@
     </div>
   </div>
 
-  <div style="margin-left: 40%;">
+  <div style="margin-left: 40%; margin-top: 50px;">
     <pagination-controls id="pagination"
     (pageChange)="pageNumber = $event"></pagination-controls>
   </div>

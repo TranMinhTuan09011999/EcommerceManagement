@@ -29,6 +29,12 @@ public class CategoryController {
         return new ResponseEntity<> (category, HttpStatus.OK);
     }
 
+    @GetMapping("/category/id/{id}")
+    public ResponseEntity<?> getCategoryName(@PathVariable Long id){
+        CategoryDTO category = categoryService.getCategoryById(id);
+        return new ResponseEntity<> (category, HttpStatus.OK);
+    }
+
     @PostMapping("/add-category")
     public ResponseEntity<?> createCategory(@RequestBody CategoryDTO categoryDTO) {
         System.out.println(categoryDTO.toString());

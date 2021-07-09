@@ -53,9 +53,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProductById(long id) {
+    public Product getProductById(Long id) {
         Product product = productRepository.findProductById(id);
         return product;
+    }
+
+    @Override
+    public ProductDTO getProductDTOById(Long id) {
+        Product product = productRepository.findProductById(id);
+        ProductDTO dto = productConverter.toDTO(product);
+        return dto;
     }
 
     @Override
@@ -69,5 +76,15 @@ public class ProductServiceImpl implements ProductService {
     public List<ImageDetail> getImageId(Integer imageId) {
         List<ImageDetail> list = imageDetailRepository.findImageDetailByImageid(imageId);
         return list;
+    }
+
+    @Override
+    public Product save(Product product) {
+        return productRepository.save(product);
+    }
+
+    @Override
+    public void delete(Product product) {
+        productRepository.delete(product);
     }
 }
