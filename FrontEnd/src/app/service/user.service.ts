@@ -144,7 +144,6 @@ export class UserService {
                       catchError(this.handleError)
                     );
   }
-
   updateCategory(id: number, category: Category): Observable<any> {
     return this.http.put<any>(API_URL + 'category/' + id, category)
                   .pipe(
