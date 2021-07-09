@@ -55,8 +55,8 @@ export class ProductComponent implements OnInit {
 
   addToCart(){
     this.token = this.tokenStorageService.getToken();
+    console.log(this.token);
     const user = this.tokenStorageService.getUser();
-
     this.cartService.addToCart(this.token, this.product.id, user.id, 1, this.product.price)
           .subscribe(
             (data: Cart[]) => {
@@ -64,8 +64,9 @@ export class ProductComponent implements OnInit {
               this.router.navigate(['/cart']).then(() => {this.reloadPage()});
             },
             error => {
-              console.log(error);
+              this.router.navigate(['/login'])
             });
+    
   }
   reloadPage(): void {
     window.location.reload();

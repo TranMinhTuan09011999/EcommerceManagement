@@ -1,13 +1,16 @@
 import { Product } from './../model/product';
 import { Category } from './../model/category';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { ImageDetail } from '../model/image-detail';
 import { User } from '../model/user';
+import { OrderDetail } from '../order-detail';
+import { Checkout } from '../checkout';
 
 const API_URL = 'http://localhost:8080/api/user/';
+const API_URL_ = 'http://localhost:8080/api/order/';
 
 @Injectable({
   providedIn: 'root'
@@ -122,7 +125,23 @@ export class UserService {
                   catchError(this.handleError))
   }
 
-  // updateCategory(category: Category): Observable<any> {
-  //   return this.http.put<any>(API_URL + 'category/' + id, )
-  // }
+  getOrderDetails(token: String,id: number): Observable<OrderDetail[]>{
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<OrderDetail[]>(API_URL_ + 'listOrderDetails/' + id, { headers: headers})
+                  .pipe(
+                    retry(3),
+                    catchError(this.handleError)
+                  );
+  }
+
+  cancel(token: String, id: number, status: number):Observable<Checkout>{
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.put<Checkout>(API_URL_ + 'listOrder/cancel/' + id,{status},{headers: headers})
+                    .pipe(
+                      retry(3),
+                      catchError(this.handleError)
+                    );
+  }
 }
