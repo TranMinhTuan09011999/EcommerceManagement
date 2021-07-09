@@ -19,6 +19,8 @@ import { CheckoutComponent } from './user/checkout/checkout.component';
 import { ProductComponent } from './user/product/product.component';
 import { ProductlistComponent } from './user/productlist/productlist.component';
 import { OrderlistComponent } from './user/orderlist/orderlist.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { OrderDetailComponent } from './user/order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { OrderlistComponent } from './user/orderlist/orderlist.component';
     ProductlistComponent,
     OrderlistComponent,
     PageNotFoundComponent,
+    OrderDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { OrderlistComponent } from './user/orderlist/orderlist.component';
     HttpClientModule,
     ReactiveFormsModule,
     AdminModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

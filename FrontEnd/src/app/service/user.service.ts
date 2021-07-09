@@ -1,13 +1,16 @@
 import { Product } from './../model/product';
 import { Category } from './../model/category';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { ImageDetail } from '../model/image-detail';
 import { User } from '../model/user';
+import { OrderDetail } from '../order-detail';
+import { Checkout } from '../checkout';
 
 const API_URL = 'http://localhost:8080/api/user/';
+const API_URL_ = 'http://localhost:8080/api/order/';
 
 @Injectable({
   providedIn: 'root'

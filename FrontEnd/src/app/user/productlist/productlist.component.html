@@ -191,7 +191,7 @@
                 <!-- sect-heading -->
 
 
-                <div *ngFor="let product of products">
+                <div *ngFor="let product of products | paginate: config">
                     <article class="card card-product-list">
                         <div class="row no-gutters" style="position: relative;">
                             <img class="promotion" src="assets/images/promotion.png" *ngIf="promotion(product.promotion)">
@@ -261,13 +261,7 @@
 
 
                 <nav aria-label="Page navigation sample">
-                    <ul class="pagination">
-                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                    </ul>
+                    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
                 </nav>
 
             </main>
