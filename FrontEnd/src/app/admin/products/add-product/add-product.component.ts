@@ -39,6 +39,7 @@ export class AddProductComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit(): void {
+    this.getAllProducts();
 
     this.form = this.formBuilder.group({
       id: [{value: '', disabled: true}],
@@ -73,6 +74,7 @@ export class AddProductComponent implements OnInit {
         res.forEach((data) => {
           this.products.push(data);
         })
+        console.log(this.products);
       }, (err) => {
         console.log(err);
       })
@@ -152,6 +154,13 @@ export class AddProductComponent implements OnInit {
     if (this.f.invalid) {
       return;
     } 
+    this.products.forEach((product) => {
+      if (product.name === this.f.name.value) {
+        this.notification = !this.notification;
+        this.message = 'This product has already existed!';
+      }
+    }
+    )
     this.addProduct(this.categoryName);
     console.log('123');
     console.log(this.product);

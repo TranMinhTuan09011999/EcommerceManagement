@@ -102,6 +102,14 @@ export class UserService {
                   );
   }
 
+  getProductById(id: number): Observable<Product>{
+    return this.http.get<Product>(API_URL + 'product/' + id)
+                  .pipe(
+                    retry(3),
+                    catchError(this.handleError)
+                  );
+  }
+
   getImageDetail(imageId: number): Observable<ImageDetail[]>{
     return this.http.get<ImageDetail[]>(API_URL + 'product/detail/' + imageId)
                   .pipe(

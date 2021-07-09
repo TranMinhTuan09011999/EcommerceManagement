@@ -9,7 +9,8 @@ import java.util.List;
 public interface ProductService {
     public List<ProductDTO> getAllProducts();
     public List<ProductDTO> getProductPromotion();
-    public Product getProductById(long id);
+    public Product getProductById(Long id);
+    public ProductDTO getProductDTOById(Long id);
     public ProductDTO getProductByName(String name);
     public List<ImageDetail> getImageId(Integer imageId);
     public Product save(Product product);
