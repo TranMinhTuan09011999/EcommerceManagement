@@ -23,12 +23,27 @@
         <tr *ngFor="let category of categories | filter: filter | paginate: {id: 'pagination', itemsPerPage: 5, currentPage: pageNumber}">
           <td>{{category.id}}</td>
           <td>{{category.categoryName}}</td>
-          <td><button class="btn btn-danger" style="float: right" (click)="deleteCategory(category.id)">Delete</button></td>
+          <td><button class="btn btn-danger" style="float: right" (click)="clickedDeleteBtn(category.id)">Delete</button></td>
           <td><button routerLink="../edit-category/{{category.categoryName}}" class="btn btn-primary">Edit</button></td>
         </tr>
       </tbody>
     </table>  
+
+    <div *ngIf="clickedDelete" class="modal">
+      <div class="modal-content">
+        <div class="container-modal">
+          <h1>Delete User?</h1>
+          <p>Are you sure you want to delete this user?</p>
+          <p>This can't be undo!</p>
+          <div class="clearfix">
+            <button type="button" class="deletebtn" (click)="deleteCategory(id)">Yes</button>
+            <button type="button" class="cancelbtn" (click)="cancelBtnClick()">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
   <div style="margin-left: 40%;">
     <pagination-controls id="pagination"
     (pageChange)="pageNumber = $event"></pagination-controls>

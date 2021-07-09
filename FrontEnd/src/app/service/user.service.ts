@@ -115,7 +115,6 @@ export class UserService {
   createCategory(category: Category): Observable<Category> {
     return this.http.post<Category>(API_URL + 'add-category', category)
                   .pipe(
-                    retry(3),
                     catchError(this.handleError))
   }
 

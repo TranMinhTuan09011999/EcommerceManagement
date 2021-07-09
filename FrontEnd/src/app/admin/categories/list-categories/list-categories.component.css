@@ -18,3 +18,61 @@ select {
     height: 50px;
     margin-left: 15px;
 }
+
+/* Modal */
+
+.cancelbtn, .deletebtn {
+    float: left;
+    width: 15%;
+    margin-top: 20px;
+    padding: 20px 0;
+    font-weight: 30px;
+  }
+  
+  .cancelbtn {
+    background-color: #ccc;
+    color: black;
+    margin-left: 10%;
+  }
+
+  .deletebtn {
+    background-color: #f44336;
+    margin-left: 30%;
+  }
+  
+
+  .deletebtn:hover, .cancelbtn:hover {
+    filter: invert(0);
+  }
+  
+  .container-modal {
+    padding: 50px;
+    text-align: center;
+  }
+  
+  .modal {
+    display: block; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: #474e5d;
+    /* padding-top: 200px; */
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto;
+    border: 1px solid #888;
+    width: 50%; 
+  }
+  
+  /* Clear floats */
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }

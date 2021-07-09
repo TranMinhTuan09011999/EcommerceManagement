@@ -15,6 +15,8 @@ export class AddCategoryComponent implements OnInit {
   isAddMode!: boolean;
   form!: FormGroup;
   submitted = false;
+  notification = false;
+  message: string = '';
 
   categories: Category[] = [];
   thisCategory!: Category;
@@ -45,7 +47,11 @@ export class AddCategoryComponent implements OnInit {
     this.userService.getCategory()
           .subscribe(
             (data: Category[]) => {
-              this.categories = data; 
+              data.forEach(s => {
+                if (s.deletestatus !== 1) {
+                  this.categories.push(s);
+                }
+              });
             },
             error => {
               console.log(error);
@@ -72,7 +78,19 @@ export class AddCategoryComponent implements OnInit {
     this.userService.createCategory(category)
           .subscribe(
             (data) => {
-              this.router.navigate(['../categories']);
+              // this.notification = true;
+            },
+            error => {
+              console.log(error);
+            });
+  }
+
+  updateCategory(category: Category, name: string) {
+    category.categoryName = name;
+    this.userService.updateCategory(category.id,category)
+          .subscribe(
+            (data) => {
+              // this.notification = true;
             },
             error => {
               console.log(error);
@@ -87,7 +105,27 @@ export class AddCategoryComponent implements OnInit {
     this.submitted = true;
     if (this.f.invalid) {
       return;
+    } else {
+      if (this.f.name.value === '') {
+        console.log("aaaaaaaaaa");
+        this.notification = true;
+        this.message = 'Category name can not be blank ';
+      } else {
+        if (this.isAddMode) {
+          this.addCategory(this.f.name.value);
+          this.notification = true;
+          this.message = 'Added Category Successfully';
+        } else {
+          this.updateCategory(this.thisCategory, this.f.name.value);
+          this.notification = true;
+          this.message = 'Updated Category Successfully';
+        }
+      }
     }
+  }
+
+  cancelSubmit() {
+    this.notification = false;
   }
 
 }

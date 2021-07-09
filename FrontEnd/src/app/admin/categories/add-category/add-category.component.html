@@ -51,11 +51,33 @@
             </div>
         
         <div class="button-group">
-            <button *ngIf="isAddMode" type="submit" class="registerbtn" style="margin-top: 20px"
-                    (click)="addCategory(f.name.value)">Add</button>
+            <button *ngIf="isAddMode" type="submit" class="registerbtn" style="margin-top: 20px">Add</button>
             <button *ngIf="!isAddMode" type="submit" class="registerbtn" style="margin-top: 20px">Edit</button>
             <button *ngIf="isAddMode" routerLink="../categories" class="cancelbtn">Cancel</button>
             <button *ngIf="!isAddMode" routerLink="../../categories" class="cancelbtn">Cancel</button>
         </div>
+
+        <div *ngIf="notification" class="modal">
+          <div class="modal-content">
+            <div class="container-modal">
+              <h1>Notification</h1>
+    
+              <!-- <div *ngFor="let error of message">
+                <p>{{error}}</p>
+              </div> -->
+
+              <div>
+                <p>{{message}}</p>
+              </div>
+            
+              <div class="clearfix">
+                <button *ngIf="isAddMode" routerLink="../categories" type="button" class="okbtn">OK</button>
+                <button *ngIf="!isAddMode" routerLink="../../categories" type="button" class="okbtn">OK</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
     </form>
 </div>

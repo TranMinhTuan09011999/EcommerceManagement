@@ -12,6 +12,9 @@ export class ListCategoriesComponent implements OnInit {
   thisCategory!: Category;
   pageNumber: number = 1;
   filter: any;
+  
+  id!: number;
+  clickedDelete = false;
 
   constructor(private userService: UserService) { }
 
@@ -23,7 +26,11 @@ export class ListCategoriesComponent implements OnInit {
     this.userService.getCategory()
           .subscribe(
             (data: Category[]) => {
-              this.categories = data; 
+              data.forEach(s => {
+                if (s.deletestatus !== 1) {
+                  this.categories.push(s);
+                }
+              });
             },
             error => {
               console.log(error);
@@ -45,11 +52,21 @@ export class ListCategoriesComponent implements OnInit {
     this.userService.deleteCategory(id)
           .subscribe(
             (data) => {
-              window.location.reload();
+              
             },
             error => {
               console.log(error);
             });
+    window.location.reload();
+  }
+
+  cancelBtnClick() {
+    this.clickedDelete = false;
+  }
+
+  clickedDeleteBtn(id: number) {
+    this.clickedDelete = true;
+    this.id = id;
   }
 
 }
