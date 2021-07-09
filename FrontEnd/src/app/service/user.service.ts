@@ -124,30 +124,4 @@ export class UserService {
                   .pipe(
                   catchError(this.handleError))
   }
-
-  getOrderDetails(token: String,id: number): Observable<OrderDetail[]>{
-    let tokenStr = 'Bearer ' + token;
-    const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.get<OrderDetail[]>(API_URL_ + 'listOrderDetails/' + id, { headers: headers})
-                  .pipe(
-                    retry(3),
-                    catchError(this.handleError)
-                  );
-  }
-
-  cancel(token: String, id: number, status: number):Observable<Checkout>{
-    let tokenStr = 'Bearer ' + token;
-    const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.put<Checkout>(API_URL_ + 'listOrder/cancel/' + id,{status},{headers: headers})
-                    .pipe(
-                      retry(3),
-                      catchError(this.handleError)
-                    );
-  }
-  updateCategory(id: number, category: Category): Observable<any> {
-    return this.http.put<any>(API_URL + 'category/' + id, category)
-                  .pipe(
-                    catchError(this.handleError)
-                  )
-  }
 }
