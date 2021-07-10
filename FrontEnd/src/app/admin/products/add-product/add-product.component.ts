@@ -200,14 +200,30 @@ export class AddProductComponent implements OnInit {
   }
 
   createListImageDetails() {
-    let imageDetail = new ImageDetail();
-    imageDetail.imageId = this.product.id;
-    imageDetail.image = this.sf.subImage1.value;
-    this.list.push(imageDetail);
-    imageDetail.image = this.sf.subImage2.value;
-    this.list.push(imageDetail);
-    imageDetail.image = this.sf.subImage3.value;
-    this.list.push(imageDetail);
+    let image1 = new ImageDetail();
+    image1.imageId = this.product.id;
+    image1.image = this.sf.subImage1.value;
+
+    let image2 = new ImageDetail();
+    image2.imageId = this.product.id;
+    image2.image = this.sf.subImage2.value;
+
+    let image3 = new ImageDetail();
+    image3.imageId = this.product.id;
+    image3.image = this.sf.subImage3.value;
+
+    this.list.push(image1);
+    this.list.push(image2);
+    this.list.push(image3);
+
+    // let imageDetail = new ImageDetail();
+    // imageDetail.imageId = this.product.id;
+    // imageDetail.image = this.sf.subImage1.value;
+    // this.list.push(imageDetail);
+    // imageDetail.image = this.sf.subImage2.value;
+    // this.list.push(imageDetail);
+    // imageDetail.image = this.sf.subImage3.value;
+    // this.list.push(imageDetail);
     this.product.image = this.sf.image.value;
     this.userService.updateProduct(this.product.id, this.product)
         .subscribe((res) => {

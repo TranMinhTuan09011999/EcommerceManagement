@@ -73,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ImageDetail> getImageId(Integer imageId) {
+    public List<ImageDetail> getImageId(Long imageId) {
         List<ImageDetail> list = imageDetailRepository.findImageDetailByImageid(imageId);
         return list;
     }

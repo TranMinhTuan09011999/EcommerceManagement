@@ -22,10 +22,14 @@ export class EditProductComponent implements OnInit {
   imageDetails: Array<ImageDetail> = [];
   imageId!: number;
   fullProduct!: FullProduct;
+  list : ImageDetail[] = [];
 
   categories: Category[] = [];
   categoryName!: string;
   category!: Category;
+
+  notification = false;
+  message = '';
 
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -111,11 +115,64 @@ export class EditProductComponent implements OnInit {
             });
   }
 
+  updateProduct(id: number, product: Product) {
+    this.userService.updateProduct(id, product)
+          .subscribe(
+            (data) => {
+              // this.userService.updateProductDetails(id, this.imageDetails);           
+            },
+            error => {
+              console.log(error);
+            });
+    
+    
+    this.userService.updateProductDetails(this.product.id, this.list)
+          .subscribe(
+            (data) => {
+
+            },
+            error => {
+              console.log(error);
+            }
+          );
+  }
+
   onSubmit() {
     this.submitted = true;
     if (this.f.invalid) {
       return;
+    } else {
+      this.product.name = this.f.name.value;
+      this.product.price = this.f.price.value;
+      this.product.description = this.f.description.value;
+      this.product.image = this.f.image.value;
+      this.product.promotion = this.f.promotion.value;
+      this.product.deletestatus = 0;
+
+      let image1 = new ImageDetail();
+      image1.imageId = this.product.id;
+      image1.image = this.f.subImage1.value;
+
+      let image2 = new ImageDetail();
+      image2.imageId = this.product.id;
+      image2.image = this.f.subImage2.value;
+
+      let image3 = new ImageDetail();
+      image3.imageId = this.product.id;
+      image3.image = this.f.subImage3.value;
+
+      this.list.push(image1);
+      this.list.push(image2);
+      this.list.push(image3);
+
+      console.log(this.f.subImage1.value, this.f.subImage2.value, this.f.subImage3.value)
+      console.log(this.list);
+      
+      this.updateProduct(this.product.id, this.product);
+      this.notification = true;
+      this.message = 'Updated Product Successfully';
     }
+    
   }
 
 }

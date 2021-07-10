@@ -17,6 +17,6 @@ public class ImageDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer imageid;
+    private Long imageid;
     private String image;
 }
