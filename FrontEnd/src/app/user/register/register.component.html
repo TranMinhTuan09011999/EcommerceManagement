@@ -31,6 +31,12 @@
                     <input type="email" class="form-control" placeholder="" formControlName="email">
                     <small class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
+                <div class="col alert alert-danger " role="alert " *ngIf="this.dataForm.get('email')?.errors?.pattern && this.dataForm.get( 'email')?.touched ">
+                    *Email format is wrong!!!
+                </div>
+                <div class="col alert alert-danger " role="alert " *ngIf="this.dataForm.get('email')?.errors?.emailExists;">
+                    *That email already exists!!!
+                </div>
                 <div class="form-group">
                     <label>Phone</label>
                     <input type="text" class="form-control" placeholder="" formControlName="phone">
@@ -49,6 +55,9 @@
                     <div class="form-group col-md-6">
                         <label>Repeat password</label>
                         <input class="form-control" type="password" formControlName="pwdd">
+                    </div>
+                    <div class="col alert alert-danger " role="alert " *ngIf="this.dataForm.get('pwdd')?.errors?.MustMatch ">
+                        *Password does not match!
                     </div>
                     <!-- form-group end.// -->
                 </div>

@@ -173,6 +173,7 @@ export class UserService {
               .pipe(
                 catchError(this.handleError)
               )
+  }
 
   getOrderDetails(token: String,id: number): Observable<OrderDetail[]>{
     let tokenStr = 'Bearer ' + token;
@@ -192,5 +193,16 @@ export class UserService {
                       retry(3),
                       catchError(this.handleError)
                     );
+  }
+
+  doesEmailExist(email: string): Observable<boolean> {
+    let url = `${API_URL}emailcheck`;
+
+    let content: any = {};
+    content.email = email;
+
+    let response$: Observable<boolean> = this.http.post<boolean>(url, content);
+
+    return response$;
   }
 }
