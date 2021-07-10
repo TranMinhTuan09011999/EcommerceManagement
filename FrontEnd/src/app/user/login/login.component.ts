@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
   namePage: String = '';
   roles: string[] = [];
   token: string = '';
-  IsLogin = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService, private router:Router) { }
 
@@ -48,7 +47,8 @@ export class LoginComponent implements OnInit {
         }
       },
       err => {  
-        this.IsLogin = true;
+        console.log(console.error());
+        //this.IsLogin = true;
       }
     );
   }

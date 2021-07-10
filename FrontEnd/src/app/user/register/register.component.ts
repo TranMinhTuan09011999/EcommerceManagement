@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
 import { UserService } from 'src/app/service/user.service';
-import { Observable, of } from 'rxjs';
-import { delay, map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +14,7 @@ export class RegisterComponent implements OnInit {
 
   dataForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService, private router:Router, private userService: UserService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService, private router:Router, private crudApi: UserService) { }
 
   ngOnInit(): void {
     this.infoForm();
@@ -28,15 +26,11 @@ export class RegisterComponent implements OnInit {
       username: ['', [Validators.required]],   
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],   
-      email: ['', [Validators.required, Validators.pattern("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-      + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")], [this.emailExistsValidator()]], 
+      email: ['', [Validators.required]],
       phone: ['', [Validators.required]],   
       address: ['', [Validators.required]],
       password: ['', [Validators.required]],
       pwdd: ['', [Validators.required]]
-    },
-    {
-      validators: this.MustMatch('password', 'pwdd')
     })
   }
 
@@ -52,31 +46,4 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(['/login']);
     });
   }
-
-  private emailExistsValidator(): AsyncValidatorFn {
-    return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      return of(control.value).pipe(
-        delay(500),
-        switchMap((email: any) => this.userService.doesEmailExist(email).pipe(
-          map(emailExists => emailExists ? { emailExists: true } : null)
-        ))
-      );
-    };
-  }
-
-  MustMatch(controlName: string, matchingControlName:string){
-    return(formGroup: FormGroup)=>{
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
-      if(matchingControl.errors && !matchingControl.errors.MustMatch){
-        return;
-      }
-      if(control.value !== matchingControl.value){
-        matchingControl.setErrors({MustMatch:true});
-      }else{
-        matchingControl.setErrors(null);
-      }
-    }
-  }
-  
 }
