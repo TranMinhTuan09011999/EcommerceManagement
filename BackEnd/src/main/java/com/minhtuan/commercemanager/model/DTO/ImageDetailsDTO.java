@@ -9,6 +9,6 @@ import lombok.*;
 @Data
 @ToString
 public class ImageDetailsDTO {
-    private Integer imageId;
+    private Long imageId;
     private String image;
 }

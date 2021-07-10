@@ -119,3 +119,44 @@
       height: auto;
       margin-left: 25%;
     }
+
+    /* Modal */
+  .okbtn {
+    float: left;
+    width: 30%;
+    background-color: #cc4036;
+    margin-top: 20px;
+    margin-left: 35%;
+    padding: 20px 0;
+    font-weight: 30px;
+  }
+
+  .okbtn:hover {
+    filter: invert(0);
+  }
+  
+  .container-modal {
+    padding: 50px;
+    text-align: center;
+  }
+  
+  .modal {
+    display: block; 
+    z-index: 1; 
+    top: 10%;
+    left: calc(25% + 300px);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    /* margin: 5% 25% 15% 25%; */
+    border: 1px solid #888;
+    width: 30%; 
+  }
+  
+  /* Clear floats */
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
