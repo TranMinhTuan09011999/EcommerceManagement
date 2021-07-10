@@ -126,7 +126,7 @@ export class EditProductComponent implements OnInit {
             });
     
     
-    this.userService.updateProductDetails(this.product.id, this.imageDetails)
+    this.userService.updateProductDetails(this.product.id, this.list)
           .subscribe(
             (data) => {
 
@@ -149,16 +149,24 @@ export class EditProductComponent implements OnInit {
       this.product.promotion = this.f.promotion.value;
       this.product.deletestatus = 0;
 
-      let image = new ImageDetail();
-      image.imageId = this.product.id;
-      image.image = this.f.subImage1.value;
-      this.list.push(image);
-      image.image = this.f.subImage2.value;
-      this.list.push(image);
-      image.image = this.f.subImage3.value;
-      this.list.push(image);
+      let image1 = new ImageDetail();
+      image1.imageId = this.product.id;
+      image1.image = this.f.subImage1.value;
+
+      let image2 = new ImageDetail();
+      image2.imageId = this.product.id;
+      image2.image = this.f.subImage2.value;
+
+      let image3 = new ImageDetail();
+      image3.imageId = this.product.id;
+      image3.image = this.f.subImage3.value;
+
+      this.list.push(image1);
+      this.list.push(image2);
+      this.list.push(image3);
+
       console.log(this.f.subImage1.value, this.f.subImage2.value, this.f.subImage3.value)
-      console.log(this.imageDetails);
+      console.log(this.list);
       
       this.updateProduct(this.product.id, this.product);
       this.notification = true;

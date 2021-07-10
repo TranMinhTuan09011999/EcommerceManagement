@@ -82,6 +82,7 @@ public class ProductController {
             throw new RuntimeException("Can't find Product");
         }
         if (product.getOrderDetails().stream().count() == 0) {
+            imageDetailsService.delete(product.getId());
             productService.delete(product);
             return ResponseEntity.ok().body("Product has been deleted successfully");
         } else {
