@@ -173,6 +173,7 @@ export class UserService {
               .pipe(
                 catchError(this.handleError)
               )
+  }
 
   getOrderDetails(token: String,id: number): Observable<OrderDetail[]>{
     let tokenStr = 'Bearer ' + token;
