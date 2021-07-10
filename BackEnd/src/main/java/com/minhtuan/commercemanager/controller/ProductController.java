@@ -9,12 +9,15 @@ import com.minhtuan.commercemanager.model.Product;
 import com.minhtuan.commercemanager.services.CategoryService;
 import com.minhtuan.commercemanager.services.ImageDetailsService;
 import com.minhtuan.commercemanager.services.ProductService;
+import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -69,24 +72,27 @@ public class ProductController {
         product.setCategory(category);
         product.toString();
         productService.save(product);
-        return ResponseEntity.ok().body("OK");
+        return ResponseEntity.ok().body("Product has been created successfully");
     }
 
     @DeleteMapping("/product/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         Product product = productService.getProductById(id);
+        if (Objects.isNull(product)) {
+            throw new RuntimeException("Can't find Product");
+        }
         if (product.getOrderDetails().stream().count() == 0) {
             productService.delete(product);
-            return ResponseEntity.ok().body("NULL with id " + id);
+            return ResponseEntity.ok().body("Product has been deleted successfully");
         } else {
             product.setDeletestatus(1);
             productService.save(product);
-            return ResponseEntity.ok().body("NOT NULL with id " + id);
+            return ResponseEntity.ok().body("Delete Status has been set to 1");
         }
     }
 
     @GetMapping("/product/detail/{imageId}")
-    public ResponseEntity<?> getImageId(@PathVariable Integer imageId){
+    public ResponseEntity<?> getImageId(@PathVariable Long imageId){
         List<ImageDetail> list = productService.getImageId(imageId);
         return new ResponseEntity<> (list, HttpStatus.OK);
     }
@@ -97,12 +103,31 @@ public class ProductController {
             imageDetailsService.save(new ImageDetailsConverter().toEntity(s));
         });
 
-        return ResponseEntity.ok().body("OK");
+        return ResponseEntity.ok().body("Product Images has been created successfully");
+    }
+
+    @Transactional
+    @PutMapping("product/detail/{id}")
+    public ResponseEntity<?> putImage(@PathVariable Long id, @RequestBody List<ImageDetailsDTO> list) {
+        System.out.println(id);
+        System.out.println(list);
+
+        imageDetailsService.delete(id);
+
+        list.stream().forEach(s -> {
+            imageDetailsService.save(new ImageDetailsConverter().toEntity(s));
+        });
+
+        return ResponseEntity.ok().body("Product Images has been updated successfully");
     }
 
     @PutMapping("/product/{id}")
-    public ResponseEntity<?> updateProduct(@RequestBody ProductDTO dto, @PathVariable Long id) {
+    public ResponseEntity<?> updateProduct(@RequestBody ProductDTO dto,
+                                           @PathVariable Long id) {
         Product product = productService.getProductById(id);
+        if (Objects.isNull(product)) {
+            throw new RuntimeException("Can't find Product");
+        }
         product.setName(dto.getName());
         product.setPrice(dto.getPrice());
         product.setPromotion(dto.getPromotion());
@@ -112,7 +137,8 @@ public class ProductController {
         Category category = categoryService.findById(dto.getCategoryId());
         product.setCategory(category);
         product.toString();
+//        putImage(product.getId(), list);
         productService.save(product);
-        return ResponseEntity.ok().body("OK");
+        return ResponseEntity.ok().body("Product has been updated successfully");
     }
 }

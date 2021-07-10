@@ -101,6 +101,16 @@ export class AddCategoryComponent implements OnInit {
     return this.form.controls;
   }
 
+  checkCategoryName(name: string) {
+    let check = false;
+    this.categories.forEach((category) => {
+      if (category.categoryName === name) {
+        check = true;
+      }
+    })
+    return check;
+  }
+
   onSubmit() {
     this.submitted = true;
     if (this.f.invalid) {
@@ -109,7 +119,10 @@ export class AddCategoryComponent implements OnInit {
       if (this.f.name.value === '') {
         console.log("aaaaaaaaaa");
         this.notification = true;
-        this.message = 'Category name can not be blank ';
+        this.message = 'Category name can not be blank!';
+      } else if (this.checkCategoryName(this.f.name.value)) {
+        this.notification = true;
+        this.message = 'Category has already existed!';
       } else {
         if (this.isAddMode) {
           this.addCategory(this.f.name.value);

@@ -94,6 +94,26 @@
       </div>
     </div>
 
+    <div *ngIf="notification" class="modal">
+      <div class="modal-content">
+        <div class="container-modal">
+          <h1>Notification</h1>
+
+          <!-- <div *ngFor="let error of message">
+            <p>{{error}}</p>
+          </div> -->
+
+          <div>
+            <p>{{message}}</p>
+          </div>
+        
+          <div class="clearfix">
+            <button routerLink="../../products" type="button" class="okbtn">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="button-group">
       <button type="submit" class="registerbtn" style="margin-top: 20px">Edit</button>
       <button routerLink="../../products" class="cancelbtn">Cancel</button>

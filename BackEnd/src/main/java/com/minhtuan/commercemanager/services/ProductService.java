@@ -12,7 +12,7 @@ public interface ProductService {
     public Product getProductById(Long id);
     public ProductDTO getProductDTOById(Long id);
     public ProductDTO getProductByName(String name);
-    public List<ImageDetail> getImageId(Integer imageId);
+    public List<ImageDetail> getImageId(Long imageId);
     public Product save(Product product);
     public void delete(Product product);
 }

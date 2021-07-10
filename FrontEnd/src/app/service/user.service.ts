@@ -175,6 +175,13 @@ export class UserService {
               )
   }
 
+  updateProductDetails(id: number, list: ImageDetail[]): Observable<any> {
+    return this.http.put(API_URL + 'product/detail/' + id, list)
+              .pipe(
+                catchError(this.handleError)
+              )
+  }
+
   getOrderDetails(token: String,id: number): Observable<OrderDetail[]>{
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);

@@ -27,7 +27,7 @@ public class ImageDetailsServiceImp implements ImageDetailsService {
     }
 
     @Override
-    public void delete(Integer imageId) {
+    public void delete(Long imageId) {
         imageDetailRepository.deleteAllByImageid(imageId);
     }
 }

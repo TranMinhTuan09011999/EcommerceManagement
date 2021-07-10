@@ -9,5 +9,5 @@ public interface ImageDetailsService {
 
     public ImageDetail save(ImageDetail imageDetail);
     public void saveListImageDetails(List<ImageDetail> imageDetails);
-    public void delete(Integer imageId);
+    public void delete(Long imageId);
 }

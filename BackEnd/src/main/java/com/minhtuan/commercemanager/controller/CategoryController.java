@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -49,13 +50,16 @@ public class CategoryController {
     @DeleteMapping("/category/{id}")
     public ResponseEntity<?> deleteCategory(@PathVariable Long id) {
         Category category = categoryService.findById(id);
+        if (Objects.isNull(category)) {
+            throw new RuntimeException("Can't find Category");
+        }
         if (category.getProducts().stream().count() == 0) {
             categoryService.delete(id);
-            return ResponseEntity.ok().body("OK");
+            return ResponseEntity.ok().body("Category has been deleted successfully");
         } else {
             category.setDeletestatus(1);
             categoryService.save(category);
-            return ResponseEntity.badRequest().body("Cant delete");
+            return ResponseEntity.badRequest().body("Delete Status has been set to 1");
         }
     }
 
@@ -63,8 +67,11 @@ public class CategoryController {
     public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO) {
         System.out.println(categoryDTO.getCategoryName()+id);
         Category category = categoryService.findById(id);
+        if (Objects.isNull(category)) {
+            throw new RuntimeException("Can't find Category");
+        }
         category.setCategoryname(categoryDTO.getCategoryName());
         categoryService.save(category);
-        return ResponseEntity.ok().body("OK");
+        return ResponseEntity.ok().body("Category has been updated successfully");
     }
 }
