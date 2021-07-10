@@ -56,6 +56,14 @@ export class UserService {
                     );
   }
 
+  getCategoryById(id: number): Observable<Category>{
+    return this.http.get<Category>(API_URL + 'category/id/' + id)
+                    .pipe(
+                      retry(3),
+                      catchError(this.handleError)
+                    );
+  }
+
 
   getPromotionProduct(): Observable<Product[]>{
     return this.http.get<Product[]>(API_URL + 'promotion')
@@ -97,12 +105,27 @@ export class UserService {
                   );
   }
 
+  getProductById(id: number): Observable<Product>{
+    return this.http.get<Product>(API_URL + 'product/' + id)
+                  .pipe(
+                    retry(3),
+                    catchError(this.handleError)
+                  );
+  }
+
   getImageDetail(imageId: number): Observable<ImageDetail[]>{
     return this.http.get<ImageDetail[]>(API_URL + 'product/detail/' + imageId)
                   .pipe(
                     retry(3),
                     catchError(this.handleError)
                   );
+  }
+
+  createImageDetail(list: ImageDetail[]): Observable<any> {
+    return this.http.post<any>(API_URL + 'product/detail', list)
+          .pipe(
+            catchError(this.handleError)
+          );
   }
 
   getAllUsers(): Observable<User[]> {
@@ -129,6 +152,27 @@ export class UserService {
                   .pipe(
                     catchError(this.handleError)
                   )
+  }
+
+  createProduct(product: Product): Observable<any> {
+    return this.http.post<any>(API_URL + 'product', product)
+                  .pipe(
+                    catchError(this.handleError)
+                  )
+  }
+
+  deleteProduct(id: number): Observable<any> {
+    return this.http.delete(API_URL + 'product/' + id)
+                  .pipe(
+                    catchError(this.handleError)
+                  )
+  }
+
+  updateProduct(id: number, product: Product): Observable<any> {
+    return this.http.put(API_URL + 'product/' + id, product)
+              .pipe(
+                catchError(this.handleError)
+              )
   }
 
   getOrderDetails(token: String,id: number): Observable<OrderDetail[]>{

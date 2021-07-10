@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { FullProduct } from 'src/app/model/full-product';
+import { Category } from 'src/app/model/category';
 
 @Component({
   selector: 'app-edit-product',
@@ -22,6 +23,10 @@ export class EditProductComponent implements OnInit {
   imageId!: number;
   fullProduct!: FullProduct;
 
+  categories: Category[] = [];
+  categoryName!: string;
+  category!: Category;
+
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -34,20 +39,26 @@ export class EditProductComponent implements OnInit {
     this.form = this.formBuilder.group({
       id: [{value: '', disabled: true}],
       name: ['', Validators.required],
-      price: ['', [Validators.required]],
+      price: ['', [Validators.required, Validators.min(0)]],
       description: ['', Validators.required],
-      promotion: ['', [Validators.required, Validators.max(100)]],
+      promotion: ['', [Validators.required, Validators.max(100), Validators.min(0)]],
       image: ['', [Validators.required]],
       subImage1: ['', [Validators.required]],
       subImage2: ['', [Validators.required]],
       subImage3: ['', [Validators.required]]
     })
 
+    // this.getCategory();
+
     this.userService.getProductDetail(this.productName)
           .subscribe(
             (data: Product) => {
               this.product = data; 
               this.imageId = this.product.id;
+              this.userService.getCategoryById(data.categoryId)
+                .subscribe(s => {
+                  this.categoryName = s.categoryName;
+                })
               this.userService.getImageDetail(this.imageId)
                 .subscribe(
                   (data: ImageDetail[]) => {
@@ -72,6 +83,32 @@ export class EditProductComponent implements OnInit {
 
   get f() {
     return this.form.controls;
+  }
+
+  getCategory(){
+    this.userService.getCategory()
+          .subscribe(
+            (data: Category[]) => {
+              data.forEach(s => {
+                if (s.deletestatus !== 1) {
+                  this.categories.push(s);
+                }
+              });
+            },
+            error => {
+              console.log(error);
+            });
+  }
+
+  getCategoryByName(name: string) {
+    this.userService.getCategoryByName(name)
+          .subscribe(
+            (data: Category) => {
+              this.category = data; 
+            },
+            error => {
+              console.log(error);
+            });
   }
 
   onSubmit() {

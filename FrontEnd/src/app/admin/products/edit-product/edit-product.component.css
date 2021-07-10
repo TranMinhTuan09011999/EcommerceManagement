@@ -4,8 +4,20 @@
     margin-top: 10px;
   }
 
+  .left-col {
+    float: left;
+    width: 48%;
+    padding: 20px 1%;
+  }
+
+  .right-col {
+    float: right;
+    width: 48%;
+    padding: 20px 1%;
+  }
+
   
-  input[type=text], input[type=number], input[type=file], textarea{
+  input[type=text], input[type=number], input[type=file], textarea, select, option{
       width: 100%;
       padding: 15px;
       display: inline-block;
@@ -18,13 +30,13 @@
       outline: none;
     }
 
-    input[name=id]{
+    input[name=id], select, option{
         cursor: not-allowed;
-        background: rgb(182, 182, 182);
+        background: rgb(180, 180, 180);
     }
 
     textarea[name=description] {
-      height: 200px;
+      height: 250px;
     }
   
     label {
@@ -57,7 +69,7 @@
     }
 
     .button-group {
-        margin-left: 30%;
+        margin-left: 25%;
     }
     
     .registerbtn {
@@ -76,7 +88,8 @@
       background-color: #c43307;
       color: white;
       padding: 16px 20px;
-      margin: 8px 0 8px 10%;
+      /* margin: 8px 0 8px 10%; */
+      margin-top: 30px;
       border: none;
       cursor: pointer;
       width: 20%;
@@ -92,7 +105,7 @@
     
     .registerbtn:hover {
       letter-spacing: 4px;
-      background: rgb(88, 236, 100);
+      background: rgb(95, 136, 98);
       color: #111;
     }
 
