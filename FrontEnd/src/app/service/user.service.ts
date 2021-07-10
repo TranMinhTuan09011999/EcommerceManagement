@@ -194,15 +194,4 @@ export class UserService {
                       catchError(this.handleError)
                     );
   }
-
-  doesEmailExist(email: string): Observable<boolean> {
-    let url = `${API_URL}emailcheck`;
-
-    let content: any = {};
-    content.email = email;
-
-    let response$: Observable<boolean> = this.http.post<boolean>(url, content);
-
-    return response$;
-  }
 }
