@@ -97,7 +97,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderDTO> getListOrderByUserId(Long user_Id) throws Exception {
         User user = userService.findById(user_Id).orElseThrow();
-        List<Order> list = orderRepository.findOrdersByUser(user);
+        List<Order> list = orderRepository.findOrdersByUserOrderByIdDesc(user);
         List<OrderDTO> listDTO = new ArrayList<>();
         list.stream().forEach(
                 (s) -> {
