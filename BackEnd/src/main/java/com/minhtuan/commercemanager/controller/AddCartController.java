@@ -1,11 +1,13 @@
 package com.minhtuan.commercemanager.controller;
 
+import com.minhtuan.commercemanager.converter.AddCartConverter;
 import com.minhtuan.commercemanager.message.request.AddCartRequest;
 import com.minhtuan.commercemanager.message.request.ApiResponse;
 import com.minhtuan.commercemanager.model.AddCart;
 import com.minhtuan.commercemanager.model.DTO.AddCartDTO;
 import com.minhtuan.commercemanager.repository.CartRepository;
 import com.minhtuan.commercemanager.services.CartService;
+import com.minhtuan.commercemanager.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,7 +24,13 @@ public class AddCartController {
     private CartService cartService;
 
     @Autowired
+    private ProductService productService;
+
+    @Autowired
     private CartRepository cartRepository;
+
+    @Autowired
+    private AddCartConverter addCartConverter;
 
     @RequestMapping("/addProduct")
     @PreAuthorize("hasRole('USER')")
@@ -83,5 +91,13 @@ public class AddCartController {
         Long count = cartService.countCartByUserId(userId);
         String countStr = count.toString();
         return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/getCartByIdCart/{cartId}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> getCartByIdCart(@PathVariable Long cartId) throws Exception {
+        AddCart addCart = cartService.getCartById(cartId);
+        AddCartDTO addCartDTO = addCartConverter.toDTO(addCart);
+        return ResponseEntity.ok(addCartDTO);
     }
 }

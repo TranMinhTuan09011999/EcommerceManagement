@@ -22,6 +22,7 @@ public class ProductConverter {
         dto.setDescription(product.getDescription());
         dto.setPromotion(product.getPromotion());
         dto.setCategoryId(product.getCategory().getId());
+        dto.setQuantity(product.getQuantity());
         return dto;
     }
 
@@ -34,6 +35,7 @@ public class ProductConverter {
         product.setDescription(dto.getDescription());
         product.setImage(dto.getImage());
         product.setDeletestatus(dto.getDeletestatus());
+        product.setQuantity(dto.getQuantity());
 //        Category
         return product;
     }

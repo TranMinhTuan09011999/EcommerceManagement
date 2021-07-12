@@ -34,4 +34,6 @@ public class Product {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Collection<OrderDetails> orderDetails;
+
+    private Long quantity;
 }

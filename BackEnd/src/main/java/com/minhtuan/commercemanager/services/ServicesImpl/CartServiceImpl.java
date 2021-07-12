@@ -44,6 +44,8 @@ public class CartServiceImpl implements CartService {
             //TODO price has to check with qty
             obj.setPrice(price);
             cartRepository.save(obj);
+            Long update = obj.getProduct().getQuantity() - obj.getQuantity();
+            productService.updateProduct(obj.getProduct().getId(),update);
             return this.getCartByUserId(userId);
         }catch(Exception e) {
             e.printStackTrace();

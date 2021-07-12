@@ -27,7 +27,15 @@
                         <tbody *ngFor="let cart of carts">
                             <tr>
                                 <td>
-                                    <figure class="itemside">
+                                    <figure class="itemside" style="position: relative;">
+                                        <img class="promotion" src="assets/images/promotion.png" *ngIf="promotion(cart.product.promotion)">
+                                        <label style="position: absolute;
+                                        font-size: 17px;
+                                        font-weight: bold;
+                                        color: #eac22e;
+                                        left: -38px;
+                                        top: -15px;
+                                        z-index: 1;" *ngIf="promotion(cart.product.promotion)">-{{cart.product.promotion}}%</label>
                                         <div class="aside"><img src={{cart.product.image}} class="img-sm" style="width: 100px;"></div>
                                         <figcaption class="info" style="font-weight: 700;
                                         padding-top: 8px;">
@@ -38,13 +46,36 @@
                                 <td style="padding: 11px 0px 0px 6px;">
                                     <button class="btn btn-primary btn-sm quantity" (click)="decrease(cart.id,cart.quantity)">-</button> {{cart.quantity}}
                                     <button class="btn btn-primary btn-sm quantity" (click)="increase(cart.id,cart.quantity)">+</button>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Message</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    No more in stock
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!--button class="btn btn-primary btn-sm" (click)="_increamentQTY(item.productId._id,1)">+</button> {{ item.quantity }}
                                     <button class="btn btn-primary btn-sm">-</button-->
                                 </td>
                                 <td>
                                     <div class="price-wrap">
-                                        <var class="price">${{cart.price}}</var>
-                                        <small class="text-muted"> ${{cart.product.price}} each </small>
+                                        <div class="price-wrap" *ngIf="promotion(cart.product.promotion)">
+                                            <span class="price h5">${{cart.product.price - cart.product.price*1/cart.product.promotion}} </span>
+                                            <del class="price-old">${{cart.product.price}}</del>
+                                        </div>
+                                        <div class="price-wrap" *ngIf="!promotion(cart.product.promotion)">
+                                            <span class="price h5">${{cart.product.price}} </span>
+                                        </div>
                                     </div>
                                     <!-- price-wrap .// -->
                                 </td>
@@ -77,15 +108,15 @@
                     <div class="card-body">
                         <dl class="dlist-align">
                             <dt>Total price:</dt>
-                            <dd class="text-right">USD 568</dd>
+                            <dd class="text-right">${{totalCart}}</dd>
                         </dl>
                         <dl class="dlist-align">
                             <dt>Discount:</dt>
-                            <dd class="text-right">USD 658</dd>
+                            <dd class="text-right">${{totalDiscount}}</dd>
                         </dl>
                         <dl class="dlist-align">
                             <dt>Total:</dt>
-                            <dd class="text-right  h5"><strong>$1,650</strong></dd>
+                            <dd class="text-right  h5"><strong>${{totalAfterDis}}</strong></dd>
                         </dl>
                         <hr>
                     </div>

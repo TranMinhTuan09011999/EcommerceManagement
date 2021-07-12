@@ -15,4 +15,5 @@ public interface ProductService {
     public List<ImageDetail> getImageId(Long imageId);
     public Product save(Product product);
     public void delete(Product product);
+    public void updateProduct(Long id, Long quantity);
 }

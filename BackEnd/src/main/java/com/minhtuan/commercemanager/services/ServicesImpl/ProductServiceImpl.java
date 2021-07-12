@@ -1,6 +1,7 @@
 package com.minhtuan.commercemanager.services.ServicesImpl;
 
 import com.minhtuan.commercemanager.converter.ProductConverter;
+import com.minhtuan.commercemanager.model.AddCart;
 import com.minhtuan.commercemanager.model.DTO.ProductDTO;
 import com.minhtuan.commercemanager.model.ImageDetail;
 import com.minhtuan.commercemanager.model.Product;
@@ -86,5 +87,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(Product product) {
         productRepository.delete(product);
+    }
+
+    @Override
+    public void updateProduct(Long id, Long quantity) {
+        Product product = getProductById(id);
+        product.setQuantity(quantity);
+        productRepository.save(product);
     }
 }

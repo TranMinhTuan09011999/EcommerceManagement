@@ -7,4 +7,5 @@ export class Product {
     image!: string;
     deletestatus!: number;
     categoryId!: number;
+    quantity!: number;
 }
