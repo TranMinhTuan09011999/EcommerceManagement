@@ -62,6 +62,11 @@ public class OrderController {
         }
     }
 
+    @GetMapping("/listOrders")
+    public ResponseEntity<?> getAllOrders() {
+        return ResponseEntity.ok().body(orderService.getAllOrders());
+    }
+
     @GetMapping("/listOrder/{id}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> listOrder(@PathVariable Long id)
@@ -96,7 +101,7 @@ public class OrderController {
     }
 
     @GetMapping("/listOrderDetails/{OrderId}")
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getListOrderDetails(@PathVariable Long OrderId)
     {
         try {
