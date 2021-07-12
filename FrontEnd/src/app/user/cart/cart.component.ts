@@ -64,25 +64,52 @@ export class CartComponent implements OnInit {
   deleteCartById(id: number){
     this.token = this.tokenStorageService.getToken();
     const user = this.tokenStorageService.getUser();
-    this.cartService.deleteCartById(this.token, id)
-          .subscribe(
-            (data) => {
-              this.carts = data;
-              this.cartService.countCartById(this.token, user.id)
-                    .subscribe(
-                      (data) => {
-                        this.count = data;
-                        this.countService.changeCount(this.count);
-                      },
-                      error => {
-                        console.log(error);
-                      }
-                    );
-            },
-            error => {
-              console.log(error);
-            }
-          );
+    let cart: Cart;
+    let quantity: number;
+    let quantityCart: number;
+
+    this.cartService.getCartByIdCart(this.token, id)
+        .subscribe(
+          (data: Cart) => {
+            cart = data; 
+            console.log(cart);
+            quantity = cart.product.quantity;
+            console.log(quantity);
+            quantityCart = cart.quantity;
+            let quantityPro: number;
+            quantityPro = cart.product.quantity + cart.quantity;
+            this.userService.updateQuantityProduct(cart.product.id,quantityPro)
+                .subscribe(
+                  (data: Product) => {
+                    this.cartService.deleteCartById(this.token, id)
+                        .subscribe(
+                          (data) => {
+                            this.carts = data;
+                            this.cartService.countCartById(this.token, user.id)
+                                  .subscribe(
+                                    (data) => {
+                                      this.count = data;
+                                      this.countService.changeCount(this.count);
+                                    },
+                                    error => {
+                                      console.log(error);
+                                    }
+                                  );
+                          },
+                          error => {
+                            console.log(error);
+                          }
+                        );
+                  },
+                  error => {
+                  
+                  }
+                )
+          },
+          error => {
+                            
+          }
+        )
   }
 
   increase(id: number, index: number){
