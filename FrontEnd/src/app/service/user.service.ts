@@ -182,6 +182,14 @@ export class UserService {
               )
   }
 
+  getAllOrders(): Observable<Checkout[]> {
+    return this.http.get<Checkout[]>(API_URL_ + 'listOrders')
+                .pipe(
+                  retry(3),
+                  catchError(this.handleError)
+                );
+  }
+
   getOrderDetails(token: String,id: number): Observable<OrderDetail[]>{
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);

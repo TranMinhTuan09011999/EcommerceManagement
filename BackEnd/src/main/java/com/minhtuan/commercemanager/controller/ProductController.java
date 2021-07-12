@@ -123,6 +123,10 @@ public class ProductController {
         System.out.println(id);
         System.out.println(list);
 
+        if (Objects.isNull(productService.getProductById(id))) {
+            throw new RuntimeException("Product not found");
+        }
+
         imageDetailsService.delete(id);
 
         list.stream().forEach(s -> {

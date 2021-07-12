@@ -17,13 +17,14 @@ export class ListProductComponent implements OnInit {
 
   categoryName: string = '';
 
-  pageNumber: number = 1;
+  
 
   filter!: string;
 
   clickedDelete = false;
   id!: number;
 
+  pageNumber: number = 1;
   config = {id: 'pagination', itemsPerPage: 5, currentPage: this.pageNumber}
 
   constructor(private route: ActivatedRoute, 
