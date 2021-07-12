@@ -9,3 +9,11 @@
     border: none;
     margin: 0 5px;
 }
+
+.promotion {
+    position: absolute;
+    height: 63px;
+    left: -70px;
+    top: -33px;
+    z-index: 1;
+}

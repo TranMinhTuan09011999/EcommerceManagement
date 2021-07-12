@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Cart } from 'src/app/cart';
+import { Product } from 'src/app/model/product';
 import { CartService } from 'src/app/service/cart.service';
 import { CountService } from 'src/app/service/count.service';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-cart',
@@ -14,8 +16,11 @@ export class CartComponent implements OnInit {
   token: any;
   indexStr!: String;
   count!: number;
+  totalCart: number = 0;
+  totalDiscount: number = 0;
+  totalAfterDis: number = 0;
 
-  constructor(private cartService: CartService, private tokenStorageService: TokenStorageService, private countService: CountService) { }
+  constructor(private cartService: CartService, private userService: UserService, private tokenStorageService: TokenStorageService, private countService: CountService) { }
 
   ngOnInit(): void {
     const user = this.tokenStorageService.getUser();
@@ -32,6 +37,9 @@ export class CartComponent implements OnInit {
               console.log(data);
               this.carts = data; 
               this.countCartById();
+              this.total();
+              this.totalDis();
+              this.totalAfterDis = this.totalCart - this.totalDiscount;
             },
             error => {
               console.log(error);
@@ -79,21 +87,51 @@ export class CartComponent implements OnInit {
 
   increase(id: number, index: number){
     this.token = this.tokenStorageService.getToken();
-    index++;
-    this.cartService.updateCartById(this.token, id, index)
+    let cart: Cart;
+    let quantity: number;
+    this.cartService.getCartByIdCart(this.token, id)
+    .subscribe(
+      (data: Cart) => {
+        cart = data; 
+        console.log(cart);
+        quantity = cart.product.quantity;
+        console.log(quantity);
+        if(quantity == 0)
+        {
+          window.confirm("Sorry, no more product in stock!!!");
+        }else{
+          index++;
+          this.cartService.updateCartById(this.token, id, index)
           .subscribe(
             (data: Cart[]) => {
               this.carts = data; 
+              let quantityAfter = quantity - 1;
+              this.userService.updateQuantityProduct(cart.product.id,quantityAfter)
+                .subscribe(
+                  (data: Product) => {
+                    
+                  },
+                  error => {
+                  
+                  }
+                )
             },
             error => {
               console.log(error);
             }
           );
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   decrease(id: number, index: number){
     this.token = this.tokenStorageService.getToken();
-    index--;
+    if(index > 1){
+      index--;
     this.cartService.updateCartById(this.token, id, index)
           .subscribe(
             (data) => {
@@ -103,6 +141,29 @@ export class CartComponent implements OnInit {
               console.log(error);
             }
           );
+    }
+  }
+
+  promotion(price: number){
+    if(price > 0)
+    {
+      return true;
+    }else
+    {
+      return false;
+    }
+  }
+
+  total(){
+    for(let cart of this.carts){
+      this.totalCart += (cart.product.price*cart.quantity);
+    }
+  }
+
+  totalDis(){
+    for(let cart of this.carts){
+      this.totalDiscount += (cart.product.price*cart.product.promotion/100*cart.quantity);
+    }
   }
 
   reloadPage(): void {

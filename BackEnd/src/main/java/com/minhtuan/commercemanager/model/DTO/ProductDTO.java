@@ -17,4 +17,5 @@ public class ProductDTO {
     private String image;
     private Integer deletestatus;
     private Long categoryId;
+    private Long quantity;
 }

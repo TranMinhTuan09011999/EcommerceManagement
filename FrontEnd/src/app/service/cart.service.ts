@@ -100,6 +100,16 @@ export class CartService {
                     );
   }
 
+  getCartByIdCart(token: String, cartId: number):Observable<Cart>{
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<Cart>(API_URL + 'getCartByIdCart/' + cartId,{headers: headers})
+                    .pipe(
+                      retry(3),
+                      catchError(this.handleError)
+                    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

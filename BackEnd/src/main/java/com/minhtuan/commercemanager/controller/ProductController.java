@@ -1,7 +1,11 @@
 package com.minhtuan.commercemanager.controller;
 
 import com.minhtuan.commercemanager.converter.ImageDetailsConverter;
+import com.minhtuan.commercemanager.converter.ProductConverter;
+import com.minhtuan.commercemanager.message.request.ApiResponse;
+import com.minhtuan.commercemanager.model.AddCart;
 import com.minhtuan.commercemanager.model.Category;
+import com.minhtuan.commercemanager.model.DTO.AddCartDTO;
 import com.minhtuan.commercemanager.model.DTO.ImageDetailsDTO;
 import com.minhtuan.commercemanager.model.DTO.ProductDTO;
 import com.minhtuan.commercemanager.model.ImageDetail;
@@ -13,9 +17,11 @@ import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,6 +37,9 @@ public class ProductController {
 
     @Autowired
     private ImageDetailsService imageDetailsService;
+
+    @Autowired
+    private ProductConverter productConverter;
 
     @GetMapping("/promotion")
     public ResponseEntity<?> getPromotion(){
@@ -68,6 +77,7 @@ public class ProductController {
         product.setDescription(dto.getDescription());
         product.setImage(dto.getImage());
         product.setDeletestatus(dto.getDeletestatus());
+        product.setQuantity(dto.getQuantity());
         Category category = categoryService.findById(dto.getCategoryId());
         product.setCategory(category);
         product.toString();
@@ -135,11 +145,30 @@ public class ProductController {
         product.setDescription(dto.getDescription());
         product.setImage(dto.getImage());
         product.setDeletestatus(dto.getDeletestatus());
+        product.setQuantity(dto.getQuantity());
         Category category = categoryService.findById(dto.getCategoryId());
         product.setCategory(category);
         product.toString();
 //        putImage(product.getId(), list);
         productService.save(product);
         return ResponseEntity.ok().body("Product has been updated successfully");
+    }
+
+    @PutMapping("/product/updateQuantity/{idProduct}")
+    public ResponseEntity<?> updateQuantityProduct(@PathVariable long idProduct, @RequestBody HashMap<String, Long> Quantity)
+    {
+        try {
+            String keys[] = { "quantity" };
+            Product product = productService.getProductById(idProduct);
+            Long quantity = Quantity.get("quantity");
+            product.setQuantity(quantity);
+            Product updateProduct = productService.save(product);
+            ProductDTO productDTO = productConverter.toDTO(updateProduct);
+            return ResponseEntity.ok(productDTO);
+            //return ResponseEntity.ok("Update quantity successly");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(new ApiResponse(e.getMessage(), ""));
+        }
     }
 }

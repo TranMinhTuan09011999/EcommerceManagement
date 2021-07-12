@@ -212,4 +212,11 @@ export class UserService {
 
     return response$;
   }
+
+  updateQuantityProduct(id: number, quantity: number): Observable<Product>{
+    return this.http.put<Product>(API_URL + 'product/updateQuantity/' + id, {quantity})
+              .pipe(
+                catchError(this.handleError)
+              )
+  }
 }
