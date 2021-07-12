@@ -9,6 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
+
+    List<Category> findAllByOrderByIdDesc();
+
     Category findCategoryByCategoryname(String categoryName);
 
     Category findCategoryById(Long id);

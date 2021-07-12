@@ -23,7 +23,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryDTO> getCategory() {
-        List<Category> list = categoryRepository.findAll();
+        List<Category> list = categoryRepository.findAllByOrderByIdDesc();
         List<CategoryDTO> listDTO = new ArrayList<CategoryDTO>();
         list.stream().forEach(s -> {
             CategoryDTO dto = categoryConverter.toDTO(s);

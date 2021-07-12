@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> getAllProducts() {
-        List<Product> list =  productRepository.findAll();
+        List<Product> list =  productRepository.findAllByOrderByIdDesc();
         List<ProductDTO> listDTO = new ArrayList<>();
         list.stream().forEach(
                 (s) -> {
@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> getProductPromotion() {
-        List<Product> list = productRepository.findTop8ByPromotionGreaterThanOrderByPromotion(0);
+        List<Product> list = productRepository.findTop8ByPromotionGreaterThanOrderByIdDesc(0);
 
         List<ProductDTO> listDTO = new ArrayList<ProductDTO>();
 
