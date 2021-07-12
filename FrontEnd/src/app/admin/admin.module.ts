@@ -13,6 +13,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { EditProductComponent } from './products/edit-product/edit-product.component';
 import { AddProductComponent } from './products/add-product/add-product.component';
 import { UsersComponent } from './users/users.component';
+import { OrderlistComponent } from './order/orderlist/orderlist.component';
+import { OrderDetailComponent } from './order/order-detail/order-detail.component';
 
 
 @NgModule({
@@ -23,6 +25,8 @@ import { UsersComponent } from './users/users.component';
     AddProductComponent,
     ListCategoriesComponent,
     AddCategoryComponent,
+    OrderlistComponent,
+    OrderDetailComponent,
     UsersComponent,
     HomeComponent
   ],

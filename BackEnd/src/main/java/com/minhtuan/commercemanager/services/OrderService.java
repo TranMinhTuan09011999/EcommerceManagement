@@ -7,6 +7,8 @@ import com.minhtuan.commercemanager.model.Order;
 import java.util.List;
 
 public interface OrderService {
+    List<OrderDTO> getAllOrders();
+
     OrderDTO addOrder(OrderDTO orderDTO) throws Exception;
 
     Order getOrderById(Long id) throws Exception;
