@@ -50,6 +50,16 @@ public class OrderServiceImpl implements OrderService {
     private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     @Override
+    public List<OrderDTO> getAllOrders() {
+        List<Order> list = orderRepository.findAll();
+        List<OrderDTO> dtoList = new ArrayList<>();
+        list.stream().forEach(s -> {
+            dtoList.add(orderConverter.toDTO(s));
+        });
+        return dtoList;
+    }
+
+    @Override
     public OrderDTO addOrder(OrderDTO orderDTO) throws Exception {
         try {
             Order obj = new Order();
