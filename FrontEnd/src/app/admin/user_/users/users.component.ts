@@ -14,6 +14,7 @@ export class UsersComponent implements OnInit {
   filter: any;
   pageNumber: number = 1;
   clickedDelete = false;
+  id!: number;
 
   constructor(private userService: UserService,
               private tokenStorageService: TokenStorageService) { }
@@ -42,5 +43,17 @@ export class UsersComponent implements OnInit {
             error => {
               console.log(error);
             });
+  }
+
+  deleteUser(id: number) {
+    this.userService.deleteUser(id)
+      .subscribe(
+        (data) => {
+          
+        },
+        error => {
+          console.log(error);
+        });
+      window.location.reload();
   }
 }
