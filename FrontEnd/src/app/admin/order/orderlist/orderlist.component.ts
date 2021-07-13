@@ -80,6 +80,20 @@ export class OrderlistComponent implements OnInit {
       });
   }
 
+  confirm(id: number)
+  {
+    this.token = this.tokenStorageService.getToken();
+    this.userService.cancel(this.token,id,2)
+    .subscribe(
+      (data: Checkout) => {
+        this.order = data;
+        this.getOrderListByUserId(this.order.user_id);
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
   reloadPage(): void {
     window.location.reload();
   }
