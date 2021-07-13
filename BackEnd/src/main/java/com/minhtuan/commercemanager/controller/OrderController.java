@@ -81,7 +81,7 @@ public class OrderController {
     }
 
     @PutMapping("/listOrder/cancel/{id}")
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> cancel(@PathVariable long id, @RequestBody HashMap<String, Integer> status)
     {
         try {

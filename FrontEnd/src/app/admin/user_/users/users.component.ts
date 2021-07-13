@@ -32,10 +32,11 @@ export class UsersComponent implements OnInit {
               this.users = data; 
               this.users.forEach((user, index) => {
                 let temp = this.tokenStorageService.getUser();
+                if (user.deletestatus === 1) {
+                  this.users.splice(index, 1);
+                }
                 if (user.id === temp.id) {
                   this.users.splice(index, 1);
-                  console.log("11111111111 " + temp.id);
-                  console.log(this.users);
                 }
               })
               console.log(this.users);

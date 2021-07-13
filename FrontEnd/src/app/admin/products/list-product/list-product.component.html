@@ -19,6 +19,7 @@
       <tr>
         <td>Id</td>
         <td>Name</td>
+        <td>Quantity</td>
         <td>Price</td>
         <td>Sale</td>
         <td style="text-align: center; width: 10%;">Image</td>
@@ -32,6 +33,7 @@
       <tr *ngFor="let product of products | filter: filter | paginate: config">
         <td>{{product.id}}</td>
         <td>{{product.name}}</td>
+        <td style="font-size: larger; color: crimson;"><strong>{{product.quantity}}</strong></td>
         <td>{{product.price}}</td>
         <td>{{product.promotion}}</td>
         <td style="text-align: center; width: 10%;"><img src="{{product.image}}" height="100px" width="auto"></td>
