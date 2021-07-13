@@ -12,6 +12,8 @@ import { UserService } from 'src/app/service/user.service';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
+
+//TODO: Add Search function to Product page
 export class ProductComponent implements OnInit {
 
   productName: String = '';

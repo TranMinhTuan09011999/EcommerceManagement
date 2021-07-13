@@ -1,3 +1,4 @@
+import { Checkout } from "../checkout";
 import { Role } from "./role";
 
 export class User {
@@ -10,4 +11,7 @@ export class User {
     firstname!: string;
     lastname!: string;
     roles!: Role;
+    deletestatus!: number;
+    reset_token!: string;
+    orders!: Checkout[]; 
 }

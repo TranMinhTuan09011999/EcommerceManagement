@@ -8,6 +8,7 @@ import { UserService } from 'src/app/service/user.service';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
+
 export class UsersComponent implements OnInit {
   users: User[] = [];
   filter: any;
@@ -26,6 +27,7 @@ export class UsersComponent implements OnInit {
     this.userService.getAllUsers()
           .subscribe(
             (data: User[]) => {
+              console.log(data);
               this.users = data; 
               this.users.forEach((user, index) => {
                 let temp = this.tokenStorageService.getUser();

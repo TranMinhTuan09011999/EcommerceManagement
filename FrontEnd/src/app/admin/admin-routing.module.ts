@@ -7,9 +7,10 @@ import { ListProductComponent } from './products/list-product/list-product.compo
 import { EditProductComponent } from './products/edit-product/edit-product.component';
 import { AddProductComponent } from './products/add-product/add-product.component';
 import { AddCategoryComponent } from './categories/add-category/add-category.component';
-import { UsersComponent } from './users/users.component';
 import { OrderlistComponent } from './order/orderlist/orderlist.component';
 import { OrderDetailComponent } from './order/order-detail/order-detail.component';
+import { UsersComponent } from './user_/users/users.component';
+import { EditUserComponent } from './user_/edit-user/edit-user.component';
 
 const routes: Routes = [
   { path: 'admin', component: AdminComponent, 
@@ -22,8 +23,9 @@ const routes: Routes = [
         {path: 'add-category', component: AddCategoryComponent},
         {path: 'edit-category/:name', component: AddCategoryComponent},
         {path: 'users', component: UsersComponent},
+        {path: 'edit-user/:id', component: EditUserComponent},
         {path: 'orderlist', component: OrderlistComponent},
-        { path: 'orderDetail/:id', component: OrderDetailComponent },
+        {path: 'orderDetail/:id', component: OrderDetailComponent },
       ]}
 ];
 

@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'productlist/:name', component: ProductlistComponent },
   { path: 'orderlist', component: OrderlistComponent },
   { path: 'orderDetail/:id', component: OrderDetailComponent },
-  /*{ path: '', redirectTo: 'productlist', pathMatch: 'full' },*/
+  //TODO: Add interceptor and Page Not Found Page
   // { path: '**', component: PageNotFoundComponent},
   { path: '', redirectTo: 'admin', pathMatch: 'full' },
 ];
