@@ -39,8 +39,8 @@
           <td>{{user.address}}</td>
           <td>{{user.roles[0].name.substr(5)}}</td>
           <td>
-            <button class="btn btn-danger" (click)="clickedDelete = !clickedDelete">Delete</button>
-            <button class="btn btn-primary">Edit</button>
+            <button class="btn btn-danger" (click)="clickedDelete = !clickedDelete; id = user.id">Delete</button>
+            <button routerLink="../edit-user/{{user.id}}" class="btn btn-primary">Edit</button>
           </td>
         </tr>
       </tbody>
@@ -54,7 +54,7 @@
         <p>Are you sure you want to delete this User?</p>
         <p>This can't be undo!</p>
         <div>
-          <button type="button" class="deletebtn" >Yes</button>
+          <button type="button" class="deletebtn" (click)="deleteUser(id)" >Yes</button>
           <button type="button" class="cancelbtn" (click)="clickedDelete = !clickedDelete">No</button>
         </div>
       </div>

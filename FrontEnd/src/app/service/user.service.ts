@@ -135,6 +135,26 @@ export class UserService {
                     catchError(this.handleError))
   }
 
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(API_URL + id)
+                .pipe(
+                  retry(3),
+                  catchError(this.handleError))
+  }
+
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete(API_URL + id)
+                  .pipe(
+                    catchError(this.handleError))
+  }
+
+  updateUser(id: number, user: User): Observable<any> {
+    return this.http.put<any>(API_URL  + id, user)
+                  .pipe(
+                    catchError(this.handleError)
+                  )
+  }
+
   createCategory(category: Category): Observable<Category> {
     return this.http.post<Category>(API_URL + 'add-category', category)
                   .pipe(

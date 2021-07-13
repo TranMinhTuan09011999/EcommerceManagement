@@ -11,6 +11,8 @@ import { OrderDetail } from 'src/app/order-detail';
   templateUrl: './orderlist.component.html',
   styleUrls: ['./orderlist.component.css']
 })
+
+//TODO: Update all status of order in admin
 export class OrderlistComponent implements OnInit {
   [x: string]: any;
 
