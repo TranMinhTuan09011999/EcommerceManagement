@@ -1,6 +1,7 @@
 import { Category } from './../../../model/category';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/service/user.service';
+import { TokenStorageService } from 'src/app/service/token-storage.service';
 
 @Component({
   selector: 'app-list-categories',
@@ -15,8 +16,9 @@ export class ListCategoriesComponent implements OnInit {
   
   id!: number;
   clickedDelete = false;
+  token!: any;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
     this.getCategory();
@@ -49,7 +51,8 @@ export class ListCategoriesComponent implements OnInit {
   }
 
   deleteCategory(id: number) {
-    this.userService.deleteCategory(id)
+    this.token = this.tokenStorageService.getToken();
+    this.userService.deleteCategory(this.token,id)
           .subscribe(
             (data) => {
               

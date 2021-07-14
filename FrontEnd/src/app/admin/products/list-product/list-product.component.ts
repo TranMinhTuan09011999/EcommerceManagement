@@ -3,6 +3,7 @@ import { Category } from '../../../model/category';
 import { ActivatedRoute } from '@angular/router';
 import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { UserService } from 'src/app/service/user.service';
+import { TokenStorageService } from 'src/app/service/token-storage.service';
 
 @Component({
   selector: 'app-list-product',
@@ -23,12 +24,14 @@ export class ListProductComponent implements OnInit {
 
   clickedDelete = false;
   id!: number;
+  token!: any;
 
   pageNumber: number = 1;
   config = {id: 'pagination', itemsPerPage: 5, currentPage: this.pageNumber}
 
   constructor(private route: ActivatedRoute, 
-              private userService: UserService) { }
+              private userService: UserService,
+              private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -94,7 +97,8 @@ export class ListProductComponent implements OnInit {
   }
 
   deleteProduct(id: number) {
-    this.userService.deleteProduct(id)
+    this.token = this.tokenStorageService.getToken();
+    this.userService.deleteProduct(this.token,id)
       .subscribe(
         (data) => {
           

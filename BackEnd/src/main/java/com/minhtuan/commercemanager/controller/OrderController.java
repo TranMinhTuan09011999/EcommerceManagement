@@ -63,6 +63,7 @@ public class OrderController {
     }
 
     @GetMapping("/listOrders")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAllOrders() {
         return ResponseEntity.ok().body(orderService.getAllOrders());
     }
@@ -81,7 +82,7 @@ public class OrderController {
     }
 
     @PutMapping("/listOrder/cancel/{id}")
-//    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> cancel(@PathVariable long id, @RequestBody HashMap<String, Integer> status)
     {
         try {
@@ -101,7 +102,7 @@ public class OrderController {
     }
 
     @GetMapping("/listOrderDetails/{OrderId}")
-//    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> getListOrderDetails(@PathVariable Long OrderId)
     {
         try {

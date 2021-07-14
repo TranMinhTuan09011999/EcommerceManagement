@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/model/user';
 import { AuthService } from 'src/app/service/auth.service';
+import { TokenStorageService } from 'src/app/service/token-storage.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -18,12 +19,14 @@ export class EditUserComponent implements OnInit {
   notification = false;
   message!: string;
   submitted = false;
+  token!: any;
 
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -43,7 +46,8 @@ export class EditUserComponent implements OnInit {
   }
 
   getUserById(id: number) {
-    this.userService.getUserById(id)
+    this.token = this.tokenStorageService.getToken();
+    this.userService.getUserById(this.token, id)
       .subscribe((data) => {
         this.user = data;
         console.log(this.user);
@@ -58,7 +62,8 @@ export class EditUserComponent implements OnInit {
   }
 
   updateUser(id: number, user: User) {
-    this.userService.updateUser(id, user)
+    this.token = this.tokenStorageService.getToken();
+    this.userService.updateUser(this.token, id, user)
           .subscribe(
             (data) => {
               // this.userService.updateProductDetails(id, this.imageDetails);           

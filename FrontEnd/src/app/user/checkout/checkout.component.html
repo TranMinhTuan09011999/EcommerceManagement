@@ -14,7 +14,7 @@
                                     <figcaption class="info" style="font-weight: 700;
                                     padding-top: 18px;">
                                         <p>{{cart.product.name}} </p>
-                                        <span class="text-muted">{{cart.quantity}}x = ${{cart.quantity*cart.product.price}} </span>
+                                        <span class="text-muted">{{cart.quantity}}x = {{cart.quantity*cart.product.price | currency}} </span>
                                     </figcaption>
                                 </figure>
                             </div>
@@ -72,7 +72,7 @@
                         <hr>
                         <dl class="dlist-align">
                             <dt>Total:</dt>
-                            <dd class="h5">${{total}}</dd>
+                            <dd class="h5">{{total | currency}}</dd>
                         </dl>
                         <hr>
                         <p class="small mb-3 text-muted">By clicking you are agree with terms of condition </p>

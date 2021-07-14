@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { FullProduct } from 'src/app/model/full-product';
 import { Category } from 'src/app/model/category';
+import { TokenStorageService } from 'src/app/service/token-storage.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -30,12 +31,14 @@ export class EditProductComponent implements OnInit {
 
   notification = false;
   message = '';
+  token!: any;
 
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
     this.productName = this.route.snapshot.params['name'];
@@ -116,7 +119,8 @@ export class EditProductComponent implements OnInit {
   }
 
   updateProduct(id: number, product: Product) {
-    this.userService.updateProduct(id, product)
+    this.token = this.tokenStorageService.getToken();
+    this.userService.updateProduct(this.token, id, product)
           .subscribe(
             (data) => {
               // this.userService.updateProductDetails(id, this.imageDetails);           
@@ -126,7 +130,7 @@ export class EditProductComponent implements OnInit {
             });
     
     
-    this.userService.updateProductDetails(this.product.id, this.list)
+    this.userService.updateProductDetails(this.token, this.product.id, this.list)
           .subscribe(
             (data) => {
 

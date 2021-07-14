@@ -47,8 +47,6 @@ public class ProductController {
         return new ResponseEntity<> (productList, HttpStatus.OK);
     }
 
-
-
     @GetMapping("/products")
     public ResponseEntity<?> getAllProducts() {
         Iterable<ProductDTO> list = productService.getAllProducts();
@@ -56,8 +54,8 @@ public class ProductController {
     }
 
     @GetMapping("/get-product/{id}")
-    public ResponseEntity<?> getProductById(@PathVariable Long productId){
-        ProductDTO productDTO = productService.getProductDTOById(productId);
+    public ResponseEntity<?> getProductById(@PathVariable Long id){
+        ProductDTO productDTO = productService.getProductDTOById(id);
         return new ResponseEntity<> (productDTO, HttpStatus.OK);
     }
 
@@ -65,41 +63,6 @@ public class ProductController {
     public ResponseEntity<?> getProductName(@PathVariable String productName){
         ProductDTO productDTO = productService.getProductByName(productName);
         return new ResponseEntity<> (productDTO, HttpStatus.OK);
-    }
-
-    @PostMapping("/product")
-    public ResponseEntity<?> createProduct(@RequestBody ProductDTO dto) {
-        System.out.println(dto.toString());
-        Product product = new Product();
-        product.setName(dto.getName());
-        product.setPrice(dto.getPrice());
-        product.setPromotion(dto.getPromotion());
-        product.setDescription(dto.getDescription());
-        product.setImage(dto.getImage());
-        product.setDeletestatus(dto.getDeletestatus());
-        product.setQuantity(dto.getQuantity());
-        Category category = categoryService.findById(dto.getCategoryId());
-        product.setCategory(category);
-        product.toString();
-        productService.save(product);
-        return ResponseEntity.ok().body("Product has been created successfully");
-    }
-
-    @DeleteMapping("/product/{id}")
-    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
-        Product product = productService.getProductById(id);
-        if (Objects.isNull(product)) {
-            throw new RuntimeException("Can't find Product");
-        }
-        if (product.getOrderDetails().stream().count() == 0) {
-            imageDetailsService.delete(product.getId());
-            productService.delete(product);
-            return ResponseEntity.ok().body("Product has been deleted successfully");
-        } else {
-            product.setDeletestatus(1);
-            productService.save(product);
-            return ResponseEntity.ok().body("Delete Status has been set to 1");
-        }
     }
 
     @GetMapping("/product/detail/{imageId}")
@@ -115,47 +78,6 @@ public class ProductController {
         });
 
         return ResponseEntity.ok().body("Product Images has been created successfully");
-    }
-
-    @Transactional
-    @PutMapping("product/detail/{id}")
-    public ResponseEntity<?> putImage(@PathVariable Long id, @RequestBody List<ImageDetailsDTO> list) {
-        System.out.println(id);
-        System.out.println(list);
-
-        if (Objects.isNull(productService.getProductById(id))) {
-            throw new RuntimeException("Product not found");
-        }
-
-        imageDetailsService.delete(id);
-
-        list.stream().forEach(s -> {
-            imageDetailsService.save(new ImageDetailsConverter().toEntity(s));
-        });
-
-        return ResponseEntity.ok().body("Product Images has been updated successfully");
-    }
-
-    @PutMapping("/product/{id}")
-    public ResponseEntity<?> updateProduct(@RequestBody ProductDTO dto,
-                                           @PathVariable Long id) {
-        Product product = productService.getProductById(id);
-        if (Objects.isNull(product)) {
-            throw new RuntimeException("Can't find Product");
-        }
-        product.setName(dto.getName());
-        product.setPrice(dto.getPrice());
-        product.setPromotion(dto.getPromotion());
-        product.setDescription(dto.getDescription());
-        product.setImage(dto.getImage());
-        product.setDeletestatus(dto.getDeletestatus());
-        product.setQuantity(dto.getQuantity());
-        Category category = categoryService.findById(dto.getCategoryId());
-        product.setCategory(category);
-        product.toString();
-//        putImage(product.getId(), list);
-        productService.save(product);
-        return ResponseEntity.ok().body("Product has been updated successfully");
     }
 
     @PutMapping("/product/updateQuantity/{idProduct}")
