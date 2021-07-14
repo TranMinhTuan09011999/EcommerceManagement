@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Cart } from 'src/app/cart';
 import { CartService } from 'src/app/service/cart.service';
+import { CountService } from 'src/app/service/count.service';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
 
 
@@ -20,8 +21,9 @@ export class CheckoutComponent implements OnInit {
   dataForm!: FormGroup;
   today= new Date();
   jstoday = '';
+  count!: any;
   
-  constructor(private cartService: CartService, private tokenStorageService: TokenStorageService, private fb: FormBuilder, private router : Router) { }
+  constructor(private cartService: CartService, private tokenStorageService: TokenStorageService, private fb: FormBuilder, private router : Router, private countService: CountService) { }
 
   ngOnInit(): void {
     const user = this.tokenStorageService.getUser();
@@ -47,7 +49,7 @@ export class CheckoutComponent implements OnInit {
 
   getTotal(){
     for(let cart of this.carts){
-      this.total += (cart.quantity*cart.product.price);
+      this.total += cart.quantity*(cart.product.price - cart.product.price*cart.product.promotion/100);;
     }
   }
 
@@ -59,6 +61,16 @@ export class CheckoutComponent implements OnInit {
         .subscribe(
           (data) => {
             console.log(data);
+            this.cartService.countCartById(this.token, user.id)
+                                  .subscribe(
+                                    (data) => {
+                                      this.count = data;
+                                      this.countService.changeCount(this.count);
+                                    },
+                                    error => {
+                                      console.log(error);
+                                    }
+                                  );
             this.router.navigate(['/orderlist']);
           },
           error => {
@@ -71,7 +83,7 @@ export class CheckoutComponent implements OnInit {
     this.dataForm = this.fb.group({
       receiver: ['', [Validators.required]],   
       address: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required]]
+      phoneNumber: ['', [Validators.required, Validators.pattern("^[_0-9]{10}")]],
     })
   }
   

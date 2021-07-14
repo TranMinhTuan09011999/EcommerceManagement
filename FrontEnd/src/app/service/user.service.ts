@@ -155,10 +155,10 @@ export class UserService {
                     catchError(this.handleError))
   }
 
-  updateUser(token: String, id: number, user: User): Observable<any> {
+  updateUser(token: String, id: number, user: User): Observable<User> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.put<any>(API_URL_ADMIN  + id, user, { headers: headers})
+    return this.http.put<User>(API_URL_ADMIN  + id, user, { headers: headers})
                   .pipe(
                     catchError(this.handleError)
                   )
