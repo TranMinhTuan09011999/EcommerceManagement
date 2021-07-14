@@ -21,6 +21,7 @@ import { ProductlistComponent } from './user/productlist/productlist.component';
 import { OrderlistComponent } from './user/orderlist/orderlist.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OrderDetailComponent } from './user/order-detail/order-detail.component';
+import { ChangeInfoComponent } from './user/change-info/change-info.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { OrderDetailComponent } from './user/order-detail/order-detail.component
     OrderlistComponent,
     PageNotFoundComponent,
     OrderDetailComponent,
+    ChangeInfoComponent,
   ],
   imports: [
     BrowserModule,

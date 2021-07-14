@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Cart } from 'src/app/cart';
 import { Product } from 'src/app/model/product';
 import { CartService } from 'src/app/service/cart.service';
@@ -19,8 +20,9 @@ export class CartComponent implements OnInit {
   totalCart: number = 0;
   totalDiscount: number = 0;
   totalAfterDis: number = 0;
+  able: boolean = true;
 
-  constructor(private cartService: CartService, private userService: UserService, private tokenStorageService: TokenStorageService, private countService: CountService) { }
+  constructor(private router : Router, private cartService: CartService, private userService: UserService, private tokenStorageService: TokenStorageService, private countService: CountService) { }
 
   ngOnInit(): void {
     const user = this.tokenStorageService.getUser();
@@ -54,6 +56,10 @@ export class CartComponent implements OnInit {
             (data) => {
               this.count = data;
               this.countService.changeCount(this.count);
+              if(this.count == 0)
+              {
+                this.able = false;
+              }
             },
             error => {
               console.log(error);
@@ -222,6 +228,16 @@ export class CartComponent implements OnInit {
   totalDis(){
     for(let cart of this.carts){
       this.totalDiscount += (cart.product.price*cart.product.promotion/100*cart.quantity);
+    }
+  }
+
+  checkout(){
+    if(this.count == 0)
+    {
+      window.confirm("Cart is empty!!!");
+    }else
+    {
+      this.router.navigate(['cart/checkout'])
     }
   }
 
