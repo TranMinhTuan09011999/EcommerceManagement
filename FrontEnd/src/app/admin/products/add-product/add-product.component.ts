@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/model/category';
 import { ImageDetail} from 'src/app/model/image-detail';
+import { TokenStorageService } from 'src/app/service/token-storage.service';
 
 @Component({
   selector: 'app-add-product',
@@ -25,6 +26,7 @@ export class AddProductComponent implements OnInit {
   categories: Category[] = [];
   categoryName: string = '';
   category!: Category;
+  token: any;
 
   notification = false;
   clickedCancel = false;
@@ -36,7 +38,8 @@ export class AddProductComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -118,7 +121,8 @@ export class AddProductComponent implements OnInit {
     product.deletestatus = 0;
     product.categoryId = this.category.id;
     console.log(product);
-    this.userService.createProduct(product)
+    this.token = this.tokenStorageService.getToken();
+    this.userService.createProduct(this.token, product)
         .subscribe((data: string) => {
           console.log("thêm thành công sẩn phẩm");
           this.userService.getProductDetail(product.name)
@@ -189,7 +193,8 @@ export class AddProductComponent implements OnInit {
   }
 
   deleteProductAndCancel(id: number) {
-    this.userService.deleteProduct(id)
+    this.token = this.tokenStorageService.getToken();
+    this.userService.deleteProduct(this.token,id)
         .subscribe((data) => {
           console.log(data);
           this.navigateToProducts();
@@ -225,7 +230,8 @@ export class AddProductComponent implements OnInit {
     // imageDetail.image = this.sf.subImage3.value;
     // this.list.push(imageDetail);
     this.product.image = this.sf.image.value;
-    this.userService.updateProduct(this.product.id, this.product)
+    this.token = this.tokenStorageService.getToken();
+    this.userService.updateProduct(this.token, this.product.id, this.product)
         .subscribe((res) => {
             this.userService.createImageDetail(this.list)
             .subscribe((data) => {

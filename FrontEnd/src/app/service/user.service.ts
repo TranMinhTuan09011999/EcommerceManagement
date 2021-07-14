@@ -11,6 +11,7 @@ import { Checkout } from '../checkout';
 
 const API_URL = 'http://localhost:8080/api/user/';
 const API_URL_ = 'http://localhost:8080/api/order/';
+const API_URL_ADMIN = 'http://localhost:8080/api/admin/';
 
 @Injectable({
   providedIn: 'root'
@@ -128,82 +129,106 @@ export class UserService {
           );
   }
 
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(API_URL + 'get-all')
+  getAllUsers(token: String): Observable<User[]> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<User[]>(API_URL_ADMIN + 'get-all', { headers: headers})
                   .pipe(
                     retry(3),
                     catchError(this.handleError))
   }
 
-  getUserById(id: number): Observable<User> {
-    return this.http.get<User>(API_URL + id)
+  getUserById(token: String, id: number): Observable<User> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<User>(API_URL_ADMIN + id, { headers: headers})
                 .pipe(
                   retry(3),
                   catchError(this.handleError))
   }
 
-  deleteUser(id: number): Observable<any> {
-    return this.http.delete(API_URL + id)
+  deleteUser(token: String, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.delete(API_URL_ADMIN + id, { headers: headers})
                   .pipe(
                     catchError(this.handleError))
   }
 
-  updateUser(id: number, user: User): Observable<any> {
-    return this.http.put<any>(API_URL  + id, user)
+  updateUser(token: String, id: number, user: User): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.put<any>(API_URL_ADMIN  + id, user, { headers: headers})
                   .pipe(
                     catchError(this.handleError)
                   )
   }
 
-  createCategory(category: Category): Observable<Category> {
-    return this.http.post<Category>(API_URL + 'add-category', category)
+  createCategory(token: String, category: Category): Observable<Category> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.post<Category>(API_URL_ADMIN + 'add-category', category, { headers: headers})
                   .pipe(
                     catchError(this.handleError))
   }
 
-  deleteCategory(id: number): Observable<any> {
-    return this.http.delete(API_URL + 'category/' + id)
+  deleteCategory(token: String, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.delete(API_URL_ADMIN + 'category/' + id, { headers: headers})
                   .pipe(
                   catchError(this.handleError))
   }
 
-  updateCategory(id: number, category: Category): Observable<any> {
-    return this.http.put<any>(API_URL + 'category/' + id, category)
+  updateCategory(token: String, id: number, category: Category): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.put<any>(API_URL_ADMIN + 'category/' + id, category, { headers: headers})
                   .pipe(
                     catchError(this.handleError)
                   )
   }
 
-  createProduct(product: Product): Observable<any> {
-    return this.http.post<any>(API_URL + 'product', product)
+  createProduct(token: String, product: Product): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.post<any>(API_URL_ADMIN + 'product', product, { headers: headers})
                   .pipe(
                     catchError(this.handleError)
                   )
   }
 
-  deleteProduct(id: number): Observable<any> {
-    return this.http.delete(API_URL + 'product/' + id)
+  deleteProduct(token: String, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.delete(API_URL_ADMIN + 'product/' + id, { headers: headers})
                   .pipe(
                     catchError(this.handleError)
                   )
   }
 
-  updateProduct(id: number, product: Product): Observable<any> {
-    return this.http.put(API_URL + 'product/' + id, product)
+  updateProduct(token: String, id: number, product: Product): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.put(API_URL_ADMIN + 'product/' + id, product, { headers: headers})
               .pipe(
                 catchError(this.handleError)
               )
   }
 
-  updateProductDetails(id: number, list: ImageDetail[]): Observable<any> {
-    return this.http.put(API_URL + 'product/detail/' + id, list)
+  updateProductDetails(token: String, id: number, list: ImageDetail[]): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.put(API_URL + 'product/detail/' + id, list, { headers: headers})
               .pipe(
                 catchError(this.handleError)
               )
   }
 
-  getAllOrders(): Observable<Checkout[]> {
-    return this.http.get<Checkout[]>(API_URL_ + 'listOrders')
+  getAllOrders(token: String): Observable<Checkout[]> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<Checkout[]>(API_URL_ + 'listOrders',{ headers: headers})
                 .pipe(
                   retry(3),
                   catchError(this.handleError)

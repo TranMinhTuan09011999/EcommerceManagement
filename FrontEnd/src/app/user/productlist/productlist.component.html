@@ -234,11 +234,11 @@
                             <aside class="col-sm-3">
                                 <div class="info-aside">
                                     <div class="price-wrap" *ngIf="promotion(product.promotion)">
-                                        <span class="price h5">${{product.price - product.price*1/product.promotion}} </span>
-                                        <del class="price-old">${{product.price}}</del>
+                                        <span class="price h5">{{product.price - product.price*1/product.promotion | currency}} </span>
+                                        <del class="price-old">{{product.price | currency}}</del>
                                     </div>
                                     <div class="price-wrap" *ngIf="!promotion(product.promotion)">
-                                        <span class="price h5">${{product.price}} </span>
+                                        <span class="price h5">{{product.price | currency}} </span>
                                     </div>
                                     <!-- info-price-detail // -->
                                     <p class="text-success">Free shipping</p>

@@ -90,6 +90,9 @@ export class CartComponent implements OnInit {
                                     (data) => {
                                       this.count = data;
                                       this.countService.changeCount(this.count);
+                                      this.total();
+                                      this.totalDis();
+                                      this.totalAfterDis = this.totalCart - this.totalDiscount;
                                     },
                                     error => {
                                       console.log(error);
@@ -120,9 +123,7 @@ export class CartComponent implements OnInit {
     .subscribe(
       (data: Cart) => {
         cart = data; 
-        console.log(cart);
         quantity = cart.product.quantity;
-        console.log(quantity);
         if(quantity == 0)
         {
           window.confirm("Sorry, no more product in stock!!!");
@@ -136,10 +137,12 @@ export class CartComponent implements OnInit {
               this.userService.updateQuantityProduct(cart.product.id,quantityAfter)
                 .subscribe(
                   (data: Product) => {
-                    
+                    this.total();
+                    this.totalDis();
+                    this.totalAfterDis = this.totalCart - this.totalDiscount;
                   },
                   error => {
-                  
+                    
                   }
                 )
             },
@@ -157,17 +160,46 @@ export class CartComponent implements OnInit {
 
   decrease(id: number, index: number){
     this.token = this.tokenStorageService.getToken();
+    let cart: Cart;
+    let quantity: number;
     if(index > 1){
-      index--;
-    this.cartService.updateCartById(this.token, id, index)
-          .subscribe(
-            (data) => {
-              this.carts = data;
-            },
-            error => {
-              console.log(error);
-            }
-          );
+      this.cartService.getCartByIdCart(this.token, id)
+      .subscribe(
+        (data: Cart) => {
+          cart = data; 
+          quantity = cart.product.quantity;
+          if(quantity == 0)
+          {
+            window.confirm("Sorry, no more product in stock!!!");
+          }else{
+            index--;
+            this.cartService.updateCartById(this.token, id, index)
+            .subscribe(
+              (data: Cart[]) => {
+                this.carts = data; 
+                let quantityAfter = quantity + 1;
+                this.userService.updateQuantityProduct(cart.product.id,quantityAfter)
+                  .subscribe(
+                    (data: Product) => {
+                        this.total();
+                        this.totalDis();
+                        this.totalAfterDis = this.totalCart - this.totalDiscount;
+                    },
+                    error => {
+                    
+                    }
+                  )
+              },
+              error => {
+                console.log(error);
+              }
+            );
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
   }
 

@@ -63,14 +63,14 @@
                                 <label style="margin-right: 15px;
                                 font-size: 18px;
                                 font-weight: 700;">Price:</label>
-                                <span class="price h5">${{product.price - product.price*1/product.promotion}} </span>
-                                <del class="price-old">${{product.price}}</del>
+                                <span class="price h5">{{product.price - product.price*1/product.promotion | currency}} </span>
+                                <del class="price-old">{{product.price | currency}}</del>
                             </div>
                             <div class="price-wrap" *ngIf="!IsPromotion">
                                 <label style="margin-right: 15px;
                                 font-size: 18px;
                                 font-weight: 700;">Price:</label>
-                                <span class="price h5">${{product?.price}} </span>
+                                <span class="price h5">{{product?.price | currency}} </span>
                             </div>
                             <!-- price-detail-wrap .// -->
 

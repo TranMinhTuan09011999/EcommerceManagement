@@ -15,6 +15,7 @@ export class UsersComponent implements OnInit {
   pageNumber: number = 1;
   clickedDelete = false;
   id!: number;
+  token!: any;
 
   constructor(private userService: UserService,
               private tokenStorageService: TokenStorageService) { }
@@ -24,8 +25,8 @@ export class UsersComponent implements OnInit {
   }
 
   getAllUsers(){
-
-    this.userService.getAllUsers()
+    this.token = this.tokenStorageService.getToken();
+    this.userService.getAllUsers(this.token)
           .subscribe(
             (data: User[]) => {
               console.log(data);
@@ -47,7 +48,8 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(id: number) {
-    this.userService.deleteUser(id)
+    this.token = this.tokenStorageService.getToken();
+    this.userService.deleteUser(this.token, id)
       .subscribe(
         (data) => {
           
