@@ -11,6 +11,8 @@ import { OrderDetail } from 'src/app/order-detail';
   templateUrl: './orderlist.component.html',
   styleUrls: ['./orderlist.component.css']
 })
+
+//TODO: Update all status of order in admin
 export class OrderlistComponent implements OnInit {
   [x: string]: any;
 
@@ -68,6 +70,20 @@ export class OrderlistComponent implements OnInit {
   {
     this.token = this.tokenStorageService.getToken();
     this.userService.cancel(this.token,id,3)
+    .subscribe(
+      (data: Checkout) => {
+        this.order = data;
+        this.getOrderListByUserId(this.order.user_id);
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
+  confirm(id: number)
+  {
+    this.token = this.tokenStorageService.getToken();
+    this.userService.cancel(this.token,id,2)
     .subscribe(
       (data: Checkout) => {
         this.order = data;

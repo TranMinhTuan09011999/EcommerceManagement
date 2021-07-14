@@ -6,6 +6,8 @@ import { AuthService } from './service/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
+//TODO: Fix Bugs in UI of user
 export class AppComponent {
   
 
