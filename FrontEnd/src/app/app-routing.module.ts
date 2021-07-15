@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CartComponent } from './user/cart/cart.component';
+import { ChangeInfoComponent } from './user/change-info/change-info.component';
 import { CheckoutComponent } from './user/checkout/checkout.component';
 import { HomeComponent } from './user/home/home.component';
 import { LoginComponent } from './user/login/login.component';
@@ -22,8 +23,11 @@ const routes: Routes = [
   { path: 'productlist/:name', component: ProductlistComponent },
   { path: 'orderlist', component: OrderlistComponent },
   { path: 'orderDetail/:id', component: OrderDetailComponent },
-  { path: '', redirectTo: 'admin', pathMatch: 'full' },
+  { path: 'changeInfo', component: ChangeInfoComponent },
+  //TODO: Add interceptor and Page Not Found Page
   // { path: '**', component: PageNotFoundComponent},
+
+  { path: '', redirectTo: 'admin', pathMatch: 'full' },
 ];
 
 @NgModule({

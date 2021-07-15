@@ -21,6 +21,8 @@ import { ProductlistComponent } from './user/productlist/productlist.component';
 import { OrderlistComponent } from './user/orderlist/orderlist.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OrderDetailComponent } from './user/order-detail/order-detail.component';
+import { ChangeInfoComponent } from './user/change-info/change-info.component';
+
 import { LoginGuard } from './guard/login.guard';
 import { LoginInterceptor } from './interceptor/login.interceptor';
 import { UserService } from './service/user.service';
@@ -29,6 +31,7 @@ import { CartService } from './service/cart.service';
 import { CountService } from './service/count.service';
 import { TokenStorageService } from './service/token-storage.service';
 import { AuthInterceptor } from './service/auth.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -45,6 +48,7 @@ import { AuthInterceptor } from './service/auth.interceptor';
     OrderlistComponent,
     PageNotFoundComponent,
     OrderDetailComponent,
+    ChangeInfoComponent,
   ],
   imports: [
     BrowserModule,

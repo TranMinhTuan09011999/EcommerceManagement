@@ -14,7 +14,7 @@
                                     <figcaption class="info" style="font-weight: 700;
                                     padding-top: 18px;">
                                         <p>{{orderDetail.product.name}}</p>
-                                        <span class="text-muted">{{orderDetail.quantity}}x = ${{orderDetail.quantity*orderDetail.product.price}} </span>
+                                        <span class="text-muted">{{orderDetail.quantity}}x = {{orderDetail.quantity*orderDetail.product.price | currency}} </span>
                                     </figcaption>
                                 </figure>
                             </div>
@@ -57,6 +57,7 @@
                         <dl class="dlist-align">
                             <dt>Total:</dt>
                             <dd class="h4" style="color: red;"><strong>${{total}}</strong></dd>
+                            <dd class="h5">${{total | currency}}</dd>
                         </dl>
                         <hr>
                     </div>

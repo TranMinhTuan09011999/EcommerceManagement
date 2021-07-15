@@ -43,7 +43,7 @@ public class UserAdminController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> getUser(@PathVariable Long id) {
         Optional<User> temp = userService.findById(id);
         if (Objects.isNull(temp)) {
@@ -55,7 +55,7 @@ public class UserAdminController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserDTO userDto) {
         Optional<User> temp = userService.findById(id);
         if (Objects.isNull(temp)) {
@@ -71,7 +71,8 @@ public class UserAdminController {
 
         System.out.println(user);
         userService.save(user);
-        return ResponseEntity.ok().body("User has updated successfully");
+        UserDTO userDTO = userConverter.toDTO(user);
+        return ResponseEntity.ok(userDTO);
     }
 
     @DeleteMapping("/{id}")
