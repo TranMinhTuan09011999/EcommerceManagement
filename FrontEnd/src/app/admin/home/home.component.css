@@ -145,13 +145,8 @@
 
 .details .recentOrders table thead tr td:nth-child(2),
 .details .recentOrders table tbody tr td:nth-child(2) {
-    text-align: right;
-    padding-right: 50px;
-}
-
-.details .recentOrders table thead tr td:nth-child(3),
-.details .recentOrders table tbody tr td:nth-child(3) {
     text-align: center;
+    padding-right: 50px;
 }
 
 .status {
@@ -189,10 +184,16 @@
 
 .details .recentCustomers .imgBx {
     position: relative;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    min-width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    /* border-radius: 50%; */
     overflow: hidden;
+}
+
+.details .recentCustomers .imgBx .fa {
+    font-size: 40px;
 }
 
 .details .recentCustomers .imgBx img {

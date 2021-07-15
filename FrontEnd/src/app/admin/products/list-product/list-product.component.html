@@ -17,7 +17,6 @@
   <table>
     <thead>
       <tr>
-        <td>Id</td>
         <td>Name</td>
         <td>Quantity</td>
         <td>Price</td>
@@ -31,15 +30,13 @@
   
     <tbody>
       <tr *ngFor="let product of products | filter: filter | paginate: config">
-        <td>{{product.id}}</td>
-        <td>{{product.name}}</td>
-        <td style="font-size: larger; color: crimson;"><strong>{{product.quantity}}</strong></td>
-        <td>{{product.price}}</td>
-        <td>{{product.promotion}}</td>
-        <td style="text-align: center; width: 10%;"><img src="{{product.image}}" height="100px" width="auto"></td>
-        <td>{{product.description}}</td>
+        <td routerLink="../edit/{{product.name}}">{{product.name}}</td>
+        <td routerLink="../edit/{{product.name}}" style="font-size: larger; color: crimson;"><strong>{{product.quantity}}</strong></td>
+        <td routerLink="../edit/{{product.name}}">{{product.price}}</td>
+        <td routerLink="../edit/{{product.name}}">{{product.promotion}}</td>
+        <td routerLink="../edit/{{product.name}}" style="text-align: center; width: 10%;"><img src="{{product.image}}" height="100px" width="auto"></td>
+        <td routerLink="../edit/{{product.name}}">{{product.description}}</td>
         <td><button class="btn btn-danger" (click)="clickedDeleteBtn(product.id)">Delete</button></td>
-        <td><button routerLink="../edit/{{product.name}}" class="btn btn-primary">Edit</button></td>
       </tr>
     </tbody>
   </table>  

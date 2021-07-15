@@ -138,6 +138,15 @@ export class UserService {
                     catchError(this.handleError))
   }
 
+  getTop5Users(token: String): Observable<User[]> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<User[]>(API_URL_ADMIN + 'get-top-5', { headers: headers})
+                  .pipe(
+                    retry(3),
+                    catchError(this.handleError))
+  }
+
   getUserById(token: String, id: number): Observable<User> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
@@ -235,6 +244,16 @@ export class UserService {
                 );
   }
 
+  getTop10Orders(token: String): Observable<Checkout[]> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<Checkout[]>(API_URL_ + 'get-top-10',{ headers: headers})
+                .pipe(
+                  retry(3),
+                  catchError(this.handleError)
+                );
+  }
+
   getOrderDetails(token: String,id: number): Observable<OrderDetail[]>{
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
@@ -250,7 +269,6 @@ export class UserService {
     const headers = new HttpHeaders().set('Authorization', tokenStr);
     return this.http.put<Checkout>(API_URL_ + 'listOrder/cancel/' + id,{status},{headers: headers})
                     .pipe(
-                      retry(3),
                       catchError(this.handleError)
                     );
   }
@@ -271,5 +289,15 @@ export class UserService {
               .pipe(
                 catchError(this.handleError)
               )
+  }
+
+  getStatistics(token: String): Observable<number[]> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<number[]>(API_URL_ADMIN + 'get-statistics')
+              .pipe(
+                retry(3),
+                catchError(this.handleError)
+              );
   }
 }

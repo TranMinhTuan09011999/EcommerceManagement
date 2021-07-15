@@ -6,6 +6,7 @@ import com.minhtuan.commercemanager.model.AddCart;
 import com.minhtuan.commercemanager.model.DTO.AddCartDTO;
 import com.minhtuan.commercemanager.model.DTO.OrderDTO;
 import com.minhtuan.commercemanager.model.DTO.OrderDetailsDTO;
+import com.minhtuan.commercemanager.model.DTO.UserDTO;
 import com.minhtuan.commercemanager.model.Order;
 import com.minhtuan.commercemanager.model.Product;
 import com.minhtuan.commercemanager.model.User;
@@ -56,6 +57,18 @@ public class OrderServiceImpl implements OrderService {
         list.stream().forEach(s -> {
             dtoList.add(orderConverter.toDTO(s));
         });
+        return dtoList;
+    }
+
+    @Override
+    public List<OrderDTO> getTop10Orders() {
+        List<OrderDTO> dtoList = new ArrayList<>();
+        orderRepository.findTop10ByOrderByIdDesc().stream().forEach(s -> {
+            OrderDTO dto = new OrderDTO();
+            dto = orderConverter.toDTO(s);
+            dtoList.add(dto);
+        });
+        System.out.println(dtoList);
         return dtoList;
     }
 
@@ -136,4 +149,6 @@ public class OrderServiceImpl implements OrderService {
         }
         return foo; // and return foo variable
     }
+
+
 }

@@ -48,6 +48,7 @@ export class AddProductComponent implements OnInit {
       id: [{value: '', disabled: true}],
       name: ['', Validators.required],
       price: ['', [Validators.required, Validators.min(0)]],
+      quantity: ['', [Validators.required, Validators.min(0)]],
       description: ['', Validators.required],
       promotion: ['', [Validators.required, Validators.max(100), Validators.min(0)]],
     })
@@ -114,6 +115,7 @@ export class AddProductComponent implements OnInit {
   addProduct(categoryName: string) {
     let product = new Product();
     product.name = this.f.name.value;
+    product.quantity = this.f.quantity.value;
     product.price = this.f.price.value;
     product.promotion = this.f.promotion.value;
     product.description = this.f.description.value;

@@ -11,6 +11,7 @@ import { OrderlistComponent } from './order/orderlist/orderlist.component';
 import { OrderDetailComponent } from './order/order-detail/order-detail.component';
 import { UsersComponent } from './user_/users/users.component';
 import { EditUserComponent } from './user_/edit-user/edit-user.component';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: 'admin', component: AdminComponent, 
@@ -26,6 +27,7 @@ const routes: Routes = [
         {path: 'edit-user/:id', component: EditUserComponent},
         {path: 'orderlist', component: OrderlistComponent},
         {path: 'orderDetail/:id', component: OrderDetailComponent },
+        // { path: '**', component: PageNotFoundComponent}
       ]}
 ];
 

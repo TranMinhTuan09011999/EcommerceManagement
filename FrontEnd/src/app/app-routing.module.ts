@@ -22,9 +22,8 @@ const routes: Routes = [
   { path: 'productlist/:name', component: ProductlistComponent },
   { path: 'orderlist', component: OrderlistComponent },
   { path: 'orderDetail/:id', component: OrderDetailComponent },
-  //TODO: Add interceptor and Page Not Found Page
-  // { path: '**', component: PageNotFoundComponent},
   { path: '', redirectTo: 'admin', pathMatch: 'full' },
+  // { path: '**', component: PageNotFoundComponent},
 ];
 
 @NgModule({

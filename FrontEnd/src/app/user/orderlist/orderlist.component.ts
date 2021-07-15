@@ -11,7 +11,6 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./orderlist.component.css']
 })
 
-//TODO: Update all status of order in user
 export class OrderlistComponent implements OnInit {
   [x: string]: any;
 

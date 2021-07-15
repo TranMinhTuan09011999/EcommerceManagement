@@ -9,39 +9,39 @@
 </div>    
 
 <div class="cardBox">
-    <div class="card">
+    <div class="card" routerLink="./products">
         <div>
-            <div class="numbers">1,042</div>
-            <div class="cardName">Daily Views</div>
+            <div class="numbers">{{statistics[0]}}</div>
+            <div class="cardName">Products</div>
         </div>
         <div class="iconBox">
-            <i class="fa fa-eye" aria-hidden="true"></i>
+            <i class="fa fa-laptop" aria-hidden="true"></i>
         </div>
     </div>
 
-    <div class="card">
+    <div class="card" routerLink="./users">
         <div>
-            <div class="numbers">80</div>
-            <div class="cardName">Sales</div>
+            <div class="numbers">{{statistics[1]}}</div>
+            <div class="cardName">Users</div>
         </div>
         <div class="iconBox">
-            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            <i class="fa fa-users" aria-hidden="true"></i>
         </div>
     </div>
     
-    <div class="card">
+    <div class="card" routerLink="./orderlist">
         <div>
-            <div class="numbers">208</div>
-            <div class="cardName">Comments</div>
+            <div class="numbers">{{statistics[2]}}</div>
+            <div class="cardName">Orders</div>
         </div>
         <div class="iconBox">
-            <i class="fa fa-comment" aria-hidden="true"></i>
+            <i class="fa fa-qrcode" aria-hidden="true"></i>
         </div>
     </div>
 
     <div class="card">
         <div>
-            <div class="numbers">$6,042</div>
+            <div class="numbers">{{statistics[3] | currency}}</div>
             <div class="cardName">Earning</div>
         </div>
         <div class="iconBox">
@@ -54,106 +54,36 @@
     <div class="recentOrders">
         <div class="cardHeader">
             <h2>Recent Orders</h2>
-            <a href="" class="btn">View All</a>
+            <a routerLink="./orderlist" class="btn">View All</a>
         </div>
         <table>
             <thead>
                 <tr>
                     <td>Name</td>
-                    <td>Price</td>
-                    <td>Payment</td>
+                    <td>Total</td>
                     <td>Status</td>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Star Refrigerator</td>
-                    <td>$1200</td>
-                    <td>Paid</td>
-                    <td><span class="status delivered">Delivered</span></td>
-                </tr>
-                <tr>
-                    <td>Window Coolers</td>
-                    <td>$1100</td>
-                    <td>Due</td>
-                    <td><span class="status pending">Pending</span></td>
-                </tr>
-                <tr>
-                    <td>Speaker</td>
-                    <td>$620</td>
-                    <td>Paid</td>
-                    <td><span class="status return">Return</span></td>
-                </tr>
-                <tr>
-                    <td>Hp Laptop</td>
-                    <td>$6000</td>
-                    <td>Due</td>
-                    <td><span class="status inprogress">In Progress</span></td>
-                </tr>
-                <tr>
-                    <td>Star Refrigerator</td>
-                    <td>$1200</td>
-                    <td>Paid</td>
-                    <td><span class="status delivered">Delivered</span></td>
-                </tr>
-                <tr>
-                    <td>Window Coolers</td>
-                    <td>$1100</td>
-                    <td>Due</td>
-                    <td><span class="status pending">Pending</span></td>
-                </tr>
-                <tr>
-                    <td>Speaker</td>
-                    <td>$620</td>
-                    <td>Paid</td>
-                    <td><span class="status return">Return</span></td>
-                </tr>
-                <tr>
-                    <td>Hp Laptop</td>
-                    <td>$6000</td>
-                    <td>Due</td>
-                    <td><span class="status inprogress">In Progress</span></td>
-                </tr>
-                <tr>
-                    <td>Apple Watch</td>
-                    <td>$680</td>
-                    <td>Paid</td>
-                    <td><span class="status delivered">Delivered</span></td>
-                </tr>
-                <tr>
-                    <td>Dell Laptop</td>
-                    <td>$4500</td>
-                    <td>Paid</td>
-                    <td><span class="status pending">Pending</span></td>
+                <tr *ngFor="let product of products">
+                    <td>{{product.receiver}}</td>
+                    <td>${{product.amount}}</td>
+                    <td *ngIf="product.status == 1"><span class="status inprogress">Delivering</span></td>
+                    <td *ngIf="product.status == 2"><span class="status delivered">Delivered</span></td>
+                    <td *ngIf="product.status == 3"><span class="status return">Canceled</span></td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="recentCustomers">
         <div class="cardHeader">
-            <h2>Recent Customers</h2>
+            <h2>Recent Users</h2>
         </div>
         <table>
             <tbody>
-                <tr>
-                    <td width="60px"><div class="imgBx"><img src="../../../assets/images/avatar1.png"></div></td>
-                    <td><h4>Tan ND<br><span>Viet Nam</span></h4></td>
-                </tr>
-                <tr>
-                    <td width="60px"><div class="imgBx"><img src="../../../assets/images/avatar1.png"></div></td>
-                    <td><h4>Tan ND<br><span>Viet Nam</span></h4></td>
-                </tr>
-                <tr>
-                    <td width="60px"><div class="imgBx"><img src="../../../assets/images/avatar1.png"></div></td>
-                    <td><h4>Tan ND<br><span>Viet Nam</span></h4></td>
-                </tr>
-                <tr>
-                    <td width="60px"><div class="imgBx"><img src="../../../assets/images/avatar1.png"></div></td>
-                    <td><h4>Tan ND<br><span>Viet Nam</span></h4></td>
-                </tr>
-                <tr>
-                    <td width="60px"><div class="imgBx"><img src="../../../assets/images/avatar1.png"></div></td>
-                    <td><h4>Tan ND<br><span>Viet Nam</span></h4></td>
+                <tr *ngFor="let user of users">
+                    <td width="60px"><div class="imgBx"><i class="fa fa-user-circle" aria-hidden="true"></i></div></td>
+                    <td><h4>{{user.username}}<br><span>{{user.address}}</span></h4></td>
                 </tr>
             </tbody>
         </table>

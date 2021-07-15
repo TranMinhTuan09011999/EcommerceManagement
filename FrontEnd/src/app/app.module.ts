@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AdminComponent } from './admin/admin.component';
 import { AdminModule } from './admin/admin.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -21,6 +21,14 @@ import { ProductlistComponent } from './user/productlist/productlist.component';
 import { OrderlistComponent } from './user/orderlist/orderlist.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OrderDetailComponent } from './user/order-detail/order-detail.component';
+import { LoginGuard } from './guard/login.guard';
+import { LoginInterceptor } from './interceptor/login.interceptor';
+import { UserService } from './service/user.service';
+import { AuthService } from './service/auth.service';
+import { CartService } from './service/cart.service';
+import { CountService } from './service/count.service';
+import { TokenStorageService } from './service/token-storage.service';
+import { AuthInterceptor } from './service/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -47,6 +55,9 @@ import { OrderDetailComponent } from './user/order-detail/order-detail.component
     BrowserAnimationsModule,
     NgxPaginationModule
   ],
+  // providers: [UserService, AuthService, CartService, CountService, TokenStorageService ,LoginGuard, 
+  //   {provide: HTTP_INTERCEPTORS, useClass:  AuthInterceptor, multi: true}
+  // ],
   providers: [],
   bootstrap: [AppComponent]
 })
