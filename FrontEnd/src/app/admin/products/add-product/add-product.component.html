@@ -18,6 +18,14 @@
           <div *ngIf="submitted && f.name.errors">
               <div *ngIf="f.name.errors.required" class="validation">*Name is required</div>
           </div>
+
+          <label for="quantity"><b>Quantity</b></label>
+          <input formControlName="quantity" type="number" placeholder="Enter Quantity" 
+                  [ngClass]="{'is-invalid': f.quantity.errors}"/>
+          <div *ngIf="submitted && f.quantity.errors">
+              <div *ngIf="f.quantity.errors.required" class="validation">*Quantity is required</div>
+              <div *ngIf="f.quantity.errors.min" class="validation">*Quantity is not smaller than 0!</div>
+          </div>
     
           <label for="price"><b>Price</b></label>
           <input formControlName="price" type="number" placeholder="Enter Price" 

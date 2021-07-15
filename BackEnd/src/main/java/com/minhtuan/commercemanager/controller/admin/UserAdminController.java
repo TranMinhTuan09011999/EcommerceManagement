@@ -36,6 +36,12 @@ public class UserAdminController {
         return userService.getAllUser();
     }
 
+    @GetMapping("/get-top-5")
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<UserDTO> getTop5RecentUser() {
+        return userService.getTop5User();
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> getUser(@PathVariable Long id) {

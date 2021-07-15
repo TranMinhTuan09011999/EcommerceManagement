@@ -15,5 +15,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByEmail(String email);
     List<User> findAllByOrderByIdDesc();
     Optional<User> findByResetToken(String resetToken);
-
 }

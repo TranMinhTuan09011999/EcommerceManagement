@@ -30,18 +30,15 @@
     
       <tbody>
         <tr *ngFor="let user of users | filter: filter | paginate: {id: 'pagination', itemsPerPage: 5, currentPage: pageNumber}">
-          <td>{{user.id}}</td>
-          <td>{{user.username}}</td>
-          <td>{{user.firstname}}</td>
-          <td>{{user.lastname}}</td>
-          <td>{{user.email}}</td>
-          <td>{{user.phone}}</td>
-          <td>{{user.address}}</td>
-          <td>{{user.roles[0].name.substr(5)}}</td>
-          <td>
-            <button class="btn btn-danger" (click)="clickedDelete = !clickedDelete; id = user.id">Delete</button>
-            <button routerLink="../edit-user/{{user.id}}" class="btn btn-primary">Edit</button>
-          </td>
+          <td routerLink="../edit-user/{{user.id}}">{{user.id}}</td>
+          <td routerLink="../edit-user/{{user.id}}">{{user.username}}</td>
+          <td routerLink="../edit-user/{{user.id}}">{{user.firstname}}</td>
+          <td routerLink="../edit-user/{{user.id}}">{{user.lastname}}</td>
+          <td routerLink="../edit-user/{{user.id}}">{{user.email}}</td>
+          <td routerLink="../edit-user/{{user.id}}">{{user.phone}}</td>
+          <td routerLink="../edit-user/{{user.id}}">{{user.address}}</td>
+          <td routerLink="../edit-user/{{user.id}}">{{user.roles[0].name.substr(5)}}</td>
+          <td><button class="btn btn-danger" (click)="clickedDelete = !clickedDelete; id = user.id">Delete</button></td>
         </tr>
       </tbody>
     </table>  

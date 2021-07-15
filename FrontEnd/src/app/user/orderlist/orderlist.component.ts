@@ -13,7 +13,6 @@ import { Product } from 'src/app/model/product';
   styleUrls: ['./orderlist.component.css']
 })
 
-//TODO: Update all status of order in user
 export class OrderlistComponent implements OnInit {
   [x: string]: any;
 

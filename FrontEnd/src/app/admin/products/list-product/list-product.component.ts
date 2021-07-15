@@ -18,7 +18,7 @@ export class ListProductComponent implements OnInit {
 
   categoryName: string = '';
 
-  
+
 
   filter!: string;
 
@@ -29,7 +29,7 @@ export class ListProductComponent implements OnInit {
   pageNumber: number = 1;
   config = {id: 'pagination', itemsPerPage: 5, currentPage: this.pageNumber}
 
-  constructor(private route: ActivatedRoute, 
+  constructor(private route: ActivatedRoute,
               private userService: UserService,
               private tokenStorageService: TokenStorageService) { }
 
@@ -67,7 +67,7 @@ export class ListProductComponent implements OnInit {
           error => {
             console.log(error);
           });
-  
+
     }
     console.log(this.products);
   }
@@ -76,7 +76,7 @@ export class ListProductComponent implements OnInit {
     this.userService.getCategory()
           .subscribe(
             (data: Category[]) => {
-              this.categories = data; 
+              this.categories = data;
             },
             error => {
               console.log(error);
@@ -101,11 +101,15 @@ export class ListProductComponent implements OnInit {
     this.userService.deleteProduct(this.token,id)
       .subscribe(
         (data) => {
-          
+
         },
         error => {
           console.log(error);
         });
       window.location.reload();
+  }
+
+  test() {
+
   }
 }

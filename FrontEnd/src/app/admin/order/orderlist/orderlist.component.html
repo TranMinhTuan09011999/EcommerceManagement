@@ -26,28 +26,30 @@
                             </tr>
                         </thead>
                         <tbody *ngFor="let product of products | filter: filter | paginate: config">
-                            <tr>
-                                <td routerLink="../orderDetail/{{product.id}}" class="text-left">
+                            <tr routerLink="../orderDetail/{{product.id}}">
+                                <td class="text-left">
                                     {{product.order_date}}
                                 </td>
-                                <td routerLink="../orderDetail/{{product.id}}" class="text-left">
+                                <td class="text-left">
                                     {{product.amount | currency}}
                                 </td>
-                                <td routerLink="../orderDetail/{{product.id}}" class="text-left">
+                                <td class="text-left">
                                     {{product.receiver}}
                                 </td>
-                                <td routerLink="../orderDetail/{{product.id}}" class="text-left">
+                                <td class="text-left">
                                     {{product.address}}
                                 </td>
-                                <td routerLink="../orderDetail/{{product.id}}" class="text-left">
+                                <td class="text-left">
                                     {{product.phone_number}}
                                 </td>
                                 <td class="text-left" style="padding: 0;">
-                                    <label class="btn btn-light" *ngIf="product.status == 1" style="margin-right: 17px;"> Delivering </label>
-                                    <label href="" class="btn btn-light" *ngIf="product.status == 2" style="margin-right: 17px;"> Delivered </label>
-                                    <label href="" class="btn btn-light" *ngIf="product.status == 3" style="margin-right: 17px;"> Cancelled </label>
-                                    <a href="" class="btn btn-light" *ngIf="product.status == 1" style="margin-right: 17px; background-color: rgb(85, 73, 196);" (click)="$event.preventDefault();confirm(product.id); reloadPage()"> Confirm</a>
-                                    <a href="" class="btn btn-light" *ngIf="product.status == 1" style="margin-right: 17px; background-color: rgb(230, 82, 82);" (click)="$event.preventDefault();cancel(product.id); reloadPage()"> Cancel</a>
+                                    <label class="status inprogress" *ngIf="product.status == 1" style="margin-right: 17px;"> Delivering </label>
+                                    <label class="status delivered" *ngIf="product.status == 2" style="margin-right: 17px;"> Delivered </label>
+                                    <label class="status return" *ngIf="product.status == 3" style="margin-right: 17px;"> Cancelled </label>
+                                    <a href="" class="btn btn-light" *ngIf="product.status == 1" style="margin-right: 17px; background-color: rgb(85, 73, 196);" 
+                                        (click)="$event.preventDefault();confirm(product.id); reloadPage()"> Confirm</a>
+                                    <a href="" class="btn btn-light" *ngIf="product.status == 1" style="margin-right: 17px; background-color: rgb(230, 82, 82);" 
+                                        (click)="$event.preventDefault();cancel(product.id); reloadPage()"> Cancel</a>
                                 </td>
                             </tr>
                         </tbody>
