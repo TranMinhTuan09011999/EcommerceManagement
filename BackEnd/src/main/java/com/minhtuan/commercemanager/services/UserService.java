@@ -12,6 +12,7 @@ public interface UserService {
     public Optional<User> findUserByResetToken(String resetToken);
     public void save(User user);
     void delete(Long id);
+    List<UserDTO> getTop5User();
 //    List<User> getAllUsers();
 //    User findByUsername(String username);
 //    User save(User user);

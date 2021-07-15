@@ -26,6 +26,7 @@ const routes: Routes = [
   { path: 'changeInfo', component: ChangeInfoComponent },
   //TODO: Add interceptor and Page Not Found Page
   // { path: '**', component: PageNotFoundComponent},
+
   { path: '', redirectTo: 'admin', pathMatch: 'full' },
 ];
 

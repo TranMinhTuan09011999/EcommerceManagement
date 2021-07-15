@@ -29,9 +29,34 @@
             <aside class="col-md-4">
                 <div class="card shadow">
                     <div class="card-body">
+                        <dl class="dlist-align">
+                            <dt>Order ID:</dt>
+                            <dd class="h5">{{orderDetails[0].order.id}}</dd>
+                        </dl>
+                        <hr>
+                        <dl class="dlist-align">
+                            <dt>Receiver:</dt>
+                            <dd class="h5">{{orderDetails[0].order.receiver}}</dd>
+                        </dl>
+                        <br>
+                        <dl class="dlist-align">
+                            <dt>Phone:</dt>
+                            <dd class="h5">{{orderDetails[0].order.phone_number}}</dd>
+                        </dl>
+                        <br>
+                        <dl class="dlist-align">
+                            <dt>Address:</dt>
+                            <dd class="h5">{{orderDetails[0].order.address}}</dd>
+                        </dl>
+                        <br>
+                        <dl class="dlist-align">
+                            <dt>Order Date:</dt>
+                            <dd class="h5">{{orderDetails[0].order.order_date}}</dd>
+                        </dl>
                         <hr>
                         <dl class="dlist-align">
                             <dt>Total:</dt>
+                            <dd class="h4" style="color: red;"><strong>${{total}}</strong></dd>
                             <dd class="h5">${{total | currency}}</dd>
                         </dl>
                         <hr>
