@@ -26,12 +26,12 @@
                             </tr>
                         </thead>
                         <tbody *ngFor="let product of products | filter: filter | paginate: config">
-                            <tr >
+                            <tr>
                                 <td routerLink="../orderDetail/{{product.id}}" class="text-left">
                                     {{product.order_date}}
                                 </td>
                                 <td routerLink="../orderDetail/{{product.id}}" class="text-left">
-                                    ${{product.amount}}
+                                    {{product.amount | currency}}
                                 </td>
                                 <td routerLink="../orderDetail/{{product.id}}" class="text-left">
                                     {{product.receiver}}
@@ -46,10 +46,8 @@
                                     <label class="btn btn-light" *ngIf="product.status == 1" style="margin-right: 17px;"> Delivering </label>
                                     <label href="" class="btn btn-light" *ngIf="product.status == 2" style="margin-right: 17px;"> Delivered </label>
                                     <label href="" class="btn btn-light" *ngIf="product.status == 3" style="margin-right: 17px;"> Cancelled </label>
-                                    <a href="" class="btn btn-light" *ngIf="product.status == 1" style="margin-right: 17px; background-color: rgb(85, 73, 196);" 
-                                        (click)="$event.preventDefault();confirm(product.id); reloadPage()"> Confirm</a>
-                                    <a href="" class="btn btn-light" *ngIf="product.status == 1" style="margin-right: 17px; background-color: rgb(230, 82, 82);" 
-                                        (click)="$event.preventDefault();cancel(product.id); reloadPage()"> Cancel</a>
+                                    <a href="" class="btn btn-light" *ngIf="product.status == 1" style="margin-right: 17px; background-color: rgb(85, 73, 196);" (click)="$event.preventDefault();confirm(product.id); reloadPage()"> Confirm</a>
+                                    <a href="" class="btn btn-light" *ngIf="product.status == 1" style="margin-right: 17px; background-color: rgb(230, 82, 82);" (click)="$event.preventDefault();cancel(product.id); reloadPage()"> Cancel</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -57,10 +55,9 @@
                 </div>
                 <!-- card.// -->
                 <div style="margin-left: 35%; margin-top: 50px;">
-                    <pagination-controls id="pagination"
-                    (pageChange)="pageChanged($event)"></pagination-controls>
-                  </div>
-                  
+                    <pagination-controls id="pagination" (pageChange)="pageChanged($event)"></pagination-controls>
+                </div>
+
 
                 <div class="alert alert-success mt-3">
                     <p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>

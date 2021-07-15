@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Cart } from 'src/app/cart';
 import { Product } from 'src/app/model/product';
 import { CartService } from 'src/app/service/cart.service';
@@ -19,8 +20,9 @@ export class CartComponent implements OnInit {
   totalCart: number = 0;
   totalDiscount: number = 0;
   totalAfterDis: number = 0;
+  able: boolean = true;
 
-  constructor(private cartService: CartService, private userService: UserService, private tokenStorageService: TokenStorageService, private countService: CountService) { }
+  constructor(private router : Router, private cartService: CartService, private userService: UserService, private tokenStorageService: TokenStorageService, private countService: CountService) { }
 
   ngOnInit(): void {
     const user = this.tokenStorageService.getUser();
@@ -54,6 +56,10 @@ export class CartComponent implements OnInit {
             (data) => {
               this.count = data;
               this.countService.changeCount(this.count);
+              if(this.count == 0)
+              {
+                this.able = false;
+              }
             },
             error => {
               console.log(error);
@@ -90,6 +96,9 @@ export class CartComponent implements OnInit {
                                     (data) => {
                                       this.count = data;
                                       this.countService.changeCount(this.count);
+                                      this.total();
+                                      this.totalDis();
+                                      this.totalAfterDis = this.totalCart - this.totalDiscount;
                                     },
                                     error => {
                                       console.log(error);
@@ -120,9 +129,7 @@ export class CartComponent implements OnInit {
     .subscribe(
       (data: Cart) => {
         cart = data; 
-        console.log(cart);
         quantity = cart.product.quantity;
-        console.log(quantity);
         if(quantity == 0)
         {
           window.confirm("Sorry, no more product in stock!!!");
@@ -136,10 +143,12 @@ export class CartComponent implements OnInit {
               this.userService.updateQuantityProduct(cart.product.id,quantityAfter)
                 .subscribe(
                   (data: Product) => {
-                    
+                    this.total();
+                    this.totalDis();
+                    this.totalAfterDis = this.totalCart - this.totalDiscount;
                   },
                   error => {
-                  
+                    
                   }
                 )
             },
@@ -157,17 +166,46 @@ export class CartComponent implements OnInit {
 
   decrease(id: number, index: number){
     this.token = this.tokenStorageService.getToken();
+    let cart: Cart;
+    let quantity: number;
     if(index > 1){
-      index--;
-    this.cartService.updateCartById(this.token, id, index)
-          .subscribe(
-            (data) => {
-              this.carts = data;
-            },
-            error => {
-              console.log(error);
-            }
-          );
+      this.cartService.getCartByIdCart(this.token, id)
+      .subscribe(
+        (data: Cart) => {
+          cart = data; 
+          quantity = cart.product.quantity;
+          if(quantity == 0)
+          {
+            window.confirm("Sorry, no more product in stock!!!");
+          }else{
+            index--;
+            this.cartService.updateCartById(this.token, id, index)
+            .subscribe(
+              (data: Cart[]) => {
+                this.carts = data; 
+                let quantityAfter = quantity + 1;
+                this.userService.updateQuantityProduct(cart.product.id,quantityAfter)
+                  .subscribe(
+                    (data: Product) => {
+                        this.total();
+                        this.totalDis();
+                        this.totalAfterDis = this.totalCart - this.totalDiscount;
+                    },
+                    error => {
+                    
+                    }
+                  )
+              },
+              error => {
+                console.log(error);
+              }
+            );
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
   }
 
@@ -190,6 +228,16 @@ export class CartComponent implements OnInit {
   totalDis(){
     for(let cart of this.carts){
       this.totalDiscount += (cart.product.price*cart.product.promotion/100*cart.quantity);
+    }
+  }
+
+  checkout(){
+    if(this.count == 0)
+    {
+      window.confirm("Cart is empty!!!");
+    }else
+    {
+      this.router.navigate(['cart/checkout'])
     }
   }
 

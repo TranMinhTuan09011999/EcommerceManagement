@@ -14,7 +14,8 @@
                                     <figcaption class="info" style="font-weight: 700;
                                     padding-top: 18px;">
                                         <p>{{orderDetail.product.name}}</p>
-                                        <span class="text-muted">{{orderDetail.quantity}}x = ${{orderDetail.quantity*orderDetail.product.price}} </span>
+                                        <span class="text-muted" *ngIf="orderDetail.discount > 0">{{orderDetail.quantity}}x = {{orderDetail.quantity*(orderDetail.amount - orderDetail.amount*orderDetail.discount/100) | currency}} (-{{orderDetail.discount}}%)</span>
+                                        <span class="text-muted" *ngIf="orderDetail.discount == 0">{{orderDetail.quantity}}x = {{orderDetail.quantity*(orderDetail.amount - orderDetail.amount*orderDetail.discount/100) | currency}}</span>
                                     </figcaption>
                                 </figure>
                             </div>
@@ -32,7 +33,7 @@
                         <hr>
                         <dl class="dlist-align">
                             <dt>Total:</dt>
-                            <dd class="h5">${{total}}</dd>
+                            <dd class="h5">{{total | currency}}</dd>
                         </dl>
                         <hr>
                     </div>

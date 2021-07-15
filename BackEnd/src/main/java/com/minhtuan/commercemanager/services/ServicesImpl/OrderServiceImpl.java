@@ -51,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDTO> getAllOrders() {
-        List<Order> list = orderRepository.findAll();
+        List<Order> list = orderRepository.findAllByOrderByIdDesc();
         List<OrderDTO> dtoList = new ArrayList<>();
         list.stream().forEach(s -> {
             dtoList.add(orderConverter.toDTO(s));

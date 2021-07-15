@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Category } from 'src/app/model/category';
+import { TokenStorageService } from 'src/app/service/token-storage.service';
 
 @Component({
   selector: 'app-add-category',
@@ -22,11 +23,13 @@ export class AddCategoryComponent implements OnInit {
   thisCategory!: Category;
   pageNumber: number = 1;
   filter: any;
+  token!: any;
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private userService: UserService) { }
+              private userService: UserService,
+              private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
     this.name = this.route.snapshot.params['name'];
@@ -73,9 +76,10 @@ export class AddCategoryComponent implements OnInit {
   }
 
   addCategory(name: string) {
+    this.token = this.tokenStorageService.getToken();
     let category = new Category();
     category.categoryName = name;
-    this.userService.createCategory(category)
+    this.userService.createCategory(this.token, category)
           .subscribe(
             (data) => {
               // this.notification = true;
@@ -86,8 +90,9 @@ export class AddCategoryComponent implements OnInit {
   }
 
   updateCategory(category: Category, name: string) {
+    this.token = this.tokenStorageService.getToken();
     category.categoryName = name;
-    this.userService.updateCategory(category.id,category)
+    this.userService.updateCategory(this.token, category.id,category)
           .subscribe(
             (data) => {
               // this.notification = true;

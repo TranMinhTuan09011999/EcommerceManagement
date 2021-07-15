@@ -70,11 +70,11 @@
                                 <td>
                                     <div class="price-wrap">
                                         <div class="price-wrap" *ngIf="promotion(cart.product.promotion)">
-                                            <span class="price h5">${{cart.product.price - cart.product.price*1/cart.product.promotion}} </span>
-                                            <del class="price-old">${{cart.product.price}}</del>
+                                            <span class="price h5">{{cart.product.price - cart.product.price*1/cart.product.promotion | currency}} </span>
+                                            <del class="price-old">{{cart.product.price | currency}}</del>
                                         </div>
                                         <div class="price-wrap" *ngIf="!promotion(cart.product.promotion)">
-                                            <span class="price h5">${{cart.product.price}} </span>
+                                            <span class="price h5">{{cart.product.price | currency}} </span>
                                         </div>
                                     </div>
                                     <!-- price-wrap .// -->
@@ -88,7 +88,7 @@
                     </table>
 
                     <div class="card-body border-top">
-                        <a href="#" class="btn btn-primary float-md-right" routerLink="checkout"> Make Purchase <i class="fa fa-chevron-right"></i> </a>
+                        <a href="#" class="btn btn-primary float-md-right" (click)="$event.preventDefault();checkout()"> Make Purchase <i class="fa fa-chevron-right"></i> </a>
                         <a href="#" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Continue shopping </a>
                     </div>
                 </div>
@@ -108,15 +108,15 @@
                     <div class="card-body">
                         <dl class="dlist-align">
                             <dt>Total price:</dt>
-                            <dd class="text-right">${{totalCart}}</dd>
+                            <dd class="text-right">{{totalCart | currency }}</dd>
                         </dl>
                         <dl class="dlist-align">
                             <dt>Discount:</dt>
-                            <dd class="text-right">${{totalDiscount}}</dd>
+                            <dd class="text-right">{{totalDiscount | currency }}</dd>
                         </dl>
                         <dl class="dlist-align">
                             <dt>Total:</dt>
-                            <dd class="text-right  h5"><strong>${{totalAfterDis}}</strong></dd>
+                            <dd class="text-right  h5"><strong>{{totalAfterDis | currency }}</strong></dd>
                         </dl>
                         <hr>
                     </div>

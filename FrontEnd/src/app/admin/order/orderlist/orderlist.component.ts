@@ -35,7 +35,8 @@ export class OrderlistComponent implements OnInit {
   }
 
   getAllOrders() {
-    this.userService.getAllOrders()
+    this.token = this.tokenStorageService.getToken();
+    this.userService.getAllOrders(this.token)
           .subscribe((data: Checkout[]) => {
             this.products = data;
             console.log(this.orderList);

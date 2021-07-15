@@ -30,7 +30,7 @@
                                     {{product.order_date}}
                                 </td>
                                 <td class="text-left">
-                                    ${{product.amount}}
+                                    {{product.amount | currency}}
                                 </td>
                                 <td class="text-left">
                                     {{product.receiver}}
@@ -46,7 +46,7 @@
                                     <label class="btn btn-light" *ngIf="product.status == 1" style="margin-right: 17px;"> Delivering </label>
                                     <label href="" class="btn btn-light" *ngIf="product.status == 2" style="margin-right: 17px;"> Delivered </label>
                                     <label href="" class="btn btn-light" *ngIf="product.status == 3" style="margin-right: 17px;"> Cancelled </label>
-                                    <a href="" class="btn btn-light" *ngIf="product.status != 3" style="margin-right: 17px; background-color: rgb(230, 82, 82);" (click)="$event.preventDefault();cancel(product.id)"> Cancel</a>
+                                    <a href="" class="btn btn-light" *ngIf="product.status == 1 " style="margin-right: 17px; background-color: rgb(230, 82, 82);" (click)="$event.preventDefault();cancel(product.id)"> Cancel</a>
                                 </td>
                             </tr>
                         </tbody>

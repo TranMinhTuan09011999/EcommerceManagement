@@ -35,43 +35,4 @@ public class CategoryController {
         CategoryDTO category = categoryService.getCategoryById(id);
         return new ResponseEntity<> (category, HttpStatus.OK);
     }
-
-    @PostMapping("/add-category")
-    public ResponseEntity<?> createCategory(@RequestBody CategoryDTO categoryDTO) {
-        System.out.println(categoryDTO.toString());
-        Category category = new Category();
-        category.setCategoryname(categoryDTO.getCategoryName());
-        category.setDeletestatus(0);
-        category.setProducts(null);
-        categoryService.save(category);
-        return ResponseEntity.ok().body(category);
-    }
-
-    @DeleteMapping("/category/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable Long id) {
-        Category category = categoryService.findById(id);
-        if (Objects.isNull(category)) {
-            throw new RuntimeException("Can't find Category");
-        }
-        if (category.getProducts().stream().count() == 0) {
-            categoryService.delete(id);
-            return ResponseEntity.ok().body("Category has been deleted successfully");
-        } else {
-            category.setDeletestatus(1);
-            categoryService.save(category);
-            return ResponseEntity.badRequest().body("Delete Status has been set to 1");
-        }
-    }
-
-    @PutMapping("/category/{id}")
-    public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO) {
-        System.out.println(categoryDTO.getCategoryName()+id);
-        Category category = categoryService.findById(id);
-        if (Objects.isNull(category)) {
-            throw new RuntimeException("Can't find Category");
-        }
-        category.setCategoryname(categoryDTO.getCategoryName());
-        categoryService.save(category);
-        return ResponseEntity.ok().body("Category has been updated successfully");
-    }
 }
