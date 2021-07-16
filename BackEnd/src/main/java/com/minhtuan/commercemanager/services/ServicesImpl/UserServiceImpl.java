@@ -33,9 +33,11 @@ public class UserServiceImpl implements UserService {
     public List<UserDTO> getAllUser() {
         List<UserDTO> dtoList = new ArrayList<>();
         userRepository.findAllByOrderByIdDesc().stream().forEach(s -> {
-            UserDTO dto = new UserDTO();
-            dto = userConverter.toDTO(s);
-            dtoList.add(dto);
+            if (s.getDeletestatus() == 0) {
+                UserDTO dto = new UserDTO();
+                dto = userConverter.toDTO(s);
+                dtoList.add(dto);
+            }
         });
         return dtoList;
     }

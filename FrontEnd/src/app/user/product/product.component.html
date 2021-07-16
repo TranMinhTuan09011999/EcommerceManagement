@@ -63,20 +63,19 @@
                                 <label style="margin-right: 15px;
                                 font-size: 18px;
                                 font-weight: 700;">Price:</label>
-                                <span class="price h5">{{product.price - product.price*1/product.promotion | currency}} </span>
+                                <span class="price h5">{{product.price - product.price*product.promotion/100 | currency}} </span>
                                 <del class="price-old">{{product.price | currency}}</del>
                             </div>
                             <div class="price-wrap" *ngIf="!IsPromotion">
                                 <label style="margin-right: 15px;
                                 font-size: 18px;
                                 font-weight: 700;">Price:</label>
-                                <span class="price h5">{{product?.price | currency}} </span>
+                                <span class="price h5">{{product.price | currency}} </span>
                             </div>
                             <!-- price-detail-wrap .// -->
 
                             <div class="mb-4" style="margin-top: 15px;">
-                                <a href="#" class="btn btn-primary mr-1">Buy now</a>
-                                <a href="#" class="btn btn-light" (click)="$event.preventDefault();addToCart()">Add to card</a>
+                                <a href="#" class="btn btn-light" (click)="$event.preventDefault();addToCart()" style="background-color: #6cd3f7;">Add to cart</a>
                             </div>
 
                         </article>

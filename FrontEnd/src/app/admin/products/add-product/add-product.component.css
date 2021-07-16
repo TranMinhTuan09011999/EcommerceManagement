@@ -1,77 +1,82 @@
 .signup-form {
-  margin: auto;
-  width: 60%;
-  margin-top: 10px;
+    margin: auto;
+    width: 60%;
+    margin-top: 10px;
 }
 
 form {
-  width: 50%;
-  margin: auto;
+    width: 50%;
+    margin: auto;
 }
 
-
-input[type=text], input[type=number], input[type=file], textarea, select{
+input[type=text],
+input[type=number],
+input[type=file],
+textarea,
+select {
     width: 100%;
     padding: 15px;
     display: inline-block;
     border: none;
-    background: #f1f1f1;
-  }
-  
-  input[type=text]:focus, input[type=number]:focus, textarea:focus {
+    background: #e6e6e6;
+}
+
+input[type=text]:focus,
+input[type=number]:focus,
+textarea:focus {
     background-color: #ddd;
     outline: none;
-  }
+}
 
-  input[name=id]{
-      cursor: not-allowed;
-      background: rgb(180, 180, 180);
-  }
-
-  input[type=text]:disabled {
+input[name=id] {
     cursor: not-allowed;
     background: rgb(180, 180, 180);
-  }
+}
 
-  textarea[name=description] {
+input[type=text]:disabled {
+    cursor: not-allowed;
+    background: rgb(180, 180, 180);
+}
+
+textarea[name=description] {
     height: 250px;
-  }
+}
 
-  label {
+label {
     margin-top: 20px;
-  }
+}
 
-  .row-input {
-    display: flex; 
-    padding: 0; 
+.row-input {
+    display: flex;
+    padding: 0;
     width: 100%;
-  }
+}
 
-  .row-input-left {
+.row-input-left {
     float: left;
     width: 50%;
-  }
+}
 
-  .row-input-right {
+.row-input-right {
     float: right;
     width: 50%;
-  }
+}
 
-  .padding-input-left {
+.padding-input-left {
     padding-right: 40px;
-  }
-  
-  hr {
+}
+
+hr {
     border: 1px solid #f1f1f1;
     margin-bottom: 25px;
-  }
+}
 
-  .button-group {
-      width: 100%;
-      margin-left: 25%;
-  }
-  
-  .registerbtn {
+.button-group {
+    width: 100%;
+    margin-left: 25%;
+}
+
+.registerbtn {
     background-color: #04AA6D;
     color: white;
     padding: 16px 20px;
@@ -81,9 +86,9 @@ input[type=text], input[type=number], input[type=file], textarea, select{
     width: 20%;
     opacity: 0.9;
     transition: 0.5s;
-  }
+}
 
-  .cancelbtn {
+.cancelbtn {
     background-color: #c43307;
     color: white;
     padding: 16px 20px;
@@ -94,36 +99,39 @@ input[type=text], input[type=number], input[type=file], textarea, select{
     opacity: 0.9;
     transition: 0.5s;
     margin-left: 10%;
-  }
+}
 
-  .cancelbtn:hover {
-      background: rgb(206, 109, 109);
-      color: #111;
-    }
-  
-  .registerbtn:hover {
+.cancelbtn:hover {
+    background: rgb(206, 109, 109);
+    color: #111;
+}
+
+.registerbtn:hover {
     background: rgb(95, 136, 98);
     color: #111;
-  }
+}
 
-  .registerbtn:disabled, .cancelbtn:disabled {
+.registerbtn:disabled,
+.cancelbtn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-  }
+}
 
-  .validation {
+.validation {
     color: red;
     font-style: italic;
-  }
+}
 
-  .product-image {
+.product-image {
     width: 50%;
     height: auto;
     margin-left: 25%;
-  }
+}
 
-  /* Modal */
-  .okbtn {
+
+/* Modal */
+
+.okbtn {
     float: left;
     width: 30%;
     background-color: #cc4036;
@@ -131,34 +139,36 @@ input[type=text], input[type=number], input[type=file], textarea, select{
     margin-left: 35%;
     padding: 20px 0;
     font-weight: 30px;
-  }
+}
 
-  .okbtn:hover {
+.okbtn:hover {
     filter: invert(0);
-  }
-  
-  .container-modal {
+}
+
+.container-modal {
     padding: 50px;
     text-align: center;
-  }
-  
-  .modal {
-    display: block; 
-    z-index: 1; 
+}
+
+.modal {
+    display: block;
+    z-index: 1;
     top: 10%;
     left: calc(25% + 300px);
-  }
-  
-  .modal-content {
+}
+
+.modal-content {
     background-color: #fefefe;
     /* margin: 5% 25% 15% 25%; */
     border: 1px solid #888;
-    width: 30%; 
-  }
-  
-  /* Clear floats */
-  .clearfix::after {
+    width: 30%;
+}
+
+
+/* Clear floats */
+
+.clearfix::after {
     content: "";
     clear: both;
     display: table;
-  }
+}
