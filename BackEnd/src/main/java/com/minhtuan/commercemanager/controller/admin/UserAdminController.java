@@ -85,10 +85,10 @@ public class UserAdminController {
         }
         user = temp.get();
         System.out.println(user.toString());
-        if (user.getOrders().stream().count() == 0) {
-            userService.delete(id);
-            return ResponseEntity.badRequest().body("User has no order");
-        }
+//        if (user.getOrders().stream().count() == 0) {
+//            userService.delete(id);
+//            return ResponseEntity.badRequest().body("User has no order");
+//        }
         user.setDeletestatus(1);
         userService.save(user);
         return ResponseEntity.ok().body("OK");

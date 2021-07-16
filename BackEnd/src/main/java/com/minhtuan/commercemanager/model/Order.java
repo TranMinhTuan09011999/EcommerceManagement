@@ -23,12 +23,16 @@ public class Order {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date order_date;
 
+    @Column(name = "amount")
     private Double amount;
 
+    @Column(name = "receiver")
     private String receiver;
 
+    @Column(name = "address")
     private String address;
 
+    @Column(name = "phone_number")
     private String phone_number;
 
     @ManyToOne
@@ -37,6 +41,7 @@ public class Order {
     @ToString.Exclude
     private User user;
 
+    @Column(name = "status")
     private Integer status;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)

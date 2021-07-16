@@ -32,6 +32,16 @@ public class SignupRequest {
     @Size(min = 6, max = 40)
     private String password;
 
+    private Integer deletestatus;
+
+    public Integer getDeletestatus() {
+        return deletestatus;
+    }
+
+    public void setDeletestatus(Integer deletestatus) {
+        this.deletestatus = deletestatus;
+    }
+
     public String getPhone() {
         return phone;
     }

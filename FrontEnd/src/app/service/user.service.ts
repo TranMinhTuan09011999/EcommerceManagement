@@ -9,9 +9,7 @@ import { User } from '../model/user';
 import { OrderDetail } from '../order-detail';
 import { Checkout } from '../checkout';
 
-const API_URL = 'http://localhost:8080/api/user/';
-const API_URL_ = 'http://localhost:8080/api/order/';
-const API_URL_ADMIN = 'http://localhost:8080/api/admin/';
+const API_URL = 'http://localhost:8080/api/';
 
 @Injectable({
   providedIn: 'root'
@@ -36,13 +34,13 @@ export class UserService {
   }*/
 
   getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(API_URL + 'products')
+    return this.http.get<Product[]>(API_URL + 'user/products')
       .pipe(retry(3),
           catchError(this.handleError));
   }
 
   getCategory(): Observable<Category[]>{
-    return this.http.get<Category[]>(API_URL + 'category')
+    return this.http.get<Category[]>(API_URL + 'user/category')
                     .pipe(
                       retry(3),
                       catchError(this.handleError)
@@ -50,7 +48,7 @@ export class UserService {
   }
 
   getCategoryByName(name: string): Observable<Category>{
-    return this.http.get<Category>(API_URL + 'category/' + name)
+    return this.http.get<Category>(API_URL + 'user/category/' + name)
                     .pipe(
                       retry(3),
                       catchError(this.handleError)
@@ -58,7 +56,7 @@ export class UserService {
   }
 
   getCategoryById(id: number): Observable<Category>{
-    return this.http.get<Category>(API_URL + 'category/id/' + id)
+    return this.http.get<Category>(API_URL + 'user/category/id/' + id)
                     .pipe(
                       retry(3),
                       catchError(this.handleError)
@@ -67,7 +65,7 @@ export class UserService {
 
 
   getPromotionProduct(): Observable<Product[]>{
-    return this.http.get<Product[]>(API_URL + 'promotion')
+    return this.http.get<Product[]>(API_URL + 'user/promotion')
                     .pipe(
                       retry(3),
                       catchError(this.handleError)
@@ -91,7 +89,7 @@ export class UserService {
   };
 
   getProductByCategory(name: String): Observable<Category>{
-    return this.http.get<Category>(API_URL + 'category/' + name)
+    return this.http.get<Category>(API_URL + 'user/category/' + name)
                     .pipe(
                       retry(3),
                       catchError(this.handleError)
@@ -99,7 +97,7 @@ export class UserService {
   }
 
   getProductDetail(name: String): Observable<Product>{
-    return this.http.get<Product>(API_URL + 'product/' + name)
+    return this.http.get<Product>(API_URL + 'user/product/' + name)
                   .pipe(
                     retry(3),
                     catchError(this.handleError)
@@ -107,7 +105,7 @@ export class UserService {
   }
 
   getProductById(id: number): Observable<Product>{
-    return this.http.get<Product>(API_URL + 'product/' + id)
+    return this.http.get<Product>(API_URL + 'user/product/' + id)
                   .pipe(
                     retry(3),
                     catchError(this.handleError)
@@ -115,7 +113,7 @@ export class UserService {
   }
 
   getImageDetail(imageId: number): Observable<ImageDetail[]>{
-    return this.http.get<ImageDetail[]>(API_URL + 'product/detail/' + imageId)
+    return this.http.get<ImageDetail[]>(API_URL + 'user/product/detail/' + imageId)
                   .pipe(
                     retry(3),
                     catchError(this.handleError)
@@ -123,7 +121,7 @@ export class UserService {
   }
 
   createImageDetail(list: ImageDetail[]): Observable<any> {
-    return this.http.post<any>(API_URL + 'product/detail', list)
+    return this.http.post<any>(API_URL + 'user/product/detail', list)
           .pipe(
             catchError(this.handleError)
           );
@@ -132,7 +130,7 @@ export class UserService {
   getAllUsers(token: String): Observable<User[]> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.get<User[]>(API_URL_ADMIN + 'get-all', { headers: headers})
+    return this.http.get<User[]>(API_URL + 'admin/get-all', { headers: headers})
                   .pipe(
                     retry(3),
                     catchError(this.handleError))
@@ -141,7 +139,7 @@ export class UserService {
   getTop5Users(token: String): Observable<User[]> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.get<User[]>(API_URL_ADMIN + 'get-top-5', { headers: headers})
+    return this.http.get<User[]>(API_URL + 'admin/get-top-5', { headers: headers})
                   .pipe(
                     retry(3),
                     catchError(this.handleError))
@@ -150,7 +148,7 @@ export class UserService {
   getUserById(token: String, id: number): Observable<User> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.get<User>(API_URL_ADMIN + id, { headers: headers})
+    return this.http.get<User>(API_URL + 'admin/' + id, { headers: headers})
                 .pipe(
                   retry(3),
                   catchError(this.handleError))
@@ -159,7 +157,7 @@ export class UserService {
   deleteUser(token: String, id: number): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.delete(API_URL_ADMIN + id, { headers: headers})
+    return this.http.delete(API_URL + 'admin/' + id, { headers: headers})
                   .pipe(
                     catchError(this.handleError))
   }
@@ -167,7 +165,7 @@ export class UserService {
   updateUser(token: String, id: number, user: User): Observable<User> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.put<User>(API_URL_ADMIN  + id, user, { headers: headers})
+    return this.http.put<User>(API_URL + 'admin/' + id, user, { headers: headers})
                   .pipe(
                     catchError(this.handleError)
                   )
@@ -176,7 +174,7 @@ export class UserService {
   createCategory(token: String, category: Category): Observable<Category> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.post<Category>(API_URL_ADMIN + 'add-category', category, { headers: headers})
+    return this.http.post<Category>(API_URL + 'admin/' + 'add-category', category, { headers: headers})
                   .pipe(
                     catchError(this.handleError))
   }
@@ -184,7 +182,7 @@ export class UserService {
   deleteCategory(token: String, id: number): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.delete(API_URL_ADMIN + 'category/' + id, { headers: headers})
+    return this.http.delete(API_URL + 'admin/category/' + id, { headers: headers})
                   .pipe(
                   catchError(this.handleError))
   }
@@ -192,7 +190,7 @@ export class UserService {
   updateCategory(token: String, id: number, category: Category): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.put<any>(API_URL_ADMIN + 'category/' + id, category, { headers: headers})
+    return this.http.put<any>(API_URL + 'admin/category/' + id, category, { headers: headers})
                   .pipe(
                     catchError(this.handleError)
                   )
@@ -201,7 +199,7 @@ export class UserService {
   createProduct(token: String, product: Product): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.post<any>(API_URL_ADMIN + 'product', product, { headers: headers})
+    return this.http.post<any>(API_URL + 'admin/product', product, { headers: headers})
                   .pipe(
                     catchError(this.handleError)
                   )
@@ -210,7 +208,7 @@ export class UserService {
   deleteProduct(token: String, id: number): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.delete(API_URL_ADMIN + 'product/' + id, { headers: headers})
+    return this.http.delete(API_URL + 'admin/product/' + id, { headers: headers})
                   .pipe(
                     catchError(this.handleError)
                   )
@@ -219,7 +217,7 @@ export class UserService {
   updateProduct(token: String, id: number, product: Product): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.put(API_URL_ADMIN + 'product/' + id, product, { headers: headers})
+    return this.http.put(API_URL + 'admin/product/' + id, product, { headers: headers})
               .pipe(
                 catchError(this.handleError)
               )
@@ -228,7 +226,7 @@ export class UserService {
   updateProductDetails(token: String, id: number, list: ImageDetail[]): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.put(API_URL + 'product/detail/' + id, list, { headers: headers})
+    return this.http.put(API_URL + 'user/product/detail/' + id, list, { headers: headers})
               .pipe(
                 catchError(this.handleError)
               )
@@ -237,7 +235,7 @@ export class UserService {
   getAllOrders(token: String): Observable<Checkout[]> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.get<Checkout[]>(API_URL_ + 'listOrders',{ headers: headers})
+    return this.http.get<Checkout[]>(API_URL + 'order/listOrders',{ headers: headers})
                 .pipe(
                   retry(3),
                   catchError(this.handleError)
@@ -247,7 +245,7 @@ export class UserService {
   getTop10Orders(token: String): Observable<Checkout[]> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.get<Checkout[]>(API_URL_ + 'get-top-10',{ headers: headers})
+    return this.http.get<Checkout[]>(API_URL + 'order/get-top-10',{ headers: headers})
                 .pipe(
                   retry(3),
                   catchError(this.handleError)
@@ -257,7 +255,7 @@ export class UserService {
   getOrderDetails(token: String,id: number): Observable<OrderDetail[]>{
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.get<OrderDetail[]>(API_URL_ + 'listOrderDetails/' + id, { headers: headers})
+    return this.http.get<OrderDetail[]>(API_URL + 'order/listOrderDetails/' + id, { headers: headers})
                   .pipe(
                     retry(3),
                     catchError(this.handleError)
@@ -267,14 +265,14 @@ export class UserService {
   cancel(token: String, id: number, status: number):Observable<Checkout>{
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.put<Checkout>(API_URL_ + 'listOrder/cancel/' + id,{status},{headers: headers})
+    return this.http.put<Checkout>(API_URL + 'order/listOrder/cancel/' + id,{status},{headers: headers})
                     .pipe(
                       catchError(this.handleError)
                     );
   }
 
   doesEmailExist(email: string): Observable<boolean> {
-    let url = `${API_URL}emailcheck`;
+    let url = `${API_URL}user/emailcheck`;
 
     let content: any = {};
     content.email = email;
@@ -285,7 +283,7 @@ export class UserService {
   }
 
   updateQuantityProduct(id: number, quantity: number): Observable<Product>{
-    return this.http.put<Product>(API_URL + 'product/updateQuantity/' + id, {quantity})
+    return this.http.put<Product>(API_URL + 'user/product/updateQuantity/' + id, {quantity})
               .pipe(
                 catchError(this.handleError)
               )
@@ -294,7 +292,7 @@ export class UserService {
   getStatistics(token: String): Observable<number[]> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.get<number[]>(API_URL_ADMIN + 'get-statistics')
+    return this.http.get<number[]>(API_URL + 'admin/get-statistics')
               .pipe(
                 retry(3),
                 catchError(this.handleError)

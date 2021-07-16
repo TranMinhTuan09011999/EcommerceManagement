@@ -46,6 +46,7 @@ export class EditProductComponent implements OnInit {
     this.form = this.formBuilder.group({
       id: [{value: '', disabled: true}],
       name: ['', Validators.required],
+      quantity: ['', [Validators.required, Validators.min(0)]],
       price: ['', [Validators.required, Validators.min(0)]],
       description: ['', Validators.required],
       promotion: ['', [Validators.required, Validators.max(100), Validators.min(0)]],

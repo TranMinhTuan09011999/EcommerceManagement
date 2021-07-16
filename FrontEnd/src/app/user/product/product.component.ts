@@ -35,7 +35,7 @@ export class ProductComponent implements OnInit {
           .subscribe(
             (data: Product) => {
               this.product = data; 
-              if(this.product.price > 0)
+              if(this.product.promotion > 0)
               {
                 this.IsPromotion = true;
               }

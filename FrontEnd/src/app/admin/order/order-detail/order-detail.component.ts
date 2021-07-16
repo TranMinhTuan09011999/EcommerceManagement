@@ -39,7 +39,7 @@ export class OrderDetailComponent implements OnInit {
 
   getTotal(){
     for(let orderDetail of this.orderDetails){
-      this.total += (orderDetail.quantity*orderDetail.product.price);
+      this.total += orderDetail.quantity*(orderDetail.amount - orderDetail.amount*orderDetail.discount/100);;
     }
   }
 
