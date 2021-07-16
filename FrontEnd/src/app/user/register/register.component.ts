@@ -15,6 +15,8 @@ import { delay, map, switchMap } from 'rxjs/operators';
 export class RegisterComponent implements OnInit {
 
   dataForm!: FormGroup;
+  none: boolean = true;
+  roles: String[] = ["user"];
 
   constructor(private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService, private router:Router, private userService: UserService) { }
 
@@ -33,7 +35,8 @@ export class RegisterComponent implements OnInit {
       phone: ['', [Validators.required]],   
       address: ['', [Validators.required]],
       password: ['', [Validators.required]],
-      pwdd: ['', [Validators.required]]
+      pwdd: ['', [Validators.required]],
+      deletestatus: [0],
     },
     {
       validators: this.MustMatch('password', 'pwdd')
@@ -46,7 +49,9 @@ export class RegisterComponent implements OnInit {
   }
 
   addData() {
-    this.authService.register(this.dataForm.value).
+    console.log(this.dataForm.get("deletestatus")?.value);
+    console.log(this.roles)
+    this.authService.register(this.dataForm.value, this.roles).
     subscribe( (data: any) => {
       console.log("Registion success");
       this.router.navigate(['/login']);
